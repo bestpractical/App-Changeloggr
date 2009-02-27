@@ -1,7 +1,7 @@
 package App::Changeloggr::Action::UpdateChangelog;
 use strict;
 use warnings;
-use base 'Jifty::Action::Record::Create';
+use base 'Jifty::Action::Record::Update';
 
 use JiftyX::ModelHelpers;
 
