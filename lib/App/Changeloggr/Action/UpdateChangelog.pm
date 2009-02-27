@@ -11,7 +11,7 @@ sub validate_admin_token {
     my $self        = shift;
     my $admin_token = shift;
 
-    if ($self->record->as_superuser->admin_token eq $admin_token) {
+    if ($self->record->as_superuser->admin_token eq ($admin_token||'')) {
         return $self->validation_ok('admin_token');
     }
     else {
