@@ -1,10 +1,16 @@
 package App::Changeloggr::Dispatcher;
 use Jifty::Dispatcher -base;
+use JiftyX::ModelHelpers;
 
 before '*' => run {
       my $top = Jifty->web->navigation;
       $top->child(Home => url => '/');
       $top->child(New => url => '/create-changelog', label => 'New Changelog');
+};
+
+on '/created-changelog' => run {
+    my $id = Jifty->web->response->result('create-changelog')->content('id');
+    redirect '/changelog/admin/' . Changelog($id)->admin_token;
 };
 
 on '/changelog/#' => run {
@@ -14,11 +20,7 @@ on '/changelog/#' => run {
 
 on '/changelog/admin/*' => run {
     my $uuid = $1;
-
-    my $changelog = App::Changeloggr::Model::Changelog->new;
-    $changelog->load_by_cols(admin_token => $uuid);
-
-    set id => $changelog->id;
+    set id => Changelog(admin_token => $uuid)->id;
     show '/changelog/admin';
 };
 
