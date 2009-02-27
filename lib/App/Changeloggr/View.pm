@@ -1,11 +1,11 @@
 package App::Changeloggr::View;
 use Jifty::View::Declare -base;
+use JiftyX::ModelHelpers;
 use strict;
 use warnings;
 
 template '/' => page {
-    my $changelogs = App::Changeloggr::Model::ChangelogCollection->new;
-    $changelogs->limit(column => 'done', value => 0);
+    my $changelogs = ChangelogCollection(done => 0);
 
     if ($changelogs->count) {
         h2 { "These projects need your help!" };
@@ -18,20 +18,21 @@ template '/' => page {
 };
 
 template '/create-changelog' => page {
-    my $create = new_action('CreateChangelog');
+    my $create = new_action('CreateChangelog', moniker => 'create-changelog');
     form {
         render_action $create, ['name'];
+        form_next_page url => '/created-changelog';
         form_submit(label => 'Create');
     };
 };
 
 template '/changelog' => page {
-    my $changelog = get_changelog();
+    my $changelog = Changelog(id => get('id'));
     h1 { $changelog->name }
 };
 
 template '/changelog/admin' => page {
-    my $changelog = get_changelog();
+    my $changelog = Changelog(id => get('id'));
 
     my $update = $changelog->as_update_action;
     form {
@@ -39,15 +40,6 @@ template '/changelog/admin' => page {
         form_submit(label => 'Update');
     };
 };
-
-sub get_changelog {
-    my $id = get 'id';
-
-    my $changelog = App::Changeloggr::Model::Changelog->new;
-    $changelog->load($id);
-
-    return $changelog;
-}
 
 sub changelog_summary {
     my $changelog = shift;
