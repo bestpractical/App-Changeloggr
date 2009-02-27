@@ -27,7 +27,7 @@ template '/create-changelog' => page {
 };
 
 template '/changelog' => page {
-    my $changelog = Changelog(id => get('id'));
+    my $changelog = Changelog(name => get('name'));
     h1 { $changelog->name }
 };
 

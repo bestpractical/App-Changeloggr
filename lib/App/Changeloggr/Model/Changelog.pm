@@ -7,7 +7,8 @@ use Jifty::DBI::Schema;
 use App::Changeloggr::Record schema {
     column name =>
         type is 'text',
-        label is 'Project name';
+        label is 'Project name',
+        is distinct;
 
     column done =>
         is boolean,

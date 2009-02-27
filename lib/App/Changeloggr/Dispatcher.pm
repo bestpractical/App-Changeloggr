@@ -13,8 +13,8 @@ on '/created-changelog' => run {
     redirect '/changelog/admin/' . Changelog($id)->admin_token;
 };
 
-on '/changelog/#' => run {
-    set id => $1;
+on '/changelog/*' => run {
+    set name => $1;
     show '/changelog';
 };
 
