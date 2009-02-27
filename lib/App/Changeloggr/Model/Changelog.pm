@@ -28,8 +28,12 @@ sub _generate_admin_token {
 sub current_user_can {
     my $self  = shift;
     my $right = shift;
+    my %args  = @_;
 
     return 1 if $self->current_user->is_superuser;
+
+    # admin tokens are private
+    return 0 if $right eq 'read' && $args{column} eq 'admin_token';
 
     # anyone can create and read changelogs
     return 1 if $right eq 'create' || $right eq 'read';
