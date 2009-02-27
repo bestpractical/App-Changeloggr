@@ -12,6 +12,10 @@ use App::Changeloggr::Record schema {
   column body =>
         type is 'text',
         label is 'Body';
+
+  column diff =>
+        type is 'text',
+        label is 'Diff';
 };
 
 1;
