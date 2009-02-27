@@ -5,18 +5,18 @@ package App::Changeloggr::Model::Change;
 use Jifty::DBI::Schema;
 
 use App::Changeloggr::Record schema {
-  column changelog =>
+    column changelog =>
         refers_to App::Changeloggr::Model::Changelog;
 
-  column author =>
+    column author =>
         type is 'text',
         label is 'Author';
 
-  column body =>
+    column body =>
         type is 'text',
         label is 'Body';
 
-  column diff =>
+    column diff =>
         type is 'text',
         label is 'Diff';
 };
