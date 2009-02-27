@@ -10,6 +10,9 @@ use App::Changeloggr::Record schema {
 
     column user_session_id =>
         type is 'text';
+
+    column tag =>
+        type is 'text';
 };
 
 sub current_user_can {
