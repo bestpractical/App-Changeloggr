@@ -26,13 +26,28 @@ template '/create-changelog' => page {
 };
 
 template '/changelog' => page {
+    my $changelog = get_changelog();
+    h1 { $changelog->name }
+};
+
+template '/changelog/admin' => page {
+    my $changelog = get_changelog();
+
+    my $update = $changelog->as_update_action;
+    form {
+        render_action $update, ['name', 'done'];
+        form_submit(label => 'Update');
+    };
+};
+
+sub get_changelog {
     my $id = get 'id';
 
     my $changelog = App::Changeloggr::Model::Changelog->new;
     $changelog->load($id);
 
-    h1 { $changelog->name }
-};
+    return $changelog;
+}
 
 sub changelog_summary {
     my $changelog = shift;
