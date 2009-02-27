@@ -3,8 +3,6 @@ use strict;
 use warnings;
 use base 'Jifty::Action::Record::Update';
 
-use JiftyX::ModelHelpers;
-
 sub record_class { 'App::Changeloggr::Model::Changelog' }
 
 sub validate_admin_token {
