@@ -45,7 +45,7 @@ sub changelog_summary {
     my $changelog = shift;
 
     hyperlink(
-        url   => '/changelog/' . $changelog->id,
+        url   => '/changelog/' . $changelog->name,
         label => $changelog->name,
     );
 }
