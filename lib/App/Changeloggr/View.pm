@@ -39,6 +39,13 @@ template '/changelog/admin' => page {
         render_action($update);
         form_submit(label => 'Update');
     };
+
+    my $delete = $changelog->as_delete_action;
+    form {
+        render_action($delete);
+        form_next_page(url => '/');
+        form_submit(label => 'Delete');
+    };
 };
 
 sub changelog_summary {
