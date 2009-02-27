@@ -25,12 +25,10 @@ sub current_user_can {
     my $self  = shift;
     my $right = shift;
 
-    return 1 if $self->current_user->is_superuser;
-
+    # anyone can read a change
     return 1 if $right eq 'read';
 
-    # no ordinary users can update, delete, or create new changes
-    return 0;
+    return $self->SUPER::current_user_can($right, @_);
 }
 
 1;

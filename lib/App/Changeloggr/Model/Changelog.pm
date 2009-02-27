@@ -30,16 +30,12 @@ sub current_user_can {
     my $right = shift;
     my %args  = @_;
 
-    return 1 if $self->current_user->is_superuser;
-
-    # admin tokens are private
-    return 0 if $right eq 'read' && $args{column} eq 'admin_token';
-
-    # anyone can create and read changelogs
-    return 1 if $right eq 'create' || $right eq 'read';
+    # anyone can create and read changelogs (except admin token)
+    return 1 if $right eq 'create'
+             || ($right eq 'read' && $args{column} ne 'admin_token');
 
     # but not delete or update. those must happen as root
-    return 0;
+    return $self->SUPER::current_user_can($right, %args);
 }
 
 1;

@@ -20,19 +20,14 @@ sub current_user_can {
     my $right = shift;
     my %args  = @_;
 
-    return 1 if $self->current_user->is_superuser;
-
-    # voters are private..
-    return 0 if $right eq 'read' && $args{column} eq 'user_session_id';
-
-    # ..but votes are not
-    return 1 if $right eq 'read';
+    # votes are not private except who submitted the vote
+    return 1 if $right eq 'read' && $args{column} ne 'user_session_id';
 
     # anyone can vote
     return 1 if $right eq 'create';
 
     # but votes are immutable
-    return 0;
+    return $self->SUPER::current_user_can($right, %args);
 }
 
 1;
