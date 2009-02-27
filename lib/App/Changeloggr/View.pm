@@ -17,6 +17,14 @@ template '/' => page {
     }
 };
 
+template '/create-changelog' => page {
+    my $create = new_action('CreateChangelog');
+    form {
+        render_action $create, ['name'];
+        form_submit(label => 'Create');
+    };
+};
+
 sub changelog_summary {
     my $changelog = shift;
 
