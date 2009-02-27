@@ -36,8 +36,7 @@ template '/changelog/admin' => page {
 
     my $update = $changelog->as_update_action;
     form {
-        render_action($update => ['name', 'done']);
-        render_param($update => 'admin_token' => render_as => 'hidden');
+        render_action($update);
         form_submit(label => 'Update');
     };
 };
