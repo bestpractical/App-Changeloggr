@@ -21,5 +21,17 @@ use App::Changeloggr::Record schema {
         label is 'Diff';
 };
 
+sub current_user_can {
+    my $self  = shift;
+    my $right = shift;
+
+    return 1 if $self->current_user->is_superuser;
+
+    return 1 if $right eq 'read';
+
+    # no ordinary users can update, delete, or create new changes
+    return 0;
+}
+
 1;
 
