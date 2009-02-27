@@ -21,8 +21,8 @@ use App::Changeloggr::Record schema {
 };
 
 sub _generate_admin_token {
-    require Data::UUID;
-    Data::UUID->new->create_str;
+    require Data::GUID;
+    Data::GUID->new->as_string;
 }
 
 sub current_user_can {
