@@ -25,6 +25,15 @@ template '/create-changelog' => page {
     };
 };
 
+template '/changelog' => page {
+    my $id = get 'id';
+
+    my $changelog = App::Changeloggr::Model::Changelog->new;
+    $changelog->load($id);
+
+    h1 { $changelog->name }
+};
+
 sub changelog_summary {
     my $changelog = shift;
 
