@@ -7,5 +7,10 @@ before '*' => run {
       $top->child(New => url => '/create-changelog', label => 'New Changelog');
 };
 
+on '/changelog/#' => run {
+    set id => $1;
+    show '/changelog';
+};
+
 1;
 
