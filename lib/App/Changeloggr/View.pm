@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 template '/' => page {
-    my $changelogs = ChangelogCollection(done => 0);
+    my $changelogs = M(ChangelogCollection => done => 0);
 
     if ($changelogs->count) {
         h2 { "These projects need your help!" };
