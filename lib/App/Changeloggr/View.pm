@@ -41,6 +41,8 @@ template '/changelog/admin' => page {
         form_submit(label => 'Update');
     };
 
+    add_changes_to($changelog);
+
     my $delete = $changelog->as_delete_action;
     form {
         render_action($delete);
@@ -48,6 +50,23 @@ template '/changelog/admin' => page {
         form_submit(label => 'Delete');
     };
 };
+
+sub add_changes_to {
+    my $changelog = shift;
+
+    my $add_changes = new_action('AddChanges');
+
+    form {
+        render_action($add_changes => ['changes']);
+
+        render_param($add_changes => admin_token => (
+            default_value => $changelog->as_superuser->admin_token,
+            render_as     => 'hidden',
+        ));
+
+        form_submit(label => 'Add');
+    };
+}
 
 sub changelog_summary {
     my $changelog = shift;
