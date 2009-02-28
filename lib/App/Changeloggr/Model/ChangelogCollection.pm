@@ -15,10 +15,10 @@ sub with_changes {
         column2 => 'changelog',
     );
 
-    $self->limit(
-        leftjoin => $changes,
-        # hmm..
-    );
+    #$self->limit(
+    #    leftjoin => $changes,
+    #    # hmm..
+    #);
 
     return $self;
 }
