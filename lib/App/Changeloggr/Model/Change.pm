@@ -58,5 +58,36 @@ sub guess_type {
     return 'unknown';
 }
 
+sub create_from_git {
+    my $self = shift;
+    my $text = shift;
+
+    $text =~ s{
+        ^
+        commit  \s* ([0-9a-f]{32}) \n
+        Author: \s* (.*) \n
+        Date:   \s* (.*) \n
+        ([\s\S]+?)
+        (?= commit \s* [0-9a-f]{32} \n | \z)
+    }{};
+
+    my ($identifier, $author, $date, $message) = ($1, $2, $3, $4);
+
+    $self->create(
+        identifier => $identifier,
+        author     => $author,
+        date       => $date,
+        message    => $message,
+    );
+
+    return $text;
+}
+
+sub create_from_svk {
+}
+
+sub create_from_darcs {
+}
+
 1;
 
