@@ -31,5 +31,24 @@ sub current_user_can {
     return $self->SUPER::current_user_can($right, @_);
 }
 
+sub guess_type {
+    my $self = shift;
+    my $text = shift;
+
+    if ($text =~ /^commit [0-9a-f]{32}$/m) {
+        return 'git';
+    }
+
+    if ($text =~ /^-{70}$/m) {
+        return 'svk';
+    }
+
+    if ($text =~ /^\w{3} \w{3} +\d+ \d\d:\d\d:\d\d \w{3} \d{4}  /m) {
+        return 'darcs';
+    }
+
+    return 'unknown';
+}
+
 1;
 
