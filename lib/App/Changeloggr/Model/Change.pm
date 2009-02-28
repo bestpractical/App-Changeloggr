@@ -8,11 +8,19 @@ use App::Changeloggr::Record schema {
     column changelog =>
         refers_to App::Changeloggr::Model::Changelog;
 
+    column identifier =>
+        type is 'text',
+        label is 'Identifier';
+
     column author =>
         type is 'text',
         label is 'Author';
 
-    column body =>
+    column date =>
+        type is 'text',
+        label is 'Date';
+
+    column message =>
         type is 'text',
         label is 'Body';
 
