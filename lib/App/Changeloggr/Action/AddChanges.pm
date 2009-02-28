@@ -32,7 +32,8 @@ sub validate_admin_token {
     my $admin_token = shift;
 
     my $changelog = $self->get_changelog;
-    if ($changelog->id) {
+
+    if ($changelog->admin_token eq $admin_token) {
         return $self->validation_ok('admin_token');
     }
     else {
