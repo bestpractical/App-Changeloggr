@@ -27,7 +27,7 @@ sub create_from_text {
         ++$count;
     }
 
-    return ($count, $text;
+    return wantarray ? ($count, $text) : $text;
 }
 
 1;
