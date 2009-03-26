@@ -13,7 +13,6 @@ sub create_from_text {
 
     my $text      = $args{text};
     my $changelog = $args{changelog};
-    my $count     = 0;
 
     while (length $text) {
         my $change = App::Changeloggr::Model::Change->new;
@@ -24,10 +23,9 @@ sub create_from_text {
 
         last if !defined($newtext);
         $text = $newtext;
-        ++$count;
     }
 
-    return wantarray ? ($count, $text) : $text;
+    return $text;
 }
 
 1;
