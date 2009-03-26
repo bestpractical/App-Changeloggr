@@ -45,6 +45,8 @@ sub take_action {
     my $self = shift;
     my $changelog = $self->get_changelog;
 
+    $changelog->parse_and_add_changes($self->argument_value('changes'));
+
     $self->result->message("Added your changes!");
 }
 
