@@ -34,9 +34,19 @@ sub create_from_text {
 sub extract_change_data_from_text {
     my $self = shift;
     my $text = shift;
+
+    my $format = App::Changeloggr->identify_format($text);
+    die "I'm unable to handle the change text format."
+        if !defined($format);
+
+    my $extract_method = "extract_change_data_from_$format";
+    return $self->$extract_method($text);
+}
+
+sub extract_change_data_from_git {
+    my $self = shift;
+    my $text = shift;
     my %fields;
-
-
 
     return (\%fields, $text);
 }
