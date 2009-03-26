@@ -39,55 +39,6 @@ sub current_user_can {
     return $self->SUPER::current_user_can($right, @_);
 }
 
-sub guess_type {
-    my $self = shift;
-    my $text = shift;
-
-    if ($text =~ /^commit [0-9a-f]{32}$/m) {
-        return 'git';
-    }
-
-    if ($text =~ /^-{70}$/m) {
-        return 'svk';
-    }
-
-    if ($text =~ /^\w{3} \w{3} +\d+ \d\d:\d\d:\d\d \w{3} \d{4}  /m) {
-        return 'darcs';
-    }
-
-    return 'unknown';
-}
-
-sub create_from_git {
-    my $self = shift;
-    my $text = shift;
-
-    $text =~ s{
-        ^
-        commit  \s* ([0-9a-f]{32}) \n
-        Author: \s* (.*) \n
-        Date:   \s* (.*) \n
-        ([\s\S]+?)
-        (?= commit \s* [0-9a-f]{32} \n | \z)
-    }{};
-
-    my ($identifier, $author, $date, $message) = ($1, $2, $3, $4);
-
-    $self->create(
-        identifier => $identifier,
-        author     => $author,
-        date       => $date,
-        message    => $message,
-    );
-
-    return $text;
-}
-
-sub create_from_svk {
-}
-
-sub create_from_darcs {
-}
 
 1;
 
