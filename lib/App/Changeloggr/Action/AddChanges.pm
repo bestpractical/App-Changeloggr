@@ -44,6 +44,8 @@ sub validate_admin_token {
 sub take_action {
     my $self = shift;
     my $changelog = $self->get_changelog;
+
+    $self->result->message("Added your changes!");
 }
 
 1;
