@@ -43,7 +43,7 @@ sub parse_and_add_changes {
     my $self = shift;
     my $text = shift;
 
-    my $changes = App::Changeloggr::Model::ChangesCollection->new;
+    my $changes = App::Changeloggr::Model::ChangeCollection->new;
     $changes->create_from_text(
         text      => $text,
         changelog => $self,
