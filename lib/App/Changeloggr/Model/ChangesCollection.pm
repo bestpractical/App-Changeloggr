@@ -46,6 +46,23 @@ sub extract_change_data_from_text {
 sub extract_change_data_from_git {
     my $self = shift;
     my $text = shift;
+
+    # git log --format=fuller --stat
+    $text =~ s{
+        \A
+        (
+            ^ commit \  \w+ $
+            .*?
+        )
+        (?=
+            \Z
+            |
+            ^ commit \  \w+ $
+        )
+    }{}xms;
+
+    my $entry = $1
+        or return;
     my %fields;
 
     return (\%fields, $text);
