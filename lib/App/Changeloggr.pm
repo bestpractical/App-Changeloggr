@@ -6,7 +6,7 @@ sub identify_format {
     my $self = shift;
     my $text = shift;
 
-    if ($text =~ /^commit \w+\n/) {
+    if ($text =~ /^commit \w+\r?\n/) {
         return 'git';
     }
 
