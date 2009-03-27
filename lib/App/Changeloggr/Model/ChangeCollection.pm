@@ -117,6 +117,7 @@ sub hashify_git_stanza {
         $stanza->{changed_files} = $1;
     }
     return $stanza;
+}
 
 1;
 
