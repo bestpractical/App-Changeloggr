@@ -3,3 +3,7 @@ inc
 META.yml
 etc/site_config.yml
 app_changeloggr
+Makefile
+Makefile.old
+blib
+pm_to_blib
