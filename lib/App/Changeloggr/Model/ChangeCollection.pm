@@ -2,7 +2,7 @@ package App::Changeloggr::Model::ChangeCollection;
 use strict;
 use warnings;
 use base 'App::Changeloggr::Collection';
-use Params::Validate 'SCALAR';
+use Params::Validate qw(validate SCALAR);
 
 sub create_from_text {
     my $self = shift;
