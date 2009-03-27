@@ -1,6 +1,6 @@
 use inc::Module::Install;
 
-name        'App::Changeloggr';
+name        'App-Changeloggr';
 version     '0.01';
 
 requires    'Jifty' => '0.90220';
