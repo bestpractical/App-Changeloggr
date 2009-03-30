@@ -3,6 +3,11 @@ use strict;
 use warnings;
 use base 'App::Changeloggr::Collection';
 use Params::Validate qw(validate SCALAR);
+use DateTime::Format::Strptime;
+
+my $gitdate = DateTime::Format::Strptime->new(
+    pattern => '%a %b %d %T %Y %z',
+);
 
 sub create_from_text {
     my $self = shift;
@@ -86,7 +91,7 @@ sub extract_change_data_from_git {
         $fields{author} = $1;
     }
     if ($entry =~ /^(?:Author)?Date:\s*(.*)$/im) {
-        $fields{date} = $1;
+        $fields{date} = $gitdate->parse_datetime($1);
     }
     # We don't have these columns in the database yet
 #    if ($entry =~ /^Commit:\s*(.*)$/im) {

@@ -21,7 +21,8 @@ use App::Changeloggr::Record schema {
         label is 'Author';
 
     column date =>
-        type is 'text',
+        type is 'timestamp',
+        filters are qw( Jifty::Filter::DateTime Jifty::DBI::Filter::DateTime),
         label is 'Date';
 
     column message =>
