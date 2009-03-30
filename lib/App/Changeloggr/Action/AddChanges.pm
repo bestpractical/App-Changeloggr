@@ -13,7 +13,7 @@ use Jifty::Action schema {
         type is 'text',
         render as 'textarea',
         is mandatory,
-        hints is 'Currently we only accept the output of: git log --format=fuller --stat';
+        hints is 'Currently we only accept the output of: git log --pretty=fuller --stat';
 };
 
 sub get_changelog {
