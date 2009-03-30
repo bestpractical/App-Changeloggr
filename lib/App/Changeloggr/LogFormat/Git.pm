@@ -18,7 +18,7 @@ sub matches {
 sub next_match {
     my $self = shift;
 
-    # git log --format=fuller --stat
+    # git log --pretty=fuller --stat
     $self->{text} =~ s{
         \A
         (
@@ -67,7 +67,7 @@ sub next_match {
 
 =begin git-sample
 
-(this is produced by git log --format=fuller --stat)
+(this is produced by git log --pretty=fuller --stat)
 
 commit 8837a66df7e8959d3101a5227d7b3c597990c0d0
 Author:     Nicholas Clark <nick@ccl4.org>
