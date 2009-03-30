@@ -51,6 +51,7 @@ template '/vote-on-change' => sub {
     my $change = $changelog->choose_change;
 
     show_change($change);
+    show_vote_form($change);
 };
 
 template '/changelog/admin' => page {
@@ -102,6 +103,16 @@ sub show_change {
     my $change = shift;
 
     h3 { $change->message }
+}
+
+sub show_vote_form {
+    my $change = shift;
+
+    form {
+        my $vote = App::Changeloggr::Action::CreateVote->new;
+        render_action $vote;
+        form_submit(label => 'Vote');
+    }
 }
 
 1;
