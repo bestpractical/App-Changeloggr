@@ -66,7 +66,7 @@ sub extract_change_data_from_git {
     my %fields;
 
     if ($entry =~ /^commit (.*)$/im) {
-        $fields{commit_id} = $1;
+        $fields{identifier} = $1;
     }
     if ($entry =~ /^Author:\s*(.*)$/im) {
         $fields{author} = $1;
@@ -74,18 +74,19 @@ sub extract_change_data_from_git {
     if ($entry =~ /^(?:Author)?Date:\s*(.*)$/im) {
         $fields{date} = $1;
     }
-    if ($entry =~ /^Commit:\s*(.*)$/im) {
-        $fields{commit} = $1;
-    }
-    if ($entry =~ /^CommitDate:\s*(.*)$/im) {
-        $fields{commit_date} = $1;
-    }
+    # We don't have these columns in the database yet
+#    if ($entry =~ /^Commit:\s*(.*)$/im) {
+#        $fields{commit} = $1;
+#    }
+#    if ($entry =~ /^CommitDate:\s*(.*)$/im) {
+#        $fields{commit_date} = $1;
+#    }
 
     if ($entry =~ /.*?^(\s{4}.*?)(^\s{1,2}\S+\s+\|\s+\d+|\z)/ims) {
-        $fields{msg} = $1;
+        $fields{message} = $1;
     }
     if ($entry =~ /\n(\s{1,2}\S+\s+\|\s+\d+.*)$/ims) {
-        $fields{changed_files} = $1;
+        $fields{diff} = $1;
     }
 
     return (\%fields, $text);
