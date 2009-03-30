@@ -51,13 +51,13 @@ sub extract_change_data_from_git {
     $text =~ s{
         \A
         (
-            ^ commit \  \w+ $
+            ^ commit \  \w+ \r?\n
             .*?
         )
         (?=
             \Z
             |
-            ^ commit \  \w+ $
+            ^ commit \  \w+ \r?\n
         )
     }{}xms;
 
