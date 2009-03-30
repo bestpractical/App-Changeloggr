@@ -59,5 +59,14 @@ sub changes {
     return M('ChangeCollection', changelog => $self);
 }
 
+sub choose_change {
+    my $self = shift;
+
+    # This will become more advanced in the future, picking a change that
+    # the current user has not voted on yet, ordered by the confidence of the
+    # top tag. But for now.. an arbitrary change belonging to this changelog.
+    return M('Change', changelog => $self);
+}
+
 1;
 
