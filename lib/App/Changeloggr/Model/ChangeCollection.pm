@@ -31,13 +31,24 @@ sub create_from_text {
     return $text;
 }
 
+sub identify_format {
+    my $self = shift;
+    my $text = shift;
+
+    if ($text =~ /^commit \w+\r?\n/) {
+        return 'git';
+    }
+
+    return;
+}
+
 sub extract_change_data_from_text {
     my $self = shift;
     my $text = shift;
 
     $text =~ s/^\s+//;
 
-    my $format = App::Changeloggr->identify_format($text);
+    my $format = $self->identify_format($text);
     die "I'm unable to handle the change text format: " . substr($text, 0, 30) . '...'
         if !defined($format);
 
