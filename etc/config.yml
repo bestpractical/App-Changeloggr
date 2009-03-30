@@ -19,36 +19,20 @@ framework:
   LogLevel: INFO
   Mailer: Sendmail
   MailerArgs: []
-
   Plugins: 
-    - LetMe: {}
     - SkeletonApp: {}
     - REST: {}
-    - Halo: {}
     - ErrorTemplates: {}
     - CompressedCSSandJS: {}
     - AdminUI: {}
-
-  PubSub: 
-    Backend: Memcached
-    Enable: ~
   SkipAccessControl: 0
   TemplateClass: App::Changeloggr::View
   View: 
     Handlers: 
       - Jifty::View::Static::Handler
       - Jifty::View::Declare::Handler
-      - Jifty::View::Mason::Handler
   Web: 
     BaseURL: http://localhost
-    DataDir: var/mason
-    Globals: []
-
-    MasonConfig: 
-      autoflush: 0
-      default_escape_flags: h
-      error_format: text
-      error_mode: fatal
     Port: 8888
     ServeStaticFiles: 1
     StaticRoot: share/web/static

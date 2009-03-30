@@ -3,6 +3,8 @@ use strict;
 use warnings;
 use base 'App::Changeloggr::Collection';
 
+use constant results_are_readable => 1;
+
 sub with_changes {
     my $self = shift;
     Carp::croak("with_changes takes no arguments") if @_;
