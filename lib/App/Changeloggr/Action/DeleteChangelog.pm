@@ -3,8 +3,6 @@ use strict;
 use warnings;
 use base 'Jifty::Action::Record::Delete';
 
-sub record_class { 'App::Changeloggr::Model::Changelog' }
-
 sub validate_admin_token {
     my $self        = shift;
     my $admin_token = shift;
