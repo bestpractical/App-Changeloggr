@@ -45,9 +45,14 @@ sub take_action {
     my $self = shift;
     my $changelog = $self->get_changelog;
 
-    $changelog->parse_and_add_changes($self->argument_value('changes'));
+    my $changes = $changelog->parse_and_add_changes($self->argument_value('changes'));
 
-    $self->result->message("Added your changes!");
+    if ($changes->count) {
+        $self->result->message("Added your [quant,_1,change]!", $changes->count);
+    }
+    else {
+        $self->result->message("No changes to add.");
+    }
 }
 
 1;
