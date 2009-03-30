@@ -4,6 +4,9 @@ use JiftyX::ModelHelpers;
 use strict;
 use warnings;
 
+# No salutation, ever
+template '/salutation' => sub {};
+
 template '/' => page {
     my $changelogs = M(ChangelogCollection => done => 0);
     $changelogs->with_changes;
