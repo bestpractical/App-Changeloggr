@@ -47,6 +47,7 @@ sub extract_change_data_from_text {
     my $text = shift;
 
     $text =~ s/^\s+//;
+    $text =~ s/\r\n/\n/g;
 
     my $format = $self->identify_format($text);
     die "I'm unable to handle the change text format: " . substr($text, 0, 30) . '...'
@@ -64,13 +65,13 @@ sub extract_change_data_from_git {
     $text =~ s{
         \A
         (
-            ^ commit \  \w+ \r?\n
+            ^ commit \  \w+ \n
             .*?
         )
         (?=
             \Z
             |
-            ^ commit \  \w+ \r?\n
+            ^ commit \  \w+ \n
         )
     }{}xms;
 
