@@ -34,7 +34,8 @@ template '/create-changelog' => page {
 
 template '/changelog' => page {
     my $changelog = Changelog(name => get('name'));
-    h1 { $changelog->name }
+    h1 { $changelog->name };
+    show_changes_of($changelog);
 };
 
 template '/changelog/admin' => page {
@@ -80,6 +81,17 @@ sub changelog_summary {
         url   => '/changelog/' . $changelog->name,
         label => $changelog->name,
     );
+}
+
+sub show_changes_of {
+    my $changelog = shift;
+    my $changes = $changelog->changes;
+
+    ol {
+        while (my $change = $changes->next) {
+            li { $change->message }
+        }
+    }
 }
 
 1;
