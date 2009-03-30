@@ -14,7 +14,7 @@ sub create_from_text {
     my $text      = $args{text};
     my $changelog = $args{changelog};
 
-    while (length $text) {
+    while ($text =~ /\S/) {
         my ($fields, $newtext) = $self->extract_change_data_from_text($text);
         last if !defined($newtext);
 

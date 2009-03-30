@@ -48,7 +48,7 @@ sub take_action {
     my $changes = $changelog->parse_and_add_changes($self->argument_value('changes'));
 
     if ($changes->count) {
-        $self->result->message("Added your [quant,_1,change]!", $changes->count);
+        $self->result->message(_("Added your [quant,_1,change]!", $changes->count));
     }
     else {
         $self->result->message("No changes to add.");
