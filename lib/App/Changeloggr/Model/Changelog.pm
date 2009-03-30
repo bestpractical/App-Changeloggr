@@ -56,7 +56,7 @@ sub parse_and_add_changes {
 sub changes {
     my $self = shift;
 
-    return M('ChangeCollection', changelog => $self->id);
+    return M('ChangeCollection', changelog => $self);
 }
 
 1;
