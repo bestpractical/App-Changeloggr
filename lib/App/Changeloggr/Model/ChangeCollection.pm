@@ -127,34 +127,5 @@ CommitDate: Wed Jan 28 00:05:55 2009 +0000
 
 =cut
 
-sub hashify_git_stanza {
-    my @lines = (@_);
-    my $content = join('',@lines);
-    my $stanza = {};
-    if ($content =~ /^commit (.*)$/im) {
-        $stanza->{commit_id} = $1;
-    } 
-    if ($content =~ /^Author:\s*(.*)$/im) {
-        $stanza->{author} = $1;
-    }
-    if ($content =~ /^(?:Author)?Date:\s*(.*)$/im) {
-        $stanza->{date} = $1;
-    }
-    if ($content =~ /^Commit:\s*(.*)$/im) {
-        $stanza->{commit} = $1;
-    }
-    if ($content =~ /^CommitDate:\s*(.*)$/im) {
-        $stanza->{commit_date} = $1;
-    }
-
-    if ($content =~ /.*?^(\s{4}.*?)(^\s{1,2}\S+\s+\|\s+\d+|\z)/ims) {
-        $stanza->{msg} = $1;
-    }
-    if ($content =~ /\n(\s{1,2}\S+\s+\|\s+\d+.*)$/ims) {
-        $stanza->{changed_files} = $1;
-    }
-    return $stanza;
-}
-
 1;
 
