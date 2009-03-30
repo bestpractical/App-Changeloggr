@@ -8,15 +8,21 @@ use Scalar::Defer 'defer';
 use App::Changeloggr::Record schema {
     column change =>
         refers_to App::Changeloggr::Model::Change,
+        is mandatory,
+        is immutable,
         is protected;
 
     column user_session_id =>
         type is 'text',
         default is defer { Jifty->web->session->id },
+        is mandatory,
+        is immutable,
         is private;
 
     column tag =>
-        type is 'text';
+        type is 'text',
+        is mandatory,
+        is immutable;
 };
 
 sub current_user_can {

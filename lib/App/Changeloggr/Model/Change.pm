@@ -6,19 +6,25 @@ use Jifty::DBI::Schema;
 
 use App::Changeloggr::Record schema {
     column changelog =>
-        refers_to App::Changeloggr::Model::Changelog;
+        refers_to App::Changeloggr::Model::Changelog,
+        is mandatory,
+        is immutable;
 
     column raw =>
         type is 'text',
-        label is 'Raw';
+        label is 'Raw',
+        is mandatory,
+        is immutable;
 
     column identifier =>
         type is 'text',
-        label is 'Identifier';
+        label is 'Identifier',
+        is mandatory;
 
     column author =>
         type is 'text',
-        label is 'Author';
+        label is 'Author',
+        is mandatory;
 
     column date =>
         type is 'timestamp',
@@ -27,7 +33,8 @@ use App::Changeloggr::Record schema {
 
     column message =>
         type is 'text',
-        label is 'Body';
+        label is 'Body',
+        is mandatory;
 
     column diffstat =>
         type is 'text',

@@ -9,7 +9,8 @@ use App::Changeloggr::Record schema {
     column name =>
         type is 'text',
         label is 'Project name',
-        is distinct;
+        is distinct,
+        is mandatory;
 
     column done =>
         is boolean,
