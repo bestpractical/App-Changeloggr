@@ -38,7 +38,7 @@ sub extract_change_data_from_text {
     $text =~ s/^\s+//;
 
     my $format = App::Changeloggr->identify_format($text);
-    die "I'm unable to handle the change text format."
+    die "I'm unable to handle the change text format: " . substr($text, 0, 30) . '...'
         if !defined($format);
 
     my $extract_method = "extract_change_data_from_$format";
