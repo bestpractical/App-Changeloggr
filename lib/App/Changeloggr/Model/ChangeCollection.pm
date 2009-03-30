@@ -35,6 +35,8 @@ sub extract_change_data_from_text {
     my $self = shift;
     my $text = shift;
 
+    $text =~ s/^\s+//;
+
     my $format = App::Changeloggr->identify_format($text);
     die "I'm unable to handle the change text format."
         if !defined($format);
