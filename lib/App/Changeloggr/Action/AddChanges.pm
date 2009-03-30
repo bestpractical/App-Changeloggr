@@ -41,6 +41,18 @@ sub validate_admin_token {
     }
 }
 
+sub validate_changes {
+    my $self = shift;
+    my $text = shift;
+
+    my $parser = App::Changeloggr::LogFormat->new( text => $text );
+    if ( $parser ) {
+        return $self->validation_ok( 'changes' );
+    } else {
+        return $self->validation_error( changes => "That doesn't look like a log format we recognize." );
+    }
+}
+
 sub take_action {
     my $self = shift;
     my $changelog = $self->get_changelog;
