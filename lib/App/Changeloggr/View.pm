@@ -34,8 +34,23 @@ template '/create-changelog' => page {
 
 template '/changelog' => page {
     my $changelog = Changelog(name => get('name'));
+
     h1 { $changelog->name };
-    show_changes_of($changelog);
+
+    render_region(
+        name => 'vote-on-change',
+        path => '/vote-on-change',
+        defaults => {
+            changelog => $changelog->id,
+        },
+    );
+};
+
+template '/vote-on-change' => sub {
+    my $changelog = M('Changelog', id => get('changelog'));
+    my $change = $changelog->choose_change;
+
+    show_change($change);
 };
 
 template '/changelog/admin' => page {
@@ -83,15 +98,10 @@ sub changelog_summary {
     );
 }
 
-sub show_changes_of {
-    my $changelog = shift;
-    my $changes = $changelog->changes;
+sub show_change {
+    my $change = shift;
 
-    ol {
-        while (my $change = $changes->next) {
-            li { $change->message }
-        }
-    }
+    h3 { $change->message }
 }
 
 1;
