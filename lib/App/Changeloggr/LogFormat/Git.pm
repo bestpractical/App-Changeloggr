@@ -59,7 +59,7 @@ sub next_match {
         $fields{message} = $1;
     }
     if ($entry =~ /\n(\s{1,2}\S+\s+\|\s+\d+.*)$/ims) {
-        $fields{diff} = $1;
+        $fields{diffstat} = $1;
     }
 
     return \%fields;

@@ -29,7 +29,7 @@ use App::Changeloggr::Record schema {
         type is 'text',
         label is 'Body';
 
-    column diff =>
+    column diffstat =>
         type is 'text',
         label is 'Diff';
 };
