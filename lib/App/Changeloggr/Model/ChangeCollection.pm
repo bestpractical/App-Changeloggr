@@ -84,6 +84,8 @@ sub extract_change_data_from_git {
         or return;
     my %fields;
 
+    $fields{raw} = $entry;
+
     if ($entry =~ /^commit (.*)$/im) {
         $fields{identifier} = $1;
     }
