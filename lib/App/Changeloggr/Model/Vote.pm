@@ -6,10 +6,12 @@ use Jifty::DBI::Schema;
 
 use App::Changeloggr::Record schema {
     column change =>
-        refers_to App::Changeloggr::Model::Change;
+        refers_to App::Changeloggr::Model::Change,
+        is protected;
 
     column user_session_id =>
-        type is 'text';
+        type is 'text',
+        is private;
 
     column tag =>
         type is 'text';
