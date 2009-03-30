@@ -18,6 +18,8 @@ template '/' => page {
                 li { changelog_summary($changelog) }
             }
         }
+    } else {
+        redirect '/create-changelog';
     }
 };
 
