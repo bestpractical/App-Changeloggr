@@ -24,11 +24,18 @@ sub create_from_text {
         last if !defined($newtext);
 
         my $change = App::Changeloggr::Model::Change->new;
-        $change->create(
+
+        my ($ok, $msg) = $change->create(
             %$fields,
             changelog => $changelog,
         );
-        $self->add_record($change);
+
+        if ($ok) {
+            $self->add_record($change);
+        }
+        else {
+            warn "Unable to create Change: $msg";
+        }
 
         $text = $newtext;
     }
