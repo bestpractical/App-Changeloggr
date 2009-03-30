@@ -3,6 +3,7 @@ use warnings;
 
 package App::Changeloggr::Model::Vote;
 use Jifty::DBI::Schema;
+use Scalar::Defer 'defer';
 
 use App::Changeloggr::Record schema {
     column change =>
@@ -11,6 +12,7 @@ use App::Changeloggr::Record schema {
 
     column user_session_id =>
         type is 'text',
+        default is defer { Jifty->web->session->id },
         is private;
 
     column tag =>
