@@ -3,6 +3,7 @@ use warnings;
 
 package App::Changeloggr::Model::Changelog;
 use Jifty::DBI::Schema;
+use JiftyX::ModelHelpers;
 
 use App::Changeloggr::Record schema {
     column name =>
@@ -43,13 +44,19 @@ sub parse_and_add_changes {
     my $self = shift;
     my $text = shift;
 
-    my $changes = App::Changeloggr::Model::ChangeCollection->new;
+    my $changes = M('ChangeCollection');
     $changes->create_from_text(
         text      => $text,
         changelog => $self,
     );
 
     return $changes;
+}
+
+sub changes {
+    my $self = shift;
+
+    return M('ChangeCollection', changelog => $self->id);
 }
 
 1;
