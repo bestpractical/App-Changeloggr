@@ -3,7 +3,8 @@ use strict;
 use warnings;
 use base 'App::Changeloggr::Collection';
 use Params::Validate qw(validate SCALAR);
-use DateTime::Format::Strptime;
+
+use constant results_are_readable => 1;
 
 sub create_from_text {
     my $self = shift;
