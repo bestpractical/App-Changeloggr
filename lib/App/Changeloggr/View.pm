@@ -46,6 +46,12 @@ template '/changelog' => page {
     );
 };
 
+template '/changelog/download' => sub {
+    my $changelog = Changelog(name => get('name'));
+    Jifty->handler->apache->header_out('Content-Type' => 'text/plain');
+    outs_raw( $changelog->generate );
+};
+
 template '/vote-on-change' => sub {
     my $changelog = M('Changelog', id => get('changelog'));
     my $change = $changelog->choose_change;

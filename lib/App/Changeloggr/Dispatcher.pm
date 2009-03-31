@@ -18,6 +18,11 @@ on '/changelog/*' => run {
     show '/changelog';
 };
 
+on '/changelog/*/Changes' => run {
+    set name => $1;
+    show '/changelog/download';
+};
+
 on '/changelog/admin/*' => run {
     my $uuid = $1;
     set id => Changelog(admin_token => $uuid)->id;
