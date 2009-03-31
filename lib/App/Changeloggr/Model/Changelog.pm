@@ -95,7 +95,6 @@ sub choose_change {
         value => 'NULL',
     );
     $changes->rows_per_page(1);
-    warn $changes->build_select_query;
     return $changes->first;
 }
 
