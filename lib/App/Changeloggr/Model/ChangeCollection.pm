@@ -13,10 +13,19 @@ sub create_from_text {
         changelog => { isa => 'App::Changeloggr::Model::Changelog' },
     });
 
-    my $text      = $args{text};
-    my $changelog = $args{changelog};
+    my $parser = App::Changeloggr::LogFormat->new( text => delete $args{text} );
+    return $self->create_from_parser( %args, parser => $parser );
+}
 
-    my $parser = App::Changeloggr::LogFormat->new( text => $text );
+sub create_from_parser {
+    my $self = shift;
+    my %args = validate(@_, {
+        parser    => { isa => 'App::Changeloggr::LogFormat' },
+        changelog => { isa => 'App::Changeloggr::Model::Changelog' },
+    });
+
+    my $parser    = $args{parser};
+    my $changelog = $args{changelog};
 
     while (my $fields = $parser->next_match) {
         my $change = App::Changeloggr::Model::Change->new;
@@ -28,8 +37,7 @@ sub create_from_text {
 
         if ($ok) {
             $self->add_record($change);
-        }
-        else {
+        } else {
             warn "Unable to create Change: $msg";
         }
     }

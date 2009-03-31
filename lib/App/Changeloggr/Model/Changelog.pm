@@ -41,15 +41,23 @@ sub current_user_can {
     return $self->SUPER::current_user_can($right, %args);
 }
 
-sub parse_and_add_changes {
+sub add_changes {
     my $self = shift;
-    my $text = shift;
+    my $arg = shift;
 
     my $changes = M('ChangeCollection');
-    $changes->create_from_text(
-        text      => $text,
-        changelog => $self,
-    );
+    if (ref $arg) {
+        $changes->create_from_parser(
+            parser    => $arg,
+            changelog => $self,
+        );
+    } else {
+        $changes->create_from_text(
+            text      => $arg,
+            changelog => $self,
+        );
+    }
+    
 
     return $changes;
 }

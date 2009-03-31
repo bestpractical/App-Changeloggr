@@ -5,14 +5,20 @@ use warnings;
 sub new {
     my $class = shift;
     my %args = @_;
-    return unless $args{text};
+    return unless $args{text} or $args{file};
+
+    if (my $fh = delete $args{file}) {
+        $args{text} = do { local $/; <$fh>};
+    }
 
     $args{text} =~ s/^\s+//;
     $args{text} =~ s/\r\n/\n/g;
 
+    return unless $args{text} =~ /\S/;
+
     if ($class eq "App::Changeloggr::LogFormat") {
         for my $format (App::Changeloggr->log_formats) {
-            return $format->new( @_ ) if $format->matches( @_ );
+            return $format->new( %args ) if $format->matches( %args );
         }
         return undef;
     }

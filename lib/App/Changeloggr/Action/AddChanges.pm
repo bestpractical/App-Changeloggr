@@ -11,9 +11,9 @@ use Jifty::Action schema {
 
     param changes =>
         type is 'text',
-        render as 'textarea',
+        render as 'upload',
         is mandatory,
-        hints is 'Currently we only accept the output of: git log --pretty=fuller --stat';
+        hints is 'Formats we accept: git log --pretty=fuller --stat, svn log, or svn log --xml';
 };
 
 sub get_changelog {
@@ -41,23 +41,17 @@ sub validate_admin_token {
     }
 }
 
-sub validate_changes {
-    my $self = shift;
-    my $text = shift;
-
-    my $parser = App::Changeloggr::LogFormat->new( text => $text );
-    if ( $parser ) {
-        return $self->validation_ok( 'changes' );
-    } else {
-        return $self->validation_error( changes => "That doesn't look like a log format we recognize." );
-    }
-}
-
 sub take_action {
     my $self = shift;
-    my $changelog = $self->get_changelog;
 
-    my $changes = $changelog->parse_and_add_changes($self->argument_value('changes'));
+    my $parser = App::Changeloggr::LogFormat->new( file => $self->argument_value('changes') );
+    $self->argument_value( changes => undef );
+    unless ($parser) {
+        return $self->validation_error( changes => "That doesn't look like a log format we recognize." );
+    }
+
+    my $changelog = $self->get_changelog;
+    my $changes = $changelog->add_changes( $parser );
 
     if ($changes->count) {
         $self->result->message(_("Added your %quant(%1,change)!", $changes->count));
