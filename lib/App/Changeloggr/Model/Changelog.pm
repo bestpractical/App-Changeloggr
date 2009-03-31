@@ -3,7 +3,6 @@ use warnings;
 
 package App::Changeloggr::Model::Changelog;
 use Jifty::DBI::Schema;
-use JiftyX::ModelHelpers;
 
 use App::Changeloggr::Record schema {
     column name =>
@@ -22,6 +21,9 @@ use App::Changeloggr::Record schema {
         render as 'hidden',
         default is defer { _generate_admin_token() };
 };
+
+# has to go below schema
+use JiftyX::ModelHelpers;
 
 sub _generate_admin_token {
     require Data::GUID;
