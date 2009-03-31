@@ -111,12 +111,16 @@ sub show_change {
 sub show_vote_form {
     my $change = shift;
 
-
     form {
-        my $vote = App::Changeloggr::Action::CreateVote->new(
-            arguments => { change => $change->id } );
+        my $vote = new_action(
+            class     => "CreateVote",
+            arguments => { change => $change->id }
+        );
         render_action $vote ;
-        form_submit( label => 'Vote' );
+        form_submit(
+            label   => 'Vote',
+            onclick => { submit => $vote, refresh_self => 1 }
+        );
     }
 }
 
