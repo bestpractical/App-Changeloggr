@@ -66,7 +66,29 @@ sub choose_change {
     # This will become more advanced in the future, picking a change that
     # the current user has not voted on yet, ordered by the confidence of the
     # top tag. But for now.. an arbitrary change belonging to this changelog.
-    return M('Change', changelog => $self);
+    my $changes = M('ChangeCollection', changelog => $self);
+    my $votes = $changes->join(
+        type => 'left',
+        column1 => 'id',
+        table2 => 'votes',
+        column2 => 'change',
+        is_distinct => 1,
+    );
+    $changes->limit(
+        leftjoin => $votes,
+        column => 'user_session_id',
+        value => Jifty->web->session->id,
+        case_sensitive => 1,
+    );
+    $changes->limit(
+        column => 'id',
+        alias => $votes,
+        operator => 'IS',
+        value => 'NULL',
+    );
+    $changes->rows_per_page(1);
+    warn $changes->build_select_query;
+    return $changes->first;
 }
 
 1;

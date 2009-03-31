@@ -17,7 +17,8 @@ use App::Changeloggr::Record schema {
         default is defer { Jifty->web->session->id },
         is mandatory,
         is immutable,
-        is private;
+        is private,
+        is case_sensitive;
 
     column tag =>
         type is 'text',

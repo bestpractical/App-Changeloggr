@@ -49,9 +49,12 @@ template '/changelog' => page {
 template '/vote-on-change' => sub {
     my $changelog = M('Changelog', id => get('changelog'));
     my $change = $changelog->choose_change;
-
-    show_change($change);
-    show_vote_form($change);
+    if ($change) {
+        show_change($change);
+        show_vote_form($change);
+    } else {
+        h2 { "No changes left in this log" };
+    }
 };
 
 template '/changelog/admin' => page {
