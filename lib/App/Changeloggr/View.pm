@@ -108,10 +108,12 @@ sub show_change {
 sub show_vote_form {
     my $change = shift;
 
+
     form {
-        my $vote = App::Changeloggr::Action::CreateVote->new;
-        render_action $vote;
-        form_submit(label => 'Vote');
+        my $vote = App::Changeloggr::Action::CreateVote->new(
+            arguments => { change => $change } );
+        render_action $vote ;
+        form_submit( label => 'Vote' );
     }
 }
 
