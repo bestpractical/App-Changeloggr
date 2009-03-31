@@ -55,8 +55,9 @@ sub next_match {
 #        $fields{commit_date} = $1;
 #    }
 
-    if ($entry =~ /.*?^(\s{4}.*?)(^\s{1,2}\S+\s+\|\s+\d+|\z)/ims) {
+    if ($entry =~ /.*?^\n(\s{4}.*?)(^\s{1,2}\S+\s+\|\s+\d+|\z)/ims) {
         $fields{message} = $1;
+        $fields{message} =~ s/^\s{4}//mg;
     }
     if ($entry =~ /\n(\s{1,2}\S+\s+\|\s+\d+.*)$/ims) {
         $fields{diffstat} = $1;
