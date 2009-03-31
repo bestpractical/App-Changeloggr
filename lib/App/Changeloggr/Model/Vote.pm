@@ -10,7 +10,7 @@ use App::Changeloggr::Record schema {
         refers_to App::Changeloggr::Model::Change,
         is mandatory,
         is immutable,
-        is protected;
+        render as 'hidden';
 
     column user_session_id =>
         type is 'text',
