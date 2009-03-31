@@ -111,7 +111,7 @@ sub show_vote_form {
 
     form {
         my $vote = App::Changeloggr::Action::CreateVote->new(
-            arguments => { change => $change } );
+            arguments => { change => $change->id } );
         render_action $vote ;
         form_submit( label => 'Vote' );
     }
