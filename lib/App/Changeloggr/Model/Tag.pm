@@ -12,10 +12,30 @@ use App::Changeloggr::Record schema {
 
     column text =>
         type is 'text',
-        label is 'Raw',
+        label is 'Tag',
         is mandatory,
-        is immutable;
+        is immutable,
+        ajax canonicalizes;
+
+    column hotkey =>
+        type is 'text',
+        label is 'Hotkey',
+        is case_sensitive,
+        ajax validates,
+        ajax canonicalizes;
 };
+
+sub validate_hotkey {
+    my $self = shift;
+    my $key = shift;
+    my $args = shift || {};
+    return 1 if not defined $key or not length $key;
+    my $existing = App::Changeloggr::Model::TagCollection->new;
+    $existing->limit( column => 'changelog', value => $args->{changelog} || $self->changelog->id );
+    $existing->limit( column => 'hotkey',    value => $key );
+    return (0, "Duplicate key!") if $existing->first and ($existing->first->id != ($self->id||0));
+    return 1;
+}
 
 sub current_user_can {
     my $self  = shift;
