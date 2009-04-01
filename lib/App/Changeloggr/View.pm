@@ -87,6 +87,10 @@ template '/changelog/admin' => page {
 sub add_changes_to {
     my $changelog = shift;
 
+    if ($changelog->changes->count) {
+        p { _("This changelog has %quant(%1,change).", $changelog->changes->count) }
+    }
+
     my $add_changes = new_action('AddChanges');
 
     form {
