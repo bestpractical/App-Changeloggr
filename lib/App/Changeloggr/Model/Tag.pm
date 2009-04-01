@@ -5,7 +5,7 @@ package App::Changeloggr::Model::Tag;
 use Jifty::DBI::Schema;
 
 use App::Changeloggr::Record schema {
-    column changelog =>
+    column changelog_id =>
         refers_to App::Changeloggr::Model::Changelog,
         is mandatory,
         is immutable;

@@ -6,7 +6,7 @@ use Jifty::DBI::Schema;
 use Scalar::Defer 'defer';
 
 use App::Changeloggr::Record schema {
-    column change =>
+    column change_id =>
         refers_to App::Changeloggr::Model::Change,
         is mandatory,
         is immutable,
