@@ -150,10 +150,10 @@ sub show_vote_form {
         else {
             render_action $vote, ['change_id'];
             while (my $valid_tag = $valid_tags->next) {
-                form_submit(
+                $vote->button(
                     label => $valid_tag->text,
                     onclick => { submit => $vote, refresh_self => 1 },
-                    parameters => { tag => $valid_tag->text },
+                    arguments => { tag => $valid_tag->text },
                 );
             }
         }
