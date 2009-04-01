@@ -19,12 +19,13 @@ sub get_changelog {
 }
 
 sub validate_admin_token {
-    my $self        = shift;
-    my $admin_token = shift;
+    my $self            = shift;
+    my $got_admin_token = shift;
 
     my $changelog = $self->get_changelog;
+    my $expected_admin_token = $changelog->as_superuser->admin_token;
 
-    if ($changelog->admin_token eq $admin_token) {
+    if ($expected_admin_token eq $got_admin_token) {
         return $self->validation_ok('admin_token');
     }
     else {
