@@ -171,7 +171,7 @@ sub edit_tags {
     form {
         my $add_tag = new_action(
             class     => "CreateTag",
-            arguments => { changelog => $changelog->id }
+            arguments => { changelog_id => $changelog->id }
         );
         render_action $add_tag;
         form_submit(label => 'Add Tag');
