@@ -108,6 +108,15 @@ sub changelog_summary {
         url   => '/changelog/' . $changelog->name,
         label => $changelog->name,
     );
+
+    if (Jifty->config->framework('DevelMode')) {
+        span {};
+        my $admin_token = $changelog->as_superuser->admin_token;
+        hyperlink(
+            url => "/changelog/$admin_token/admin",
+            label => "[administrate]",
+        );
+    }
 }
 
 sub show_change {
