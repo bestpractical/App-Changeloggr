@@ -37,7 +37,7 @@ sub current_user_can {
 
     # anyone can create and read changelogs (except admin token)
     return 1 if $right eq 'create'
-             || ($right eq 'read' && $args{column} ne 'admin_token');
+             || ($right eq 'read' && ($args{column}||'') ne 'admin_token');
 
     # but not delete or update. those must happen as root
     return $self->SUPER::current_user_can($right, %args);
