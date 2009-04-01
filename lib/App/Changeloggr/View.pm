@@ -128,16 +128,31 @@ sub show_change {
 sub show_vote_form {
     my $change = shift;
 
+    my $valid_tags = $change->changelog->tags;
+
     form {
         my $vote = new_action(
             class     => "CreateVote",
             arguments => { change => $change->id }
         );
-        render_action $vote ;
-        form_submit(
-            label   => 'Vote',
-            onclick => { submit => $vote, refresh_self => 1 }
-        );
+
+        if ($valid_tags->count == 0) {
+            render_action $vote;
+            form_submit(
+                label   => 'Vote',
+                onclick => { submit => $vote, refresh_self => 1 }
+            );
+        }
+        else {
+            render_action $vote, ['change'];
+            while (my $valid_tag = $valid_tags->next) {
+                form_submit(
+                    label => $valid_tag->text,
+                    onclick => { submit => $vote, refresh_self => 1 },
+                    parameters => { tag => $valid_tag->text },
+                );
+            }
+        }
     }
 }
 
