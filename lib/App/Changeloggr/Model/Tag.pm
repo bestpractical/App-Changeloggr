@@ -8,7 +8,8 @@ use App::Changeloggr::Record schema {
     column changelog_id =>
         refers_to App::Changeloggr::Model::Changelog,
         is mandatory,
-        is immutable;
+        is immutable,
+        render as 'hidden';
 
     column text =>
         type is 'text',
