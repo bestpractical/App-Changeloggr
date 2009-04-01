@@ -74,6 +74,8 @@ template '/changelog/admin' => page {
 
     add_changes_to($changelog);
 
+    edit_tags($changelog);
+
     my $delete = $changelog->as_delete_action;
     form {
         render_action($delete);
@@ -127,6 +129,28 @@ sub show_vote_form {
             label   => 'Vote',
             onclick => { submit => $vote, refresh_self => 1 }
         );
+    }
+}
+
+sub edit_tags {
+    my $changelog = shift;
+    my $tags = M("TagCollection", changelog => $changelog);
+
+    while (my $tag = $tags->next) {
+        form {
+            my $delete_tag = $tag->as_delete_action;
+            render_action $delete_tag;
+            form_submit(label => $tag->text);
+        }
+    }
+
+    form {
+        my $add_tag = new_action(
+            class     => "CreateTag",
+            arguments => { changelog => $changelog->id }
+        );
+        render_action $add_tag;
+        form_submit(label => 'Add Tag');
     }
 }
 
