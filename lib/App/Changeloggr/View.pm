@@ -158,7 +158,7 @@ sub show_vote_form {
 
 sub edit_tags {
     my $changelog = shift;
-    my $tags = M("TagCollection", changelog => $changelog);
+    my $tags = M("TagCollection", changelog_id => $changelog);
 
     while (my $tag = $tags->next) {
         form {

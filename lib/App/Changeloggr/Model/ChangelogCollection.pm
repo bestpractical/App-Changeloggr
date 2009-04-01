@@ -14,7 +14,7 @@ sub with_changes {
         alias1  => 'main',
         column1 => 'id',
         table2  => 'changes',
-        column2 => 'changelog',
+        column2 => 'changelog_id',
     );
 
     #$self->limit(

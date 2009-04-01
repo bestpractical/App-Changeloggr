@@ -67,13 +67,13 @@ sub add_changes {
 sub changes {
     my $self = shift;
 
-    return M('ChangeCollection', changelog => $self);
+    return M('ChangeCollection', changelog_id => $self);
 }
 
 sub tags {
     my $self = shift;
 
-    return M('TagCollection', changelog => $self);
+    return M('TagCollection', changelog_id => $self);
 }
 
 sub choose_change {
@@ -82,7 +82,7 @@ sub choose_change {
     # This will become more advanced in the future, picking a change that
     # the current user has not voted on yet, ordered by the confidence of the
     # top tag. But for now.. an arbitrary change belonging to this changelog.
-    my $changes = M('ChangeCollection', changelog => $self);
+    my $changes = M('ChangeCollection', changelog_id => $self);
     my $votes = $changes->join(
         type => 'left',
         column1 => 'id',

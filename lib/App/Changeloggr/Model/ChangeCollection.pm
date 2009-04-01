@@ -32,7 +32,7 @@ sub create_from_parser {
 
         my ($ok, $msg) = $change->create(
             %$fields,
-            changelog => $changelog,
+            changelog_id => $changelog,
         );
 
         if ($ok) {
