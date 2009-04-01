@@ -102,6 +102,10 @@ sub choose_change {
 
 sub generate {
     my $self = shift;
+    my $format = Jifty->app_class( OutputFormat => shift || "Jifty" );
+    Jifty::Util->require( $format )
+          or return "";
+
     my $changes = $self->changes;
     $changes->order_by(column => 'date');
     my %categories;
@@ -114,19 +118,7 @@ sub generate {
         }
     }
 
-    my $str = "Changelog for ". $self->name.", generated ".Jifty::DateTime->now."\n\n";
-    for my $cat (sort keys %categories) {
-        $str .= uc($cat) . "\n" . ("=" x length($cat)) . "\n";
-        for my $change (@{$categories{$cat}}) {
-            my $msg = " * " . $change->message;
-            $msg =~ s/\n*\Z//;
-            $msg =~ s/\n/\n   /g;
-            $msg =~ s/\n\s+\n/\n\n/g;
-            $str .= $msg . "\n";
-        }
-        $str .= "\n";
-    }
-    return $str;
+    return $format->generate( changelog => $self, categories => \%categories );
 }
 
 1;

@@ -24,6 +24,12 @@ on '/changelog/*/Changes' => run {
     show '/changelog/download';
 };
 
+on '/changelog/*/*/Changes' => run {
+    set name => $1;
+    set format => $2;
+    show '/changelog/download';
+};
+
 on '/changelog/*/admin' => run {
     my $uuid = $1;
     set id => Changelog(admin_token => $uuid)->id;
