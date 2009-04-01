@@ -87,7 +87,7 @@ sub choose_change {
         type => 'left',
         column1 => 'id',
         table2 => 'votes',
-        column2 => 'change',
+        column2 => 'change_id',
         is_distinct => 1,
     );
     $changes->limit(

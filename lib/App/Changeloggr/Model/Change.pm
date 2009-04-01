@@ -54,7 +54,7 @@ sub current_user_can {
 sub grouped_votes {
     my $self = shift;
     my $votes = App::Changeloggr::Model::VoteCollection->new;
-    $votes->limit( column => 'change', value => $self->id );
+    $votes->limit( column => 'change_id', value => $self->id );
     $votes->column(
         column => 'tag',
     );

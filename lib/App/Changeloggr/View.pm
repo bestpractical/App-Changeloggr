@@ -133,7 +133,7 @@ sub show_vote_form {
     form {
         my $vote = new_action(
             class     => "CreateVote",
-            arguments => { change => $change->id }
+            arguments => { change_id => $change->id }
         );
 
         if ($valid_tags->count == 0) {
@@ -144,7 +144,7 @@ sub show_vote_form {
             );
         }
         else {
-            render_action $vote, ['change'];
+            render_action $vote, ['change_id'];
             while (my $valid_tag = $valid_tags->next) {
                 form_submit(
                     label => $valid_tag->text,
