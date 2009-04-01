@@ -18,7 +18,7 @@ use Jifty::Action schema {
 sub take_action {
     my $self = shift;
 
-    my $parser = App::Changeloggr::LogFormat->new( file => $self->argument_value('changes') );
+    my $parser = App::Changeloggr::InputFormat->new( file => $self->argument_value('changes') );
     $self->argument_value( changes => undef );
     unless ($parser) {
         return $self->validation_error( changes => "That doesn't look like a log format we recognize." );

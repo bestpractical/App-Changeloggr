@@ -1,4 +1,4 @@
-package App::Changeloggr::LogFormat;
+package App::Changeloggr::InputFormat;
 use strict;
 use warnings;
 
@@ -16,7 +16,7 @@ sub new {
 
     return unless $args{text} =~ /\S/;
 
-    if ($class eq "App::Changeloggr::LogFormat") {
+    if ($class eq __PACKAGE__) {
         for my $format (App::Changeloggr->log_formats) {
             return $format->new( %args ) if $format->matches( %args );
         }

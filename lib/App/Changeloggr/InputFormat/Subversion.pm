@@ -1,5 +1,5 @@
-package App::Changeloggr::LogFormat::Subversion;
-use base qw/App::Changeloggr::LogFormat/;
+package App::Changeloggr::InputFormat::Subversion;
+use base qw/App::Changeloggr::InputFormat/;
 use strict;
 use warnings;
 

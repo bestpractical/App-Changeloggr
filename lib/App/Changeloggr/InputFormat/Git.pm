@@ -1,5 +1,5 @@
-package App::Changeloggr::LogFormat::Git;
-use base qw/App::Changeloggr::LogFormat/;
+package App::Changeloggr::InputFormat::Git;
+use base qw/App::Changeloggr::InputFormat/;
 use strict;
 use warnings;
 
@@ -14,7 +14,7 @@ sub matches {
 
     return $args{text} =~ /^commit \w+\r?\n/;
 }
-    
+
 sub next_match {
     my $self = shift;
 

@@ -13,14 +13,14 @@ sub create_from_text {
         changelog => { isa => 'App::Changeloggr::Model::Changelog' },
     });
 
-    my $parser = App::Changeloggr::LogFormat->new( text => delete $args{text} );
+    my $parser = App::Changeloggr::InputFormat->new( text => delete $args{text} );
     return $self->create_from_parser( %args, parser => $parser );
 }
 
 sub create_from_parser {
     my $self = shift;
     my %args = validate(@_, {
-        parser    => { isa => 'App::Changeloggr::LogFormat' },
+        parser    => { isa => 'App::Changeloggr::InputFormat' },
         changelog => { isa => 'App::Changeloggr::Model::Changelog' },
     });
 
