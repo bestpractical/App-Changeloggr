@@ -10,8 +10,8 @@ sub canonicalize_text {
     if (length $tag and not length($self->argument_value('hotkey')||'')) {
         my $possible = lc substr($tag, 0, 1);
         my $existing = App::Changeloggr::Model::TagCollection->new;
-        $existing->limit( column => 'changelog', value => $self->argument_value('changelog') );
-        $existing->limit( column => 'hotkey',    value => $possible );
+        $existing->limit( column => 'changelog_id', value => $self->argument_value('changelog_id') );
+        $existing->limit( column => 'hotkey',       value => $possible );
         $self->argument_value( hotkey => $possible ) unless $existing->count;
     }
     return $tag;

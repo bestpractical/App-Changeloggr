@@ -32,8 +32,8 @@ sub validate_hotkey {
     my $args = shift || {};
     return 1 if not defined $key or not length $key;
     my $existing = App::Changeloggr::Model::TagCollection->new;
-    $existing->limit( column => 'changelog', value => $args->{changelog} || $self->changelog->id );
-    $existing->limit( column => 'hotkey',    value => $key );
+    $existing->limit( column => 'changelog_id', value => $args->{changelog_id} || $self->changelog->id );
+    $existing->limit( column => 'hotkey',       value => $key );
     return (0, "Duplicate key!") if $existing->first and ($existing->first->id != ($self->id||0));
     return 1;
 }
