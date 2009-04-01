@@ -9,5 +9,10 @@ sub take_action {
     $self->SUPER::take_action(@_);
 }
 
+sub report_success {
+    my $self = shift;
+    $self->result->message('Removed the tag');
+}
+
 1;
 

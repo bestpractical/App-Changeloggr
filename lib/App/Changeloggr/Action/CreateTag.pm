@@ -9,6 +9,11 @@ sub take_action {
     $self->SUPER::take_action(@_);
 }
 
+sub report_success {
+    my $self = shift;
+    $self->result->message(_('Added the "%1" tag', $self->record->text));
+}
+
 1;
 
 
