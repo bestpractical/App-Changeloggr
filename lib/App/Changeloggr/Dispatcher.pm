@@ -10,7 +10,8 @@ before '*' => run {
 
 on '/created-changelog' => run {
     my $id = Jifty->web->response->result('create-changelog')->content('id');
-    redirect '/changelog/admin/' . Changelog($id)->as_superuser->admin_token;
+    my $admin_token = Changelog($id)->as_superuser->admin_token;
+    redirect "/changelog/$admin_token/admin";
 };
 
 on '/changelog/*' => run {
@@ -23,7 +24,7 @@ on '/changelog/*/Changes' => run {
     show '/changelog/download';
 };
 
-on '/changelog/admin/*' => run {
+on '/changelog/*/admin' => run {
     my $uuid = $1;
     set id => Changelog(admin_token => $uuid)->id;
     show '/changelog/admin';
