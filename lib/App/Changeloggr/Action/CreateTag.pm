@@ -3,6 +3,14 @@ use strict;
 use warnings;
 use base 'App::Changeloggr::Action::Mixin::RequiresAdminToken', 'Jifty::Action::Record::Create';
 
+sub arguments {
+    my $self = shift;
+    my $args = $self->SUPER::arguments(@_);
+
+    $args->{changelog_id}{render_as} = 'hidden';
+    return $args;
+}
+
 sub canonicalize_text {
     my $self = shift;
     my $tag = shift;
