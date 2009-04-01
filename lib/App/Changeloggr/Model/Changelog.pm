@@ -70,6 +70,12 @@ sub changes {
     return M('ChangeCollection', changelog => $self);
 }
 
+sub tags {
+    my $self = shift;
+
+    return M('TagCollection', changelog => $self);
+}
+
 sub choose_change {
     my $self = shift;
 
