@@ -1,0 +1,53 @@
+body {
+  margin:  0;
+  padding: 0;
+  background: #112;
+  color:      #000;
+}
+
+#content {
+  margin-left: auto;
+  margin-right: auto;
+  background: #112;
+  color: #ddd;
+  max-width: 500px;
+}
+
+#content {
+  margin-top: 6em;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+}
+
+a, a:link, a:visited {
+  color: #ddd;
+  text-decoration: underline;
+  font-weight: normal;
+}
+
+a:hover {
+  color: #fff;
+  text-decoration: none;
+  font-weight: normal;
+}
+
+input.button {
+  border: 1px solid #334;
+  background: #223;
+  color: #ddd;
+  -moz-border-radius: 5px; -webkit-border-radius: 5px;
+  padding: 0.5em;
+}
+
+.error.text, .error.password {
+  background-color: #100;
+  -moz-border-radius: 5px; -webkit-border-radius: 5px;
+  border: 1px solid #c00;
+  padding: .5em;
+  padding-left: 2em;
+  background-position: 10px center;
+  font-weight: bold;
+}
