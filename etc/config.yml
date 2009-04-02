@@ -1,5 +1,6 @@
 --- 
 framework: 
+  AdminMode: 0
   ApplicationClass: App::Changeloggr
   ApplicationName: App-Changeloggr
   ApplicationUUID: DFE97C64-0462-11DE-B67F-355F32960180
@@ -14,6 +15,7 @@ framework:
     RecordBaseClass: Jifty::DBI::Record::Cachable
     User: ''
     Version: 0.0.1
+  DevelMode: 1
   L10N: 
     PoDir: share/po
   LogLevel: INFO
