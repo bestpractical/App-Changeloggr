@@ -51,3 +51,19 @@ input.button {
   background-position: 10px center;
   font-weight: bold;
 }
+
+dl.keybindings {
+  margin-top: 0;
+}
+
+dl.keybindings dt {
+  width: 1.5em;
+  clear: left;
+  float: left;
+  display: block;
+}
+
+dl.keybindings dd {
+  float: left;
+  display: block;
+}
