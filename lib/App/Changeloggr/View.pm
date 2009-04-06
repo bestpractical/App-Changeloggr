@@ -126,7 +126,10 @@ sub changelog_summary {
 sub show_change {
     my $change = shift;
 
-    h3 { $change->message }
+    h3 {
+        { class is "change" };
+        outs( $change->message );
+    }
 }
 
 sub show_vote_form {

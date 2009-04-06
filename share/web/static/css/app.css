@@ -68,3 +68,8 @@ dl.keybindings dd {
   float: left;
   display: block;
 }
+
+.change {
+  white-space: pre;
+  font-family: monospace;
+}
