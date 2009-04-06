@@ -103,6 +103,7 @@ sub choose_change {
         value => 'NULL',
     );
     $changes->rows_per_page(1);
+    $changes->order_by( column => 'date', order => 'asc' );
     return $changes->first;
 }
 
