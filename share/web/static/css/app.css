@@ -40,6 +40,7 @@ input.button {
   color: #ddd;
   -moz-border-radius: 5px; -webkit-border-radius: 5px;
   padding: 0.5em;
+  margin: 0.3em;
 }
 
 .error.text, .error.password {
