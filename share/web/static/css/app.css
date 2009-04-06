@@ -10,11 +10,8 @@ body {
   margin-right: auto;
   background: #112;
   color: #ddd;
-  max-width: 500px;
-}
-
-#content {
-  margin-top: 6em;
+  max-width: 800px;
+  margin-top: 2em;
 }
 
 h1 {
