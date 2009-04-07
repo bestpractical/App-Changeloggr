@@ -154,6 +154,7 @@ sub show_vote_form {
             render_action $vote, ['change_id'];
             while (my $valid_tag = $valid_tags->next) {
                 $vote->button(
+                    class => "vote",
                     label => $valid_tag->text,
                     key_binding => $valid_tag->hotkey,
                     onclick => { submit => $vote, refresh_self => 1 },
