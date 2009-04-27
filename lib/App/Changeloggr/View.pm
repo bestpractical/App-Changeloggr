@@ -81,7 +81,10 @@ sub show_change {
 
     h3 {
         { class is "change" };
-        outs( $change->message );
+        my $message = Jifty->web->escape($change->message);
+        my $links = $change->changelog->commit_links;
+        $message = $_->linkify($message) while $_ = $links->next;
+        outs_raw( $message );
     }
 }
 

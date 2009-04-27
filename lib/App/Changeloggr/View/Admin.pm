@@ -24,6 +24,8 @@ template '/changelog' => page {
 
     add_changes_to($changelog);
 
+    edit_links($changelog);
+
     edit_tags($changelog);
 
     my $delete = $changelog->as_delete_action;
@@ -53,6 +55,28 @@ sub add_changes_to {
 
         form_submit(label => 'Add');
     };
+}
+
+sub edit_links {
+    my $changelog = shift;
+    my $links = $changelog->commit_links;
+
+    while (my $link = $links->next) {
+        form {
+            my $delete_link = $link->as_delete_action;
+            render_action $delete_link;
+            form_submit(label => $link->find . " => " . $link->href);
+        }
+    }
+
+    form {
+        my $add_link = new_action(
+            class     => "CreateCommitLink",
+            arguments => { changelog_id => $changelog->id }
+        );
+        render_action $add_link;
+        form_submit(label => 'Add Link');
+    }
 }
 
 sub edit_tags {

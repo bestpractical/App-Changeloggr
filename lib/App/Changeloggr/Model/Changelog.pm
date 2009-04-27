@@ -76,6 +76,12 @@ sub tags {
     return M('TagCollection', changelog_id => $self);
 }
 
+sub commit_links {
+    my $self = shift;
+
+    return M('CommitLinkCollection', changelog_id => $self);
+}
+
 sub choose_change {
     my $self = shift;
 
