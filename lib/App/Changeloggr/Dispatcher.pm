@@ -5,14 +5,14 @@ use JiftyX::ModelHelpers;
 before '*' => run {
       my $top = Jifty->web->navigation;
       $top->child(Home => url => '/');
-      $top->child(New => url => '/create-changelog', label => 'New Changelog');
+      $top->child(New => url => '/admin/create-changelog', label => 'New Changelog');
       Jifty->web->session->expires( '+1y' );
 };
 
-on '/created-changelog' => run {
+on '/admin/created-changelog' => run {
     my $id = Jifty->web->response->result('create-changelog')->content('id');
     my $admin_token = Changelog($id)->as_superuser->admin_token;
-    redirect "/changelog/$admin_token/admin";
+    redirect "/admin/changelog/$admin_token";
 };
 
 on '/changelog/*' => run {
@@ -31,10 +31,10 @@ on '/changelog/*/*/Changes' => run {
     show '/changelog/download';
 };
 
-on '/changelog/*/admin' => run {
+on '/admin/changelog/*' => run {
     my $uuid = $1;
     set id => Changelog(admin_token => $uuid)->id;
-    show '/changelog/admin';
+    show '/admin/changelog';
 };
 
 1;

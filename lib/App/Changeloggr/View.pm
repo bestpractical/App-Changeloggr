@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 require App::Changeloggr::View::Admin;
-alias App::Changeloggr::View::Admin under '/';
+alias App::Changeloggr::View::Admin under '/admin';
 
 # No salutation, ever
 template '/salutation' => sub {};

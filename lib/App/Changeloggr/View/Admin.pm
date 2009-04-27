@@ -8,12 +8,12 @@ template '/create-changelog' => page {
     my $create = new_action('CreateChangelog', moniker => 'create-changelog');
     form {
         render_action $create, ['name'];
-        form_next_page url => '/created-changelog';
+        form_next_page url => '/admin/created-changelog';
         form_submit(label => 'Create');
     };
 };
 
-template '/changelog/admin' => page {
+template '/changelog' => page {
     my $changelog = Changelog(id => get('id'));
 
     my $update = $changelog->as_update_action;
