@@ -59,7 +59,8 @@ template '/vote-on-change' => sub {
         show_change($change);
         show_vote_form($change);
     } else {
-        h2 { "No changes left in this log" };
+        my $has_changes = $changelog->changes->count;
+        h2 { "No changes " . ($has_changes ? "left " : "") . " in this log" };
     }
 };
 
