@@ -1,0 +1,81 @@
+#navigation {
+  padding-top: 1em;
+  background-color: #000;
+  border-bottom: 1px solid #445;
+}
+
+#navigation ul.menu {
+  margin: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 800px;
+  text-align: left;
+  list-style-type: none;
+  padding: 3px 10px 3px 10px;
+}
+
+#navigation ul.menu li {
+  display: inline;
+  position: relative;
+}
+
+#navigation ul.menu li.active .title {
+  border-bottom: 1px solid #112;
+  background-color: #223;
+  position: relative;
+  color: #ccc;
+  top: 1px;
+  padding-top: 4px;
+}
+
+#navigation ul.menu li .title {
+  padding: 3px 4px;
+  border: 1px solid #445;
+  background-color: #111;
+  color: #666;
+  margin-right: 1em;
+  border-bottom: none;
+}
+
+#navigation ul.menu li .title a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#navigation ul.menu .title:hover {
+  background: #445;
+}
+
+#navigation ul.menu li .expand {
+  display: none;
+}
+
+#navigation ul.menu li ul {
+  background-color: #223;
+  position: absolute;
+  left: 0em;
+  margin: 0;
+  padding: 0;
+  margin-top: 4px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 16em;
+  border-left: 1px solid #445;
+  border-right: 1px solid #445;
+  border-bottom: 1px solid #445;
+  z-index: 1;
+}
+
+
+#navigation ul.menu li ul li {
+  margin: 0;
+  padding: 5px;
+}
+
+#navigation ul.menu li ul li + li {
+  border-left: 1px solid #445;
+}
+
+#navigation ul.menu li ul li a {
+  text-decoration: none;
+}
