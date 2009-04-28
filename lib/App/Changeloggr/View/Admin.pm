@@ -22,10 +22,6 @@ template '/changelog' => page {
         form_submit(label => 'Update');
     };
 
-    add_changes_to($changelog);
-
-    edit_links($changelog);
-
     my $delete = $changelog->as_delete_action;
     form {
         render_action($delete);
@@ -36,7 +32,17 @@ template '/changelog' => page {
 
 template '/changelog/tags' => page {
     my $changelog = Changelog(id => get('id'));
+    add_changes_to($changelog);
+};
+
+template '/changelog/tags' => page {
+    my $changelog = Changelog(id => get('id'));
     edit_tags($changelog);
+};
+
+template '/changelog/links' => page {
+    my $changelog = Changelog(id => get('id'));
+    edit_links($changelog);
 };
 
 sub add_changes_to {
