@@ -22,7 +22,7 @@ template '/' => page {
             }
         }
     } else {
-        redirect '/create-changelog';
+        redirect '/admin/create-changelog';
     }
 };
 
