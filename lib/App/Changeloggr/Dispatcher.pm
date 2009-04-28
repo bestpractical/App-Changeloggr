@@ -40,7 +40,10 @@ on qr{^/admin/changelog/([^/]+)(?:/([^/]+))?$} => run {
         undef $subpage;
     }
 
-    set id => Changelog(admin_token => $uuid)->id;
+    my $cl = Changelog(admin_token => $uuid);
+    show "/errors/404" unless $cl->id;
+
+    set id => $cl->id;
     show "/admin/changelog" . ($subpage ? "/$subpage" : "");
 };
 
