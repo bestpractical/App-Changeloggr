@@ -30,7 +30,7 @@ template '/changelog' => page {
     };
 };
 
-template '/changelog/tags' => page {
+template '/changelog/changes' => page {
     my $changelog = Changelog(id => get('id'));
     add_changes_to($changelog);
 };
