@@ -90,7 +90,7 @@ sub edit_links {
 
 sub edit_tags {
     my $changelog = shift;
-    my $tags = M("TagCollection", changelog_id => $changelog);
+    my $tags = $changelog->tags;
 
     while (my $tag = $tags->next) {
         form {
