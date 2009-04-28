@@ -43,6 +43,21 @@ on qr{^/admin/changelog/([^/]+)(?:/([^/]+))?$} => run {
     my $cl = Changelog(admin_token => $uuid);
     show "/errors/404" unless $cl->id;
 
+    my $admin = Jifty->web->navigation->child(
+        $cl->name => url => "/admin/changelog/$uuid",
+        active => 1,
+    );
+    $admin->child(
+        Changes => url => "/admin/changelog/changes/$uuid",
+        label   => "Upload changes",
+    );
+    $admin->child(
+        Tags => url => "/admin/changelog/tags/$uuid",
+    );
+    $admin->child(
+        Links => url => "/admin/changelog/links/$uuid",
+    );
+
     set id => $cl->id;
     show "/admin/changelog" . ($subpage ? "/$subpage" : "");
 };
