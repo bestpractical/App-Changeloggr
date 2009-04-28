@@ -31,10 +31,17 @@ on '/changelog/*/*/Changes' => run {
     show '/changelog/download';
 };
 
-on '/admin/changelog/*' => run {
-    my $uuid = $1;
+# match /admin/changelog/SUBTAB/UUID
+# or    /admin/changelog/UUID
+on qr{^/admin/changelog/([^/]+)(?:/([^/]+))?$} => run {
+    my ($subpage, $uuid) = ($1, $2);
+    if (!$uuid) {
+        $uuid = $subpage;
+        undef $subpage;
+    }
+
     set id => Changelog(admin_token => $uuid)->id;
-    show '/admin/changelog';
+    show "/admin/changelog" . ($subpage ? "/$subpage" : "");
 };
 
 1;
