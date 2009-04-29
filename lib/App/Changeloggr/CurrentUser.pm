@@ -4,7 +4,7 @@ use warnings;
 use base 'Jifty::CurrentUser';
 
 sub user_object {
-    my $session = Jifty->web->session
+    my $session = Jifty->web->session->id
         or return;
     my $user = App::Changeloggr::Model::User->new;
     $user->load_or_create(session_id => $session);

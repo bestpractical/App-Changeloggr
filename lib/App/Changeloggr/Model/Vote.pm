@@ -17,7 +17,7 @@ use App::Changeloggr::Record schema {
         is mandatory,
         is immutable,
         is private,
-        default is defer { _default_user() };
+        default is defer { Jifty->web->current_user->user_object };
 
     column tag =>
         type is 'text',
@@ -29,15 +29,6 @@ use App::Changeloggr::Record schema {
         default is '',
         since '0.0.3';
 };
-
-sub _default_user {
-    my $session_id = Jifty->web->session->id;
-    return if !defined($session_id);
-
-    my $user = App::Changeloggr::Model::User->new;
-    $user->load_or_create(session_id => $session_id);
-    return $user;
-}
 
 sub current_user_can {
     my $self  = shift;

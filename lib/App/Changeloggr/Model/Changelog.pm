@@ -84,9 +84,6 @@ sub commit_links {
 sub choose_change {
     my $self = shift;
 
-    my $user = App::Changeloggr::Model::User->new;
-    $user->load_or_create(session_id => Jifty->web->session->id);
-
     # This will become more advanced in the future, picking a change that
     # the current user has not voted on yet, ordered by the confidence of the
     # top tag. But for now.. an arbitrary change belonging to this changelog.
@@ -101,7 +98,7 @@ sub choose_change {
     $changes->limit(
         leftjoin => $votes,
         column => 'user_id',
-        value => $user->id,
+        value => $self->current_user->user_object->id,
         case_sensitive => 1,
     );
     $changes->limit(
