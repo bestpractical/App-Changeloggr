@@ -112,7 +112,7 @@ sub add_changes_to {
             render_as     => 'hidden',
         ));
 
-        form_submit(label => 'Add');
+        form_submit(label => 'Upload');
     };
 
     p {
