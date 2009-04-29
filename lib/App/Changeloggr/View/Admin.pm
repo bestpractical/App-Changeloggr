@@ -49,17 +49,6 @@ template '/changelog/votes' => page {
     my $changelog = Changelog(id => get('id'));
     my $changes = $changelog->changes;
 
-    my $count_all = $changes->count;
-    $changes->limit_to_voted;
-    my $count_voted = $changes->count;
-
-    # if there are no votes, just show every change by pretending they've
-    # all been voted on. this is kind of abusive.
-    if ($count_voted == 0) {
-        $changes = $changelog->changes;
-        $count_all = $count_voted = $changes->count;
-    }
-
     h3 { "Changes" }
     ul {
         for my $change (@$changes) {
@@ -83,10 +72,6 @@ template '/changelog/votes' => page {
         }
     };
 
-    my $count_unvoted = $count_all - $count_voted;
-    if ($count_unvoted) {
-        p { _("Not showing %quant(%1,change) that have not been voted on.", $count_unvoted) }
-    }
 };
 
 
