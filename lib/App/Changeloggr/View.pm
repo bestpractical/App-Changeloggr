@@ -7,6 +7,9 @@ use warnings;
 require App::Changeloggr::View::Admin;
 alias App::Changeloggr::View::Admin under '/admin';
 
+require App::Changeloggr::View::User;
+alias App::Changeloggr::View::User under '/user';
+
 # No salutation, ever
 template '/salutation' => sub {};
 
