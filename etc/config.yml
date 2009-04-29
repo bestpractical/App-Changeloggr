@@ -21,6 +21,9 @@ framework:
   LogLevel: INFO
   Mailer: Sendmail
   MailerArgs: []
+  PubSub:
+    Backend: Memcached
+    Enable: 1
   Plugins: 
     - SkeletonApp: {}
     - REST: {}
@@ -37,6 +40,7 @@ framework:
   Web: 
     BaseURL: http://localhost
     Port: 8888
+    ServerClass: Jifty::Server::Fork
     ServeStaticFiles: 1
     StaticRoot: share/web/static
     TemplateRoot: share/web/templates

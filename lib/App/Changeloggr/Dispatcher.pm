@@ -35,12 +35,8 @@ on '/changelog/*/*/Changes' => run {
 
 # match /admin/changelog/SUBTAB/UUID
 # or    /admin/changelog/UUID
-on qr{^/admin/changelog/([^/]+)(?:/([^/]+))?$} => run {
+on qr{^/admin/changelog((?:/[^/]+)*)/([^/]+)$} => run {
     my ($subpage, $uuid) = ($1, $2);
-    if (!$uuid) {
-        $uuid = $subpage;
-        undef $subpage;
-    }
 
     my $cl = Changelog(admin_token => $uuid);
     show "/errors/404" unless $cl->id;
@@ -64,7 +60,7 @@ on qr{^/admin/changelog/([^/]+)(?:/([^/]+))?$} => run {
     );
 
     set id => $cl->id;
-    show "/admin/changelog" . ($subpage ? "/$subpage" : "");
+    show "/admin/changelog$subpage";
 };
 
 1;

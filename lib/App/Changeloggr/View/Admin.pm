@@ -95,15 +95,27 @@ sub change_sections {
     return @sections;
 }
 
-sub add_changes_to {
-    my $changelog = shift;
-
+template '/changelog/changes/count' => sub {
+    my $id = get('id');
+    my $changelog = M('Changelog', id => $id);
     if ($changelog->changes->count) {
         p { _("This changelog has %quant(%1,change).", $changelog->changes->count) }
     }
+    Jifty->subs->update_on(
+        class   => 'AddChanges',
+        queries => [{ id => $id }],
+    );
+};
+
+sub add_changes_to {
+    my $changelog = shift;
+
+    render_region(
+        name => 'count',
+        path => '/admin/changelog/changes/count/'.$changelog->as_superuser->admin_token,
+    );
 
     my $add_changes = new_action('AddChanges');
-
     form {
         render_action($add_changes => ['changes']);
 

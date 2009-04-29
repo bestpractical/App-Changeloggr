@@ -2,7 +2,7 @@ package App::Changeloggr::Model::ChangeCollection;
 use strict;
 use warnings;
 use base 'App::Changeloggr::Collection';
-use Params::Validate qw(validate SCALAR);
+use Params::Validate qw(validate SCALAR BOOLEAN);
 
 use constant results_are_readable => 1;
 
@@ -12,6 +12,7 @@ sub create_from {
         text      => { type => SCALAR, default => '' },
         parser    => { isa => 'App::Changeloggr::InputFormat' },
         changelog => { isa => 'App::Changeloggr::Model::Changelog' },
+        events    => { type => SCALAR, default => 0 },
     });
 
     $args{parser} ||= App::Changeloggr::InputFormat->new( text => delete $args{text} );
@@ -19,6 +20,7 @@ sub create_from {
     my $parser    = $args{parser};
     my $changelog = $args{changelog};
 
+    my $last = 0;
     while (my $fields = $parser->next_match) {
         my $change = App::Changeloggr::Model::Change->new;
 
@@ -29,10 +31,19 @@ sub create_from {
 
         if ($ok) {
             $self->add_record($change);
+            if ($args{events} and time > $last + $args{events}) {
+                App::Changeloggr::Event::AddChanges->new(
+                    { id => $changelog->id, change => $change }
+                )->publish;
+                $last = time;
+            }
         } else {
             warn "Unable to create Change: $msg";
         }
     }
+    App::Changeloggr::Event::AddChanges->new(
+        { id => $changelog->id }
+    )->publish if $args{events};
 }
 
 sub limit_to_voted {
