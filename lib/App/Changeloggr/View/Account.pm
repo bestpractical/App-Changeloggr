@@ -7,5 +7,8 @@ use warnings;
 template '/index.html' => page {
 };
 
+template '/votes' => page {
+};
+
 1;
 

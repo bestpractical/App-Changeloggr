@@ -63,5 +63,12 @@ on qr{^/admin/changelog((?:/[^/]+)*)/([^/]+)$} => run {
     show "/admin/changelog$subpage";
 };
 
+before '/account' => sub {
+    my $account = Jifty->web->navigation->child('Account');
+    $account->child(
+        Votes => url => "/account/votes",
+    );
+};
+
 1;
 
