@@ -82,13 +82,21 @@ dl.keybindings dd {
 }
 
 ul.change_metadata {
-    list-style-type: none;
-    font-size: .8em;
-    padding-left: 0;
+   list-style-type: none;
+   font-size: .8em;
+   padding-left: 0;
 }
 
 hr {
-    border: 0;
-    border-bottom: 1px dashed #333;
+   border: 0;
+   border-bottom: 1px dashed #333;
+}
+
+.diffadd {
+   color: #9f9;
+}
+
+.diffsub {
+   color: #f99;
 }
 

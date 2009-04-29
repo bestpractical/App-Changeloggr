@@ -125,7 +125,11 @@ template '/change/more' => sub {
     my $change = M('Change', id => get('change'));
 
     pre {
-        $change->diffstat;
+        my $diffstat = Jifty->web->escape($change->diffstat);
+        $diffstat =~ s{(\++)}{<span class="diffadd">$1</span>}g;
+        $diffstat =~ s{(\-+)}{<span class="diffsub">$1</span>}g;
+
+        outs_raw $diffstat;
     };
 };
 
