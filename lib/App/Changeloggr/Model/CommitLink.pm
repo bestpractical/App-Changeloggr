@@ -34,7 +34,7 @@ sub linkify {
     my $find = $self->find;
     $text =~ 
         s{($find)}{
-            my @matches = map {substr($text,$-[$_], $+[$_] - $-[$_])} 0..$#+;
+            my @matches = map {substr($text,$-[$_], $+[$_] - $-[$_])} 1..$#+;
             my $href = $self->href;
             $href =~ s{\$(\d+)}{$matches[$1]}eg;
             qq{<a href="$href">$matches[0]</a>}
