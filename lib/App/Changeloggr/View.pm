@@ -164,6 +164,9 @@ sub show_vote_form {
                 );
             }
         }
+
+        h5 { 'Comment?' };
+        $vote->form_field('comment')->render_widget;
     }
 }
 
