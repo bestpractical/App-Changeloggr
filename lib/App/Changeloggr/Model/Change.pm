@@ -51,10 +51,16 @@ sub current_user_can {
     return $self->SUPER::current_user_can($right, @_);
 }
 
-sub grouped_votes {
-    my $self = shift;
+sub votes {
+    my $self = shif;
     my $votes = App::Changeloggr::Model::VoteCollection->new;
     $votes->limit( column => 'change_id', value => $self->id );
+    return $votes;
+}
+
+sub grouped_votes {
+    my $self = shift;
+    my $votes = $self->votes;
     $votes->column(
         column => 'tag',
     );
