@@ -26,10 +26,10 @@ sub take_action {
     my $changelog = $self->get_changelog;
 
     if ($parser->take_offline) {
-        Jifty->background( sub { $changelog->add_changes( $parser ) } );
+        Jifty->background( sub { $changelog->add_changes( parser => $parser ) } );
         $self->result->message(_("Importing your changes in the background."));
     } else {
-        my $changes = $changelog->add_changes( $parser );
+        my $changes = $changelog->add_changes( parser => $parser );
 
         if ($changes->count) {
             $self->result->message(_("Added your %quant(%1,change)!", $changes->count));

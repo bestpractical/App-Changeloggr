@@ -6,23 +6,15 @@ use Params::Validate qw(validate SCALAR);
 
 use constant results_are_readable => 1;
 
-sub create_from_text {
+sub create_from {
     my $self = shift;
     my %args = validate(@_, {
-        text      => { type => SCALAR },
-        changelog => { isa => 'App::Changeloggr::Model::Changelog' },
-    });
-
-    my $parser = App::Changeloggr::InputFormat->new( text => delete $args{text} );
-    return $self->create_from_parser( %args, parser => $parser );
-}
-
-sub create_from_parser {
-    my $self = shift;
-    my %args = validate(@_, {
+        text      => { type => SCALAR, default => '' },
         parser    => { isa => 'App::Changeloggr::InputFormat' },
         changelog => { isa => 'App::Changeloggr::Model::Changelog' },
     });
+
+    $args{parser} ||= App::Changeloggr::InputFormat->new( text => delete $args{text} );
 
     my $parser    = $args{parser};
     my $changelog = $args{changelog};

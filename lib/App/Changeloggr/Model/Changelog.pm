@@ -52,21 +52,13 @@ sub current_user_can {
 
 sub add_changes {
     my $self = shift;
-    my $arg = shift;
+    my %args = @_;
 
     my $changes = M('ChangeCollection');
-    if (ref $arg) {
-        $changes->create_from_parser(
-            parser    => $arg,
-            changelog => $self,
-        );
-    } else {
-        $changes->create_from_text(
-            text      => $arg,
-            changelog => $self,
-        );
-    }
-    
+    $changes->create_from(
+        changelog => $self,
+        @_,
+    );
 
     return $changes;
 }
