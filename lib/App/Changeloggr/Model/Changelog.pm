@@ -24,7 +24,8 @@ use App::Changeloggr::Record schema {
     column external_source =>
         type is 'text',
         render as 'text',
-        label is 'External URL per commit',
+        label is 'Commit view',
+        hints are 'The URL to view full commit info. __ID__ will be replaced with the commit ID.',
         since '0.0.3';
 };
 
