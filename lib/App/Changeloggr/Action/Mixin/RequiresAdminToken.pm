@@ -29,6 +29,7 @@ sub validate_admin_token {
         return $self->validation_ok('admin_token');
     }
     else {
+        $self->result->error("You do not have permission to modify this changelog.");
         return $self->validation_error(admin_token => "You do not have permission to modify this changelog.");
     }
 }

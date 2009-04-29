@@ -14,7 +14,7 @@ template '/create-changelog' => page {
 };
 
 template '/changelog' => page {
-    my $changelog = Changelog(id => get('id'));
+    my $changelog = Changelog(id => get('id'))->as_superuser;
 
     my $update = $changelog->as_update_action;
     form {
