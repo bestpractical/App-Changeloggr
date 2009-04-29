@@ -44,8 +44,8 @@ sub current_user_can {
     my $right = shift;
     my %args  = @_;
 
-    # votes are not private except who submitted the vote
-    return 1 if $right eq 'read' && $args{column} ne 'user_session_id';
+    # votes are public except who submitted the vote
+    return 1 if $right eq 'read' && $args{column} ne 'user_id';
 
     # anyone can vote
     return 1 if $right eq 'create';
