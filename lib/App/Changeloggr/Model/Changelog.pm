@@ -93,7 +93,7 @@ sub choose_change {
     my $self = shift;
 
     my $user = App::Changeloggr::Model::User->new;
-    $user->load_or_create(session_id => Jifty->web->session_id);
+    $user->load_or_create(session_id => Jifty->web->session->id);
 
     # This will become more advanced in the future, picking a change that
     # the current user has not voted on yet, ordered by the confidence of the
