@@ -156,7 +156,7 @@ sub show_vote_form {
         );
 
         if ($valid_tags->count == 0) {
-            render_action $vote;
+            render_action $vote, ['change_id', 'tag'];
             form_submit(
                 label   => 'Vote',
                 onclick => { submit => $vote, refresh_self => 1 }
