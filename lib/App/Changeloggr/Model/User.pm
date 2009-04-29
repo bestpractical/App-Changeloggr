@@ -7,7 +7,8 @@ use Jifty::DBI::Schema;
 use App::Changeloggr::Record schema {
     column name =>
         type is 'text',
-        label is 'Name';
+        label is 'Name',
+        is distinct;
 
     column session_id =>
         type is 'text',
