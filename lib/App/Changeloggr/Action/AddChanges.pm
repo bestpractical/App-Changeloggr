@@ -11,8 +11,7 @@ use Jifty::Action schema {
     param changes =>
         type is 'text',
         render as 'upload',
-        is mandatory,
-        hints is 'Formats we accept: git log --pretty=fuller --stat, svn log, or svn log --xml';
+        is mandatory;
 };
 
 sub take_action {

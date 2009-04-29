@@ -64,6 +64,15 @@ sub add_changes_to {
 
         form_submit(label => 'Add');
     };
+
+    p {
+        outs 'We accept the following log formats.';
+        ul {
+            li { tt { 'git log --pretty=fuller --stat' }};
+            li { tt { 'svn log' }};
+            li { tt { 'svn log --xml' }};
+        }
+    };
 }
 
 sub edit_links {
