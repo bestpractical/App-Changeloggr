@@ -118,6 +118,8 @@ sub show_change {
             hr {};
             show_vote_form($change);
         }
+
+        show_vote_comments($change);
     };
 }
 
@@ -166,6 +168,26 @@ sub show_vote_form {
         }
 
         render_param($vote, 'comment');
+    }
+}
+
+sub show_vote_comments {
+    my $change = shift;
+    my $votes = $change->votes;
+
+    $votes->limit(
+        column   => 'comment',
+        operator => '!=',
+        value    => '',
+    );
+
+    return if $votes->count == 0;
+
+    h5 { "Comments" }
+    ul {
+        while (my $vote = <$votes>) {
+            li { $vote->comment };
+        }
     }
 }
 
