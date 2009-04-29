@@ -28,6 +28,13 @@ use App::Changeloggr::Record schema {
         type is 'text',
         default is '',
         since '0.0.3';
+
+    column date =>
+        type is 'timestamp',
+        filters are qw( Jifty::Filter::DateTime Jifty::DBI::Filter::DateTime),
+        label is 'Date',
+        default is defer { DateTime->now },
+        since '0.0.5';
 };
 
 sub current_user_can {
