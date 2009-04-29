@@ -57,6 +57,9 @@ on qr{^/admin/changelog/([^/]+)(?:/([^/]+))?$} => run {
     $admin->child(
         Links => url => "/admin/changelog/links/$uuid",
     );
+    $admin->child(
+        Votes => url => "/admin/changelog/votes/$uuid",
+    );
 
     set id => $cl->id;
     show "/admin/changelog" . ($subpage ? "/$subpage" : "");
