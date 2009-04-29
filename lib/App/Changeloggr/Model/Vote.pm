@@ -31,8 +31,11 @@ use App::Changeloggr::Record schema {
 };
 
 sub _default_user {
+    my $session_id = Jifty->web->session->id;
+    return if !defined($session_id);
+
     my $user = App::Changeloggr::Model::User->new;
-    $user->load_or_create(session_id => Jifty->web->session->id);
+    $user->load_or_create(session_id => $session_id);
     return $user;
 }
 
