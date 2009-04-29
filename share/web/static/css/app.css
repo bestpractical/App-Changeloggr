@@ -87,3 +87,8 @@ ul.change_metadata {
     padding-left: 0;
 }
 
+hr {
+    border: 0;
+    border-bottom: 1px dashed #333;
+}
+
