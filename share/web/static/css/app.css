@@ -69,7 +69,14 @@ dl.keybindings dd {
   display: block;
 }
 
-.change {
+.change_message {
   white-space: pre;
   font-family: monospace;
+}
+
+.change {
+  background: #224;
+  margin: 1em;
+  padding: 1em;
+  border: 5px solid #000;
 }

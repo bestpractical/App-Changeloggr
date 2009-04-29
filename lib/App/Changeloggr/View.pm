@@ -50,8 +50,7 @@ template '/vote-on-change' => sub {
     my $changelog = M('Changelog', id => get('changelog'));
     my $change = $changelog->choose_change;
     if ($change) {
-        show_change($change);
-        show_vote_form($change);
+        show_change($change, voting_form => 1);
     } else {
         my $has_changes = $changelog->changes->count;
         h2 { "No changes " . ($has_changes ? "left " : "") . " in this log" };
@@ -78,14 +77,23 @@ sub changelog_summary {
 
 sub show_change {
     my $change = shift;
+    my %args = @_;
 
-    h3 {
+    div {
         { class is "change" };
-        my $message = Jifty->web->escape($change->message);
-        my $links = $change->changelog->commit_links;
-        $message = $_->linkify($message) while $_ = $links->next;
-        outs_raw( $message );
-    }
+
+        h3 {
+            { class is "change_message" };
+            my $message = Jifty->web->escape($change->message);
+            my $links = $change->changelog->commit_links;
+            $message = $_->linkify($message) while $_ = $links->next;
+            outs_raw( $message );
+        };
+
+        if ($args{voting_form}) {
+            show_vote_form($change);
+        }
+    };
 }
 
 sub show_vote_form {
