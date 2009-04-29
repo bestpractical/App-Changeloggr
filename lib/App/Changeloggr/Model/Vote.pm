@@ -24,6 +24,11 @@ use App::Changeloggr::Record schema {
         type is 'text',
         is mandatory,
         is immutable;
+
+    column comment =>
+        type is 'textarea',
+        default is '',
+        since '0.0.3';
 };
 
 sub current_user_can {
