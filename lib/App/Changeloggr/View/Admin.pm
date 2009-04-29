@@ -45,6 +45,56 @@ template '/changelog/links' => page {
     edit_links($changelog);
 };
 
+template '/changelog/votes' => page {
+    my $changelog = Changelog(id => get('id'));
+    my $changes = $changelog->changes;
+
+    $changes->limit_to_voted;
+
+    ul {
+        for my $change (@$changes) {
+            li {
+                my $message = $change->message;
+                substr($message, 40) = '...' if length($message) >= 40;
+
+                span { $message };
+
+                my @sections = change_sections($change);
+                if (@sections) {
+                    dl {
+                        for (@sections) {
+                            my ($name, $code) = @$_;
+                            dt { $name }
+                            dd { $code->() }
+                        }
+                    }
+                }
+            }
+        }
+    }
+};
+
+
+sub change_sections {
+    my $change = shift;
+    my @sections;
+
+    my $votes = $change->votes;
+    $votes->limit_to_commented;
+
+    if ($votes->count) {
+        push @sections, [Comments => sub {
+            ul {
+                while (my $vote = <$votes>) {
+                    li { $vote->comment }
+                }
+            }
+        }];
+    }
+
+    return @sections;
+}
+
 sub add_changes_to {
     my $changelog = shift;
 
