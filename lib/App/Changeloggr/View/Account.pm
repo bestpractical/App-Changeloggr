@@ -17,6 +17,8 @@ template '/index.html' => page {
 };
 
 template '/votes' => page {
+    my $user = Jifty->web->current_user->user_object;
+    p { _("You've voted on %quant(%1,change).", $user->votes->count) };
 };
 
 1;

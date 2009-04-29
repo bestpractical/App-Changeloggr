@@ -16,6 +16,9 @@ use App::Changeloggr::Record schema {
         is immutable;
 };
 
+# has to go below schema
+use JiftyX::ModelHelpers;
+
 sub since { '0.0.4' }
 
 sub current_user_can {
@@ -35,6 +38,12 @@ sub current_user_can {
 
     # but otherwise users are locked down
     return $self->SUPER::current_user_can($right, %args);
+}
+
+sub votes {
+    my $self = shift;
+
+    return M('VoteCollection', user_id => $self->id);
 }
 
 1;
