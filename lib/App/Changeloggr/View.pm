@@ -88,6 +88,24 @@ sub show_change {
             my $links = $change->changelog->commit_links;
             $message = $_->linkify($message) while $_ = $links->next;
             outs_raw( $message );
+
+            my $id = $change->id;
+            hyperlink(
+                label => 'more...',
+                onclick => [{
+                    region       => Jifty->web->qualified_region("change_$id"),
+                    replace_with => '/change/more',
+                    toggle       => 1,
+                    effect       => 'slideDown',
+                    arguments    => {
+                        change => $id,
+                    },
+                },
+                "this.innerHTML = this.innerHTML == 'more...' ? 'less...' : 'more...';",
+            ]);
+            div {
+                render_region("change_$id");
+            };
         };
 
         if ($args{voting_form}) {
@@ -95,6 +113,14 @@ sub show_change {
         }
     };
 }
+
+template '/change/more' => sub {
+    my $change = M('Change', id => get('change'));
+
+    pre {
+        $change->diffstat;
+    };
+};
 
 sub show_vote_form {
     my $change = shift;
