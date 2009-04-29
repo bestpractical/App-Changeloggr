@@ -183,11 +183,7 @@ sub show_vote_comments {
     my $change = shift;
     my $votes = $change->votes;
 
-    $votes->limit(
-        column   => 'comment',
-        operator => '!=',
-        value    => '',
-    );
+    $votes->limit_to_commented;
 
     return if $votes->count == 0;
 
