@@ -26,7 +26,7 @@ use App::Changeloggr::Record schema {
         is immutable;
 
     column comment =>
-        type is 'textarea',
+        type is 'text',
         default is '',
         since '0.0.3';
 };
