@@ -43,5 +43,26 @@ sub create_from_parser {
     }
 }
 
+sub limit_to_voted {
+    my $self = shift;
+
+    my $votes = $self->join(
+        type        => 'left',
+        column1     => 'id',
+        table2      => 'votes',
+        column2     => 'change_id',
+        is_distinct => 1,
+    );
+
+    $self->limit(
+        column   => 'id',
+        alias    => $votes,
+        operator => 'IS NOT',
+        value    => 'NULL',
+    );
+
+    return $self;
+}
+
 1;
 
