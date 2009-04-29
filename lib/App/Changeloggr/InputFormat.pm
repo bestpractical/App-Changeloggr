@@ -35,4 +35,10 @@ sub next_match {
     return undef;
 }
 
+sub take_offline {
+    my $self = shift;
+
+    return length($self->{text}) > 4 * 1024; # 4k of text or more
+}
+
 1;

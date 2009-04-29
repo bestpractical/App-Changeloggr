@@ -24,13 +24,19 @@ sub take_action {
     }
 
     my $changelog = $self->get_changelog;
-    my $changes = $changelog->add_changes( $parser );
 
-    if ($changes->count) {
-        $self->result->message(_("Added your %quant(%1,change)!", $changes->count));
-    }
-    else {
-        $self->result->message("No changes to add.");
+    if ($parser->take_offline) {
+        Jifty->background( sub { $changelog->add_changes( $parser ) } );
+        $self->result->message(_("Importing your changes in the background."));
+    } else {
+        my $changes = $changelog->add_changes( $parser );
+
+        if ($changes->count) {
+            $self->result->message(_("Added your %quant(%1,change)!", $changes->count));
+        }
+        else {
+            $self->result->message("No changes to add.");
+        }
     }
 }
 
