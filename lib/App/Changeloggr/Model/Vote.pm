@@ -12,13 +12,12 @@ use App::Changeloggr::Record schema {
         is immutable,
         render as 'hidden';
 
-    column user_session_id =>
-        type is 'text',
-        default is defer { Jifty->web->session->id },
+    column user_id =>
+        refers_to App::Changeloggr::Model::User,
         is mandatory,
         is immutable,
         is private,
-        is case_sensitive;
+        default is defer { _default_user() };
 
     column tag =>
         type is 'text',
@@ -30,6 +29,12 @@ use App::Changeloggr::Record schema {
         default is '',
         since '0.0.3';
 };
+
+sub _default_user {
+    my $user = App::Changeloggr::Model::User->new;
+    $user->load_or_create(session_id => Jifty->web->session->id);
+    return $user;
+}
 
 sub current_user_can {
     my $self  = shift;
