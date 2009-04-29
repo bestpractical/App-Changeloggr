@@ -80,3 +80,10 @@ dl.keybindings dd {
   padding: 1em;
   border: 5px solid #000;
 }
+
+ul.change_metadata {
+    list-style-type: none;
+    font-size: .8em;
+    padding-left: 0;
+}
+

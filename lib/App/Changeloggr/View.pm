@@ -90,6 +90,12 @@ sub show_change {
             outs_raw( $message );
         };
 
+        ul {
+            { class is "change_metadata" };
+            li { "Author: " . $change->author };
+            li { "Date: " . $change->date };
+        };
+
         my $id = $change->id;
         hyperlink(
             label => 'more...',
