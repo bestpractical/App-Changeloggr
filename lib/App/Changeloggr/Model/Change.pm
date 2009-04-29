@@ -52,7 +52,7 @@ sub current_user_can {
 }
 
 sub votes {
-    my $self = shif;
+    my $self = shift;
     my $votes = App::Changeloggr::Model::VoteCollection->new;
     $votes->limit( column => 'change_id', value => $self->id );
     return $votes;
