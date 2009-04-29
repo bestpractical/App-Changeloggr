@@ -74,5 +74,13 @@ sub grouped_votes {
     return $votes;
 }
 
+sub external_source {
+    my $self = shift;
+    my $url = $self->changelog->external_source;
+    return unless $url;
+    $url .= $self->identifier unless $url =~ s/__ID__/$self->identifier/ge;
+    return $url;
+}
+
 1;
 

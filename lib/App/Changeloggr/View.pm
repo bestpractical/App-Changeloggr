@@ -97,6 +97,14 @@ sub show_change {
         };
 
         my $id = $change->id;
+        if (my $url = $change->external_source) {
+            hyperlink(
+                label  => "Full diff",
+                url    => $url,
+                target => "diff",
+                class  => "external_source",
+            );
+        }
         hyperlink(
             label => 'more...',
             onclick => [{

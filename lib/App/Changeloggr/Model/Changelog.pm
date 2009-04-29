@@ -20,6 +20,12 @@ use App::Changeloggr::Record schema {
         is immutable,
         render as 'hidden',
         default is defer { _generate_admin_token() };
+
+    column external_source =>
+        type is 'text',
+        render as 'text',
+        label is 'External URL per commit',
+        since '0.0.3';
 };
 
 # has to go below schema
