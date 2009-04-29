@@ -12,7 +12,7 @@ before '*' => run {
 on '/admin/created-changelog' => run {
     my $id = Jifty->web->response->result('create-changelog')->content('id');
     my $admin_token = Changelog($id)->as_superuser->admin_token;
-    redirect "/admin/changelog/$admin_token";
+    redirect "/admin/changelog/changes/$admin_token";
 };
 
 on '/changelog/*' => run {
