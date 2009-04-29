@@ -115,6 +115,7 @@ sub show_change {
         };
 
         if ($args{voting_form}) {
+            hr {};
             show_vote_form($change);
         }
     };
@@ -134,6 +135,7 @@ sub show_vote_form {
     my $valid_tags = $change->changelog->tags;
 
     form {
+        h4 { 'Vote!' };
         my $vote = new_action(
             class     => "CreateVote",
             arguments => { change_id => $change->id }
