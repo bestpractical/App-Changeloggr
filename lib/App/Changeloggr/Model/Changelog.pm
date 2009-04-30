@@ -90,6 +90,17 @@ sub has_tag {
     return $tags->count;
 }
 
+sub add_tag {
+    my $self = shift;
+    my $text = shift;
+
+    my $tag = M('Tag');
+    $tag->as_superuser->create(
+        text         => $text,
+        changelog_id => $self->id,
+    );
+}
+
 sub commit_links {
     my $self = shift;
 
