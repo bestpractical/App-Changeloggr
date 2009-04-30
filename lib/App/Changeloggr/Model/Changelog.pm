@@ -31,6 +31,7 @@ use App::Changeloggr::Record schema {
     column incremental_tags =>
         is boolean,
         default is 0,
+        label is 'Incremental tags?',
         since '0.0.6';
 };
 

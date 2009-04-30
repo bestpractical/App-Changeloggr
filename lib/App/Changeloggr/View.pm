@@ -155,7 +155,8 @@ template '/change/more' => sub {
 sub show_vote_form {
     my $change = shift;
 
-    my $valid_tags = $change->changelog->tags;
+    my $changelog = $change->changelog;
+    my $valid_tags = $changelog->tags;
 
     form {
         h4 { 'Vote!' };
@@ -164,15 +165,18 @@ sub show_vote_form {
             arguments => { change_id => $change->id }
         );
 
-        if ($valid_tags->count == 0) {
-            render_action $vote, ['change_id', 'tag'];
+        render_param($vote, 'change_id');
+        if ($valid_tags->count == 0 || $changelog->incremental_tags) {
+            render_param($vote, 'tag');
+
+            my $label = $changelog->incremental_tags ? 'Vote and add tag' : 'Vote';
             form_submit(
-                label   => 'Vote',
+                label   => $label,
                 onclick => { submit => $vote, refresh_self => 1 }
             );
         }
-        else {
-            render_action $vote, ['change_id'];
+
+        if ($valid_tags->count) {
             while (my $valid_tag = $valid_tags->next) {
                 $vote->button(
                     class => "vote",
