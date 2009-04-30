@@ -80,6 +80,15 @@ sub tags {
     return M('TagCollection', changelog_id => $self);
 }
 
+sub has_tag {
+    my $self = shift;
+    my $tag  = shift;
+
+    my $tags = $self->tags;
+    $tags->limit(column => 'text', value => $tag);
+    return $tags->count;
+}
+
 sub commit_links {
     my $self = shift;
 
