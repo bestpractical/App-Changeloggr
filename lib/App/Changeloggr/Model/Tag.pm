@@ -38,6 +38,30 @@ sub validate_hotkey {
     return 1;
 }
 
+sub create {
+    my $self = shift;
+    my %args = @_;
+
+    my $text      = $args{text};
+    my $hotkey    = $args{hotkey};
+    my $changelog = $args{changelog_id};
+
+    if (length $text and not length($hotkey)) {
+        my $possible = lc substr($text, 0, 1);
+        my $existing = App::Changeloggr::Model::TagCollection->new;
+        $existing->limit( column => 'changelog_id', value => $args{changelog_id} );
+        $existing->limit( column => 'hotkey',       value => $possible );
+        $hotkey = $possible unless $existing->count;
+    }
+
+    return $self->SUPER::create(
+        %args,
+        text         => $text,
+        hotkey       => $hotkey,
+        changelog_id => $changelog,
+    );
+}
+
 sub current_user_can {
     my $self  = shift;
     my $right = shift;
