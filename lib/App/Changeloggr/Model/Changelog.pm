@@ -27,6 +27,11 @@ use App::Changeloggr::Record schema {
         label is 'Commit view',
         hints are 'The URL to view full commit info. __ID__ will be replaced with the commit ID.',
         since '0.0.3';
+
+    column incremental_tags =>
+        is boolean,
+        default is 0,
+        since '0.0.6';
 };
 
 # has to go below schema
