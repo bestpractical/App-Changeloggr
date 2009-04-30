@@ -139,8 +139,14 @@ template '/change/more' => sub {
 
     pre {
         my $diffstat = Jifty->web->escape($change->diffstat);
-        $diffstat =~ s{(\++)}{<span class="diffadd">$1</span>}g;
-        $diffstat =~ s{(\-+)}{<span class="diffsub">$1</span>}g;
+
+        for (['+', 'diffadd'], ['-', 'diffsub']) {
+            my ($char, $class) = @$_;
+
+            # this regex avoids coloring the symbols in filenames
+            $diffstat =~ s{(\|\s+\d+ |</span>)(\Q$char\E+)}
+                          {$1<span class="$class">$2</span>}g;
+        }
 
         outs_raw $diffstat;
     };
