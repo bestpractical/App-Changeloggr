@@ -42,12 +42,10 @@ sub create {
     my $self = shift;
     my %args = @_;
 
-    my $text      = $args{text};
-    my $hotkey    = $args{hotkey};
-    my $changelog = $args{changelog_id};
+    my $hotkey = $args{hotkey};
 
-    if (length $text and not length($hotkey)) {
-        my $possible = lc substr($text, 0, 1);
+    if (length $args{text} and not length($hotkey)) {
+        my $possible = lc substr($args{text}, 0, 1);
         my $existing = App::Changeloggr::Model::TagCollection->new;
         $existing->limit( column => 'changelog_id', value => $args{changelog_id} );
         $existing->limit( column => 'hotkey',       value => $possible );
@@ -56,9 +54,7 @@ sub create {
 
     return $self->SUPER::create(
         %args,
-        text         => $text,
-        hotkey       => $hotkey,
-        changelog_id => $changelog,
+        hotkey => $hotkey,
     );
 }
 
