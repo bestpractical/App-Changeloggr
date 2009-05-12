@@ -141,21 +141,28 @@ sub edit_links {
     my $changelog = shift;
     my $links = $changelog->commit_links;
 
-    while (my $link = $links->next) {
-        form {
-            my $delete_link = $link->as_delete_action;
-            render_action $delete_link;
-            form_submit(label => $link->find . " => " . $link->href);
-        }
-    }
-
     form {
+        if ($links->count) {
+            ul {
+                while (my $link = $links->next) {
+                    li {
+                        my $delete_link = $link->as_delete_action;
+                        render_action $delete_link;
+                        tt { $link->find };
+                        outs_raw "<br /> &rArr; ";
+                        tt { $link->href };
+                        $delete_link->button(label => "Delete");
+                    }
+                }
+            }
+        }
+
         my $add_link = new_action(
             class     => "CreateCommitLink",
             arguments => { changelog_id => $changelog->id }
         );
         render_action $add_link;
-        form_submit(label => 'Add Link');
+        form_submit(label => 'Add Link', submit => [$add_link]);
     }
 }
 
@@ -163,21 +170,33 @@ sub edit_tags {
     my $changelog = shift;
     my $tags = $changelog->tags;
 
-    while (my $tag = $tags->next) {
-        form {
-            my $delete_tag = $tag->as_delete_action;
-            render_action $delete_tag;
-            form_submit(label => $tag->text);
-        }
-    }
-
     form {
+        if ($tags->count) {
+            ul {
+                while (my $tag = $tags->next) {
+                    li {
+                        my $delete_tag = $tag->as_delete_action;
+                        render_action $delete_tag;
+                        outs $tag->text;
+                        if ($tag->hotkey) {
+                            outs " ";
+                            span {
+                                { class is "hotkey" };
+                                "(hotkey: ".$tag->hotkey.")"
+                            }
+                        }
+                        $delete_tag->button(label => "Delete", class => "inline delete");
+                    }
+                }
+            }
+        }
+
         my $add_tag = new_action(
             class     => "CreateTag",
             arguments => { changelog_id => $changelog->id }
         );
         render_action $add_tag;
-        form_submit(label => 'Add Tag');
+        form_submit(label => 'Add Tag', submit => [$add_tag]);
     }
 }
 
