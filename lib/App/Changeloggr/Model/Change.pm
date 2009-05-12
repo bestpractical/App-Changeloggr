@@ -82,5 +82,41 @@ sub external_source {
     return $url;
 }
 
+sub importance_votes {
+    my $self = shift;
+    my $importance_votes = App::Changeloggr::Model::ImportanceCollection->new;
+    $importance_votes->limit( column => 'change_id', value => $self->id );
+    return $importance_votes;
+}
+
+sub numeric_importance {
+    my $self = shift;
+    my $importance_votes = $self->importance_votes;
+
+    $importance_votes->column(
+        column => 'importance',
+    );
+    $importance_votes->column(
+        column   => 'id',
+        function => 'count',
+    );
+    $importance_votes->group_by(
+        column => 'importance',
+    );
+
+    my $numeric_importance = 0;
+
+    while (my $importance_vote = <$importance_votes>) {
+        my $importance = $importance_vote->importance;
+        my $count = $importance_vote->id;
+
+        next if $importance eq 'normal';
+        $numeric_importance += $count if $importance eq 'major';
+        $numeric_importance -= $count if $importance eq 'minor';
+    }
+
+    return $numeric_importance;
+}
+
 1;
 
