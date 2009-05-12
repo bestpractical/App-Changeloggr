@@ -32,7 +32,7 @@ template '/' => page {
 template '/changelog' => page {
     my $changelog = Changelog(name => get('name'));
 
-    h1 { $changelog->name };
+    title is $changelog->name;
 
     render_region(
         name => 'vote-on-change',
