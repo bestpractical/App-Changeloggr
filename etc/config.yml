@@ -2,7 +2,7 @@
 framework: 
   AdminMode: 0
   ApplicationClass: App::Changeloggr
-  ApplicationName: App-Changeloggr
+  ApplicationName: Changelogger
   ApplicationUUID: DFE97C64-0462-11DE-B67F-355F32960180
   ConfigFileVersion: 4
   Database: 
