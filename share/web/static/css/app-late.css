@@ -1,4 +1,5 @@
 div.jGrowl div.jGrowl-notification, div.jGrowl div.jGrowl-closer {
-    background-color: #006600;
+    background-color: #334;
+    border: 1px solid #eee;
 }
 
