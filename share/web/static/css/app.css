@@ -14,6 +14,14 @@ body {
   margin-top: 2em;
 }
 
+#footer {
+  position: absolute;
+  right: 1em;
+  height: 50px;
+  width: 180px;
+  background: #112 url(/static/images/bplogo.png) no-repeat right top;
+}
+
 h1 {
   margin: 0;
   padding: 0;
