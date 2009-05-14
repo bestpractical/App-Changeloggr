@@ -13,6 +13,7 @@ use App::Changeloggr::Record schema {
 
     column done =>
         is boolean,
+        hints are 'This Changelog is no longer accepting Votes',
         default is 0;
 
     column admin_token =>
