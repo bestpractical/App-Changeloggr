@@ -23,7 +23,7 @@ sub next_match {
         my $data = XMLin( $self->{text}, ForceArray => ["logentry"] );
         $self->{log_entries} = [map {
             {
-                identifier => "r" . $_->{revision},
+                identifier => $_->{revision},
                 author     => $_->{author},
                 date       => DATE_PARSER->parse_datetime( $_->{date} ),
                 message    => $_->{msg},
