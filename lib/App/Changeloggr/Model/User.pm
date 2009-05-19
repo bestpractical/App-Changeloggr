@@ -14,6 +14,12 @@ use App::Changeloggr::Record schema {
         type is 'text',
         render as 'hidden',
         is immutable;
+
+    column show_details =>
+        is boolean,
+        default is 0,
+        label is 'Always show details',
+        since '0.0.9';
 };
 
 # has to go below schema
