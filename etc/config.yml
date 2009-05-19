@@ -44,3 +44,6 @@ framework:
     ServeStaticFiles: 1
     StaticRoot: share/web/static
     TemplateRoot: share/web/templates
+application:
+  BackgroundImport: 1
+

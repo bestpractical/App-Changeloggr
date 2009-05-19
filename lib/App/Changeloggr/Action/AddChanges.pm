@@ -25,7 +25,7 @@ sub take_action {
 
     my $changelog = $self->get_changelog;
 
-    if ($parser->take_offline) {
+    if (Jifty->config->app('BackgroundImport') && $parser->take_offline) {
         Jifty->background( sub { $changelog->add_changes( parser => $parser, events => 2 ) } );
         $self->result->message(_("Importing your changes in the background."));
     } else {
