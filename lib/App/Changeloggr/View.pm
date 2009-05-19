@@ -57,6 +57,7 @@ template '/vote-on-change' => sub {
     } else {
         my $has_changes = $changelog->changes->count;
         h2 { "No changes " . ($has_changes ? "left " : "") . " in this log" };
+        p { "Thank you for all your votes!" } if $has_changes;
     }
 };
 
