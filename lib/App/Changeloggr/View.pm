@@ -90,7 +90,7 @@ sub show_change {
             $change->identifier;
         };
 
-        h3 {
+        p {
             { class is "change_message" };
             my $message = Jifty->web->escape($change->message);
             my $links = $change->changelog->commit_links;
