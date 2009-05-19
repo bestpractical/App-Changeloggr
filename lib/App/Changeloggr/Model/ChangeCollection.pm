@@ -24,6 +24,18 @@ sub create_from {
     while (my $fields = $parser->next_match) {
         my $change = App::Changeloggr::Model::Change->new;
 
+        # If we already have a change with this changelog and identifier,
+        # skip it.
+        my $existing_change = App::Changeloggr::Model::Change->new;
+        $existing_change->load_by_cols(
+            changelog_id => $changelog->id,
+            identifier   => $fields->{identifier},
+        );
+        if ($existing_change->id) {
+            $self->log->debug("Skipping identifier $fields->{identifier} for changelog #" . $changelog->id . " since it has a change with that identifier");
+            next;
+        }
+
         my ($ok, $msg) = $change->create(
             %$fields,
             changelog_id => $changelog->id,
