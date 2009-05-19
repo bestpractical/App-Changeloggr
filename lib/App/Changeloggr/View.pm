@@ -114,22 +114,35 @@ sub show_change {
                 class  => "external_source",
             );
         }
-        hyperlink(
-            label => 'more...',
-            onclick => [{
-                region       => Jifty->web->qualified_region("change_$id"),
-                replace_with => '/change/more',
-                toggle       => 1,
-                effect       => 'slideDown',
-                arguments    => {
-                    change => $id,
+        if (Jifty->web->current_user->user_object->show_details) {
+            div {
+                render_region(
+                    name      => "change_$id",
+                    path      => '/change/more',
+                    arguments => {
+                        change => $id,
+                    },
+                );
+            };
+        }
+        else {
+            hyperlink(
+                label => 'more...',
+                onclick => [{
+                    region       => Jifty->web->qualified_region("change_$id"),
+                    replace_with => '/change/more',
+                    toggle       => 1,
+                    effect       => 'slideDown',
+                    arguments    => {
+                        change => $id,
+                    },
                 },
-            },
-            "this.innerHTML = this.innerHTML == 'more...' ? 'less...' : 'more...';",
-        ]);
-        div {
-            render_region("change_$id");
-        };
+                "this.innerHTML = this.innerHTML == 'more...' ? 'less...' : 'more...';",
+            ]);
+            div {
+                render_region("change_$id");
+            };
+        }
 
         if ($args{voting_form}) {
             hr {};
