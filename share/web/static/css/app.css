@@ -112,3 +112,10 @@ hr {
 .external_source {
   float: right;
 }
+
+.change .identifier {
+  font-size: .7em;
+  text-align: right;
+  color: #999;
+}
+

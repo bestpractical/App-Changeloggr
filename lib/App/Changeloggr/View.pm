@@ -85,6 +85,11 @@ sub show_change {
     div {
         { class is "change" };
 
+        p {
+            { class is "identifier" };
+            $change->identifier;
+        };
+
         h3 {
             { class is "change_message" };
             my $message = Jifty->web->escape($change->message);
