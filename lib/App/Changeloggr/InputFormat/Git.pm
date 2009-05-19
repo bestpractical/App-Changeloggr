@@ -63,6 +63,8 @@ sub next_match {
         $fields{diffstat} = $1;
     }
 
+    $fields{message} =~ s/^git-svn-id: .*$//m;
+
     return \%fields;
 }
 
