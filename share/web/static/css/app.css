@@ -1,3 +1,5 @@
+@import "change.css";
+
 body {
   margin:  0;
   padding: 0;
@@ -23,11 +25,6 @@ body {
   background: #112 url(/static/images/bplogo.png) no-repeat right top;
 }
 
-h1 {
-  margin: 0;
-  padding: 0;
-}
-
 a, a:link, a:visited {
   color: #ddd;
   text-decoration: underline;
@@ -48,10 +45,6 @@ input.button {
   padding: 0.5em;
 }
 
-input.button.vote {
-  margin: 0.3em;
-}
-
 .error.text, .error.password {
   background-color: #100;
   -moz-border-radius: 5px; -webkit-border-radius: 5px;
@@ -62,60 +55,8 @@ input.button.vote {
   font-weight: bold;
 }
 
-dl.keybindings {
-  margin-top: 0;
-}
-
-dl.keybindings dt {
-  width: 1.5em;
-  clear: left;
-  float: left;
-  display: block;
-}
-
-dl.keybindings dd {
-  float: left;
-  display: block;
-}
-
-.change_message {
-  white-space: pre;
-  font-family: monospace;
-}
-
-.change {
-  background: #224;
-  margin: 1em;
-  padding: 1em;
-  border: 5px solid #000;
-}
-
-ul.change_metadata {
-   list-style-type: none;
-   font-size: .8em;
-   padding-left: 0;
-}
-
 hr {
    border: 0;
    border-bottom: 1px dashed #333;
-}
-
-.diffadd {
-   color: #9f9;
-}
-
-.diffsub {
-   color: #f99;
-}
-
-.external_source {
-  float: right;
-}
-
-.change .identifier {
-  font-size: .7em;
-  text-align: right;
-  color: #999;
 }
 

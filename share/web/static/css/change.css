@@ -1,0 +1,61 @@
+h1 {
+  margin: 0;
+  padding: 0;
+}
+
+input.button.vote {
+  margin: 0.3em;
+}
+
+dl.keybindings {
+  margin-top: 0;
+}
+
+dl.keybindings dt {
+  width: 1.5em;
+  clear: left;
+  float: left;
+  display: block;
+}
+
+dl.keybindings dd {
+  float: left;
+  display: block;
+}
+
+.change_message {
+  white-space: pre;
+  font-family: monospace;
+}
+
+.change {
+  background: #224;
+  margin: 1em;
+  padding: 1em;
+  border: 5px solid #000;
+}
+
+ul.change_metadata {
+   list-style-type: none;
+   font-size: .8em;
+   padding-left: 0;
+}
+
+.diffadd {
+   color: #9f9;
+}
+
+.diffsub {
+   color: #f99;
+}
+
+.external_source {
+  float: right;
+}
+
+.change .identifier {
+  font-size: .7em;
+  text-align: right;
+  color: #999;
+}
+
