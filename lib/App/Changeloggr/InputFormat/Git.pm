@@ -65,6 +65,9 @@ sub next_match {
 
     $fields{message} =~ s/^git-svn-id: .*$//m;
 
+    # Remove extra newlines at the end of the message
+    $fields{message} =~ s/\s+\z//;
+
     return \%fields;
 }
 
