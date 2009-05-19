@@ -61,6 +61,9 @@ sub next_match {
     }
     if ($entry =~ /\n(\s{1,2}\S+\s+\|\s+\d+.*)$/ims) {
         $fields{diffstat} = $1;
+
+        # Remove extra newlines at the end of the diffstat
+        $fields{diffstat} =~ s/\s+\z//;
     }
 
     $fields{message} =~ s/^git-svn-id: .*$//m;
