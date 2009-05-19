@@ -24,7 +24,6 @@ dl.keybindings dd {
 }
 
 .change_message {
-  white-space: pre;
   font-family: monospace;
 }
 

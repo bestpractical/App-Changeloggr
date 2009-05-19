@@ -93,6 +93,7 @@ sub show_change {
         p {
             { class is "change_message" };
             my $message = Jifty->web->escape($change->message);
+            $message =~ s{\n}{<br />}g;
             my $links = $change->changelog->commit_links;
             $message = $_->linkify($message) while $_ = $links->next;
             outs_raw( $message );
