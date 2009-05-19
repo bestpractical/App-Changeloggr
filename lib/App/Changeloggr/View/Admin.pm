@@ -101,10 +101,13 @@ template '/changelog/changes/count' => sub {
     if ($changelog->changes->count) {
         p { _("This changelog has %quant(%1,change).", $changelog->changes->count) }
     }
-    Jifty->subs->update_on(
-        class   => 'AddChanges',
-        queries => [{ id => $id }],
-    );
+
+    if (Jifty->config->app('BackgroundImport')) {
+        Jifty->subs->update_on(
+            class   => 'AddChanges',
+            queries => [{ id => $id }],
+        );
+    }
 };
 
 sub add_changes_to {
