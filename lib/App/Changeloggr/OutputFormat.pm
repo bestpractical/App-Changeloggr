@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-package App::Changeloggr::OutputFormat::Jifty;
+package App::Changeloggr::OutputFormat;
 
 sub generate {
     my $class = shift;
