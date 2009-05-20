@@ -172,8 +172,6 @@ sub show_change {
             hr {};
             show_vote_form($change);
         }
-
-        show_vote_comments($change);
     };
 }
 
@@ -239,8 +237,6 @@ sub show_vote_form {
                 );
             }
         }
-
-        render_param($vote, 'comment');
     }
 }
 
