@@ -8,7 +8,7 @@ body {
 }
 
 #content {
-  margin-left: 80px;
+  margin-left: 5%;
   margin-right: auto;
   padding-right: 10em;
   background: #112;
@@ -63,5 +63,6 @@ hr {
 div#keybindings {
     position: absolute;
     top: 100px;
-    left: 90%;
+    left: 88%;
+    max-width: 12%;
 }
