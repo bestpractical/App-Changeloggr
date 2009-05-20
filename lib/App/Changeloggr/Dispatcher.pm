@@ -18,7 +18,23 @@ on '/admin/created-changelog' => run {
 };
 
 on '/changelog/*' => run {
-    set name => $1;
+    my $name = $1;
+    set name => $name;
+
+    my $changelog = Jifty->web->navigation->child(
+        $name  => url => "/changelog/$name",
+        active => 1,
+    );
+
+    my @output_formats = map { s/.*:://; $_ } App::Changeloggr->output_formats;
+
+    for my $format_name (@output_formats) {
+        $changelog->child(
+            "Export as $format_name" =>
+            url => "/changelog/$name/$format_name/Changes",
+        );
+    }
+
     show '/changelog';
 };
 
