@@ -9,7 +9,8 @@ use App::Changeloggr::Record schema {
         type is 'text',
         label is 'Project name',
         is distinct,
-        is mandatory;
+        is mandatory,
+        ajax validates;
 
     column done =>
         is boolean,
@@ -38,6 +39,14 @@ use App::Changeloggr::Record schema {
 
 # has to go below schema
 use JiftyX::ModelHelpers;
+
+sub validate_name {
+    my $self = shift;
+    my $name = shift;
+    my $exist = M(Changelog => name => $name);
+    return (0, "That name already exists -- choose another") if $exist->id;
+    return 1;
+}
 
 sub _generate_admin_token {
     require Data::GUID;
