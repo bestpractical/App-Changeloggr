@@ -44,7 +44,8 @@ sub validate_name {
     my $self = shift;
     my $name = shift;
     my $exist = M(Changelog => name => $name);
-    return (0, "That name already exists -- choose another") if $exist->id;
+    return (0, "That name already exists -- choose another")
+        if $exist->id && $exist->id != $self->id;
     return 1;
 }
 
