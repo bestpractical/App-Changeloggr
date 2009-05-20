@@ -29,7 +29,7 @@ EOT
         my @changes = map  { $_->[0] }
                       sort { $a->[1] <=> $b->[1] }
                       map  { [$_, $_->numeric_importance] }
-                      @{$args{categories}{$cat}}
+                      @{$args{categories}{$cat}};
 
         for my $change (@changes) {
             my($summary) = $change->message =~ /\A(.*)$/m;
