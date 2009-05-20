@@ -19,7 +19,7 @@ sub validate_tag {
 
     # if the admin wants incremental tag creation for this project, then
     # add this tag before voting
-    if (!$changelog->has_tag($tag)) {
+    if (!$changelog->has_tag($tag) && $changelog->incremental_tags) {
         my ($ok, $msg) = $changelog->add_tag($tag);
         return $self->validation_ok('tag') if $ok;
         return $self->validation_error(tag => $msg);
