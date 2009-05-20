@@ -23,13 +23,17 @@ template '/' => page {
     my $changelogs = M(ChangelogCollection => done => 0);
     $changelogs->with_changes;
 
-    if ($changelogs->count) {
+    my $count = $changelogs->count;
+
+    if ($count > 1) {
         h2 { "These projects need your help!" };
         ul {
             while (my $changelog = $changelogs->next) {
                 li { changelog_summary($changelog) }
             }
         }
+    } elsif ( $count == 1) {
+        redirect '/changelog/' . $changelogs->first->name;
     } else {
         redirect '/admin/create-changelog';
     }
