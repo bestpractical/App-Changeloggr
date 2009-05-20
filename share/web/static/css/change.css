@@ -60,4 +60,5 @@ ul.change_metadata {
 
 iframe.external_source {
     width: 100%;
+    height: 300px;
 }
