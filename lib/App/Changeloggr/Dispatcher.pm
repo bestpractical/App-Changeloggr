@@ -18,23 +18,7 @@ on '/admin/created-changelog' => run {
 };
 
 on '/changelog/*' => run {
-    my $name = $1;
-    set name => $name;
-
-    my $changelog = Jifty->web->navigation->child(
-        $name  => url => "/changelog/$name",
-        active => 1,
-    );
-
-    my @output_formats = map { s/.*:://; $_ } App::Changeloggr->output_formats;
-
-    for my $format_name (@output_formats) {
-        $changelog->child(
-            "Export as $format_name" =>
-            url => "/changelog/$name/$format_name/Changes",
-        );
-    }
-
+    set name => $1;
     show '/changelog';
 };
 
@@ -75,6 +59,8 @@ on qr{^/admin/changelog((?:/[^/]+)*)/([^/]+)$} => run {
         Votes => url => "/admin/changelog/votes/$uuid",
     );
 
+    add_export_format_nav($cl->name);
+
     set id => $cl->id;
     show "/admin/changelog$subpage";
 };
@@ -85,6 +71,24 @@ before '/account' => sub {
         Votes => url => "/account/votes",
     );
 };
+
+sub add_export_format_nav {
+    my $name = shift;
+
+    my $changelog = Jifty->web->navigation->child(
+        $name  => url => "/changelog/$name",
+        active => 1,
+    );
+
+    my @output_formats = map { s/.*:://; $_ } App::Changeloggr->output_formats;
+
+    for my $format_name (@output_formats) {
+        $changelog->child(
+            "Export as $format_name" =>
+            url => "/changelog/$name/$format_name/Changes",
+        );
+    }
+}
 
 1;
 
