@@ -23,6 +23,16 @@ on '/admin/created-changelog' => run {
     redirect "/admin/changelog/changes/$admin_token";
 };
 
+before '/changelog/*' => run {
+    warn "Checking before $1";
+    my $cl = Changelog( name => $1 );
+    warn "cl is $cl id ".$cl->id;
+    return unless $cl->id and $cl->current_user_is_admin;
+    Jifty->web->navigation->child(
+        "Administrate" => url => "/admin/changelog/" . $cl->admin_token,
+    );
+};
+
 on '/changelog/*' => run {
     set name => $1;
     show '/changelog';
