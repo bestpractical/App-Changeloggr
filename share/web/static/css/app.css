@@ -57,8 +57,3 @@ hr {
    border-bottom: 1px dashed #333;
 }
 
-div#keybindings {
-    position: absolute;
-    top: 100px;
-    right: 80px;
-}

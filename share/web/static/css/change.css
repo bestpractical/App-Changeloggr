@@ -7,12 +7,17 @@ input.button.vote {
   margin: 0.3em;
 }
 
+div#keybindings {
+    position: absolute;
+    top: 100px;
+    right: 4em;
+}
+
 dl.keybindings {
   margin-top: 0;
 }
 
 dl.keybindings dt {
-  width: 1.5em;
   clear: left;
   float: left;
   display: block;
