@@ -21,6 +21,7 @@ use App::Changeloggr::Record schema {
 
     column message =>
         type is 'text',
+        render as 'textarea',
         default is '';
 
     column date =>
