@@ -14,7 +14,7 @@ framework:
     Password: ''
     RecordBaseClass: Jifty::DBI::Record::Cachable
     User: ''
-    Version: 0.0.11
+    Version: 0.0.12
   DevelMode: 1
   L10N: 
     PoDir: share/po
@@ -33,6 +33,7 @@ framework:
     - Feedback:
         to:   changelogger@my.hiveminder.com
         from: changelogger-user@bestpractical.com
+    - SiteNews: {}
   SkipAccessControl: 0
   TemplateClass: App::Changeloggr::View
   View: 

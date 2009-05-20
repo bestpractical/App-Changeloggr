@@ -10,6 +10,9 @@ alias App::Changeloggr::View::Admin under '/admin';
 require App::Changeloggr::View::Account;
 alias App::Changeloggr::View::Account under '/account';
 
+require Jifty::Plugin::SiteNews::View::News;
+alias Jifty::Plugin::SiteNews::View::News under '/news';
+
 # No salutation, ever
 template '/salutation' => sub {};
 
