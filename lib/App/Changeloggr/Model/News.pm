@@ -22,7 +22,7 @@ sub current_user_can {
     my $self = shift;
     my $right = shift;
     return 1 if $right eq "read";
-    return 1 if $self->current_user->user_object and $self->current_user->user_object->access_level eq "staff";
+    return 1 if $self->current_user->user_object and $self->current_user->user_object->is_staff;
     return 0;
 }
 
