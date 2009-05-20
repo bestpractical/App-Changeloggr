@@ -48,7 +48,7 @@ ul.change_metadata {
    color: #f99;
 }
 
-.external_source {
+a.external_source {
   float: right;
 }
 
