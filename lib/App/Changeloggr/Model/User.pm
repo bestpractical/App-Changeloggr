@@ -20,6 +20,12 @@ use App::Changeloggr::Record schema {
         default is 0,
         label is 'Always show details',
         since '0.0.9';
+
+    column show_diff =>
+        is boolean,
+        default is 0,
+        label is 'Always show full diff',
+        since '0.0.10';
 };
 
 # has to go below schema
