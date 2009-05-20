@@ -41,6 +41,8 @@ template '/changelog' => page {
             changelog => $changelog->id,
         },
     );
+
+    show '/feedback/request_feedback';
 };
 
 template '/changelog/download' => sub {
