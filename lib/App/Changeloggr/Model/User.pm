@@ -19,7 +19,8 @@ use App::Changeloggr::Record schema {
         is boolean,
         default is 0,
         label is 'Always show details',
-        since '0.0.9';
+        since '0.0.9',
+        till '0.0.11';
 
     column show_diff =>
         is boolean,
