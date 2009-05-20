@@ -9,6 +9,12 @@ before '*' => run {
       $top->child(Account => url => '/account');
 
       Jifty->web->session->expires( '+1y' );
+
+      my $session = Jifty->web->session->id
+          or return;
+      my $user = App::Changeloggr::Model::User->new;
+      $user->load_or_create(session_id => $session);
+      Jifty->web->current_user->user_object($user);
 };
 
 on '/admin/created-changelog' => run {
