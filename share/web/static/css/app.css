@@ -59,12 +59,13 @@ hr {
 
 .change .identifier {
   font-size: .6em;
-  text-align: right;
+  float: right;
   color: #777;
 }
 
 .identifier a.external_source {
   color: #777;
   text-decoration: none;
+  float: none;
 }
 

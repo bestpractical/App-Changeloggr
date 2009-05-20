@@ -109,6 +109,9 @@ sub show_change {
             else {
                 outs $change->identifier;
             }
+            span {
+                "(". $change->changelog->unvoted_changes->count . " remaining)"
+            }
         };
 
         p {

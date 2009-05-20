@@ -124,12 +124,8 @@ sub commit_links {
     return M('CommitLinkCollection', changelog_id => $self);
 }
 
-sub choose_change {
+sub unvoted_changes {
     my $self = shift;
-
-    # This will become more advanced in the future, picking a change that
-    # the current user has not voted on yet, ordered by the confidence of the
-    # top tag. But for now.. an arbitrary change belonging to this changelog.
     my $changes = M('ChangeCollection', changelog_id => $self);
     my $votes = $changes->join(
         type => 'left',
@@ -150,6 +146,16 @@ sub choose_change {
         operator => 'IS',
         value => 'NULL',
     );
+    return $changes;
+}
+
+sub choose_change {
+    my $self = shift;
+
+    # This will become more advanced in the future, picking a change that
+    # the current user has not voted on yet, ordered by the confidence of the
+    # top tag. But for now.. an arbitrary change belonging to this changelog.
+    my $changes = $self->unvoted_changes;
     $changes->rows_per_page(1);
     $changes->order_by( column => 'date', order => 'asc' );
     return $changes->first;
