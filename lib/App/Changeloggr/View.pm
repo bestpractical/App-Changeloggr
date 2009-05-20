@@ -178,6 +178,8 @@ sub show_change {
         if ($args{voting_form}) {
             hr {};
             show_vote_form($change);
+            hr {};
+            show_rewording_form($change);
         }
     };
 }
@@ -246,6 +248,31 @@ sub show_vote_form {
         }
     }
 }
+
+sub show_rewording_form {
+    my $change = shift;
+
+    my $create_rewording = new_action(
+        class     => "CreateRewording",
+        arguments => {
+            change_id => $change->id,
+        },
+    );
+
+    p { "Do you want to improve the content or wording of this change's message?" };
+
+    render_param $create_rewording => (
+        'message',
+        label => '',
+        default_value => $change->message,
+    );
+
+    $create_rewording->button(
+        label => 'Reword',
+        onclick => { submit => $create_rewording },
+    );
+}
+
 
 sub show_vote_comments {
     my $change = shift;
