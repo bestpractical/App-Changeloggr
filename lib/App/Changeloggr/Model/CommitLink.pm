@@ -21,7 +21,7 @@ use App::Changeloggr::Record schema {
         type is 'text',
         is mandatory,
         label is 'Link to',
-        hints are 'Use $1 and $2 to refer to capture groups';
+        hints are 'Use $1, $2, etc to refer to capture groups';
 
 };
 
