@@ -182,5 +182,22 @@ sub generate {
     return $format->generate( changelog => $self, categories => \%categories );
 }
 
+sub current_user_is_admin {
+    my $self = shift;
+
+    return 1 if Jifty->config->framework('DevelMode');
+    return 1 if Jifty->web->current_user->id == $self->owner->id;
+
+    my $changelog_admin = App::Changeloggr::Model::ChangelogAdmin->new(
+        current_user => App::Changeloggr::CurrentUser->superuser,
+    );
+    $changelog_admin->load_by_cols(
+        changelog_id => $self->id,
+        user_id      => $self->current_user->id,
+    );
+
+    return $changelog_admin->id;
+}
+
 1;
 
