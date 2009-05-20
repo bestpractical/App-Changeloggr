@@ -13,6 +13,9 @@ alias App::Changeloggr::View::Account under '/account';
 # No salutation, ever
 template '/salutation' => sub {};
 
+# *We'll* put the keybindings div into the page.
+template '/_elements/keybindings' => sub {};
+
 template '/' => page {
     my $changelogs = M(ChangelogCollection => done => 0);
     $changelogs->with_changes;
@@ -84,6 +87,8 @@ sub changelog_summary {
 sub show_change {
     my $change = shift;
     my %args = @_;
+
+    div { id is 'keybindings' };
 
     div {
         { class is "change" };
