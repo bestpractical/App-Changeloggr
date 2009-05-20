@@ -31,7 +31,7 @@ framework:
     - CompressedCSSandJS: {}
     - AdminUI: {}
     - Feedback:
-        to:   changelogger@bestpractical.com
+        to:   changelogger@my.hiveminder.com
         from: changelogger-user@bestpractical.com
   SkipAccessControl: 0
   TemplateClass: App::Changeloggr::View
