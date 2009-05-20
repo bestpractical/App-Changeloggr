@@ -59,7 +59,7 @@ on qr{^/admin/changelog((?:/[^/]+)*)/([^/]+)$} => run {
         Votes => url => "/admin/changelog/votes/$uuid",
     );
 
-    add_export_format_nav($cl->name);
+    add_export_format_nav($admin);
 
     set id => $cl->id;
     show "/admin/changelog$subpage";
@@ -73,17 +73,12 @@ before '/account' => sub {
 };
 
 sub add_export_format_nav {
-    my $name = shift;
-
-    my $changelog = Jifty->web->navigation->child(
-        $name  => url => "/changelog/$name",
-        active => 1,
-    );
+    my $parent = shift;
 
     my @output_formats = map { s/.*:://; $_ } App::Changeloggr->output_formats;
 
     for my $format_name (@output_formats) {
-        $changelog->child(
+        $parent->child(
             "Export as $format_name" =>
             url => "/changelog/$name/$format_name/Changes",
         );
