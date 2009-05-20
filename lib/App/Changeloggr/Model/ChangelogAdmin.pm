@@ -27,3 +27,5 @@ sub current_user_can {
     return $self->current_user->is_superuser;
 }
 
+1;
+
