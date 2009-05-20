@@ -119,11 +119,21 @@ sub show_change {
         my $id = $change->id;
         if (my $url = $change->external_source) {
             hyperlink(
-                label  => "Full diff",
-                url    => $url,
-                target => "diff",
-                class  => "external_source",
-            );
+                label => 'Full diff',
+                onclick => [{
+                    region       => Jifty->web->qualified_region("change_${id}_source"),
+                    replace_with => '/change/external_source',
+                    toggle       => 1,
+                    effect       => 'slideDown',
+                    arguments    => {
+                        url => $url,
+                    },
+                },
+                "this.innerHTML = this.innerHTML == 'Full diff' ? 'Hide diff' : 'Full diff';",
+            ]);
+            div {
+                render_region("change_${id}_source");
+            };
         }
         if (Jifty->web->current_user->user_object->show_details) {
             div {
@@ -163,6 +173,14 @@ sub show_change {
         show_vote_comments($change);
     };
 }
+
+template '/change/external_source' => sub {
+    my $url = get('url');
+
+    iframe {
+        src is $url;
+    };
+};
 
 template '/change/more' => sub {
     my $change = M('Change', id => get('change'));
