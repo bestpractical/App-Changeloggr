@@ -5,6 +5,12 @@ package App::Changeloggr::Model::Changelog;
 use Jifty::DBI::Schema;
 
 use App::Changeloggr::Record schema {
+    column owner =>
+        refers_to App::Changeloggr::Model::User,
+        default is defer { Jifty->web->current_user->id },
+        is protected,
+        since '0.0.13';
+
     column name =>
         type is 'text',
         label is 'Project name',

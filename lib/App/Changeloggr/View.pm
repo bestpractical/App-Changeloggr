@@ -77,7 +77,7 @@ sub changelog_summary {
         label => $changelog->name,
     );
 
-    if (Jifty->config->framework('DevelMode')) {
+    if (Jifty->config->framework('DevelMode') or Jifty->web->current_user->id == $changelog->owner->id) {
         span {};
         my $admin_token = $changelog->as_superuser->admin_token;
         hyperlink(

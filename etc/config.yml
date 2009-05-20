@@ -14,7 +14,7 @@ framework:
     Password: ''
     RecordBaseClass: Jifty::DBI::Record::Cachable
     User: ''
-    Version: 0.0.12
+    Version: 0.0.13
   DevelMode: 1
   L10N: 
     PoDir: share/po
