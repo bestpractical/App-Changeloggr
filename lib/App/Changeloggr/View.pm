@@ -252,15 +252,11 @@ sub show_vote_form {
 sub show_rewording_form {
     my $change = shift;
 
-    my $create_rewording = new_action(
-        class     => "CreateRewording",
-        arguments => {
-            change_id => $change->id,
-        },
-    );
+    my $create_rewording = new_action('CreateRewording');
 
     p { "Do you want to improve the content or wording of this change's message?" };
 
+    render_hidden $create_rewording => 'change_id' => $change->id;
     render_param $create_rewording => (
         'message',
         label => '',
