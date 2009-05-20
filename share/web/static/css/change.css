@@ -29,9 +29,9 @@ dl.keybindings dd {
 
 .change {
   background: #224;
-  margin: 1em;
-  padding: 1em;
   border: 5px solid #000;
+  margin: 1em 10em 1em 1em;
+  padding: 1em 10em 1em 1em;
 }
 
 ul.change_metadata {
