@@ -41,6 +41,11 @@ use App::Changeloggr::Record schema {
         default is 0,
         label is 'Incremental tags?',
         since '0.0.6';
+
+    column owner_id =>
+        refers_to App::Changeloggr::Model::User,
+        default is defer { Jifty->web->current_user->user_object },
+        since '0.0.13';
 };
 
 # has to go below schema
