@@ -33,7 +33,7 @@ EOT
 
         for my $change (@changes) {
             my($summary) = $change->message =~ /\A(.*)$/m;
-            $str .= "=head2 $summary\n\n" . $change->message . "\n";
+            $str .= "=head2 $summary\n\n" . $change->message . "\n\n";
         }
     }
     $str .= "=cut\n\n";
