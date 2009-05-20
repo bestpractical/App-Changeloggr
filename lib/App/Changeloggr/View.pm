@@ -118,6 +118,7 @@ sub show_change {
             li { "Date: " . $change->date };
         };
 
+        my $id = $change->id;
         render_region(
             name      => "change_$id",
             path      => '/change/more',
@@ -126,7 +127,6 @@ sub show_change {
             },
         );
 
-        my $id = $change->id;
         if (my $url = $change->external_source) {
             hyperlink(
                 label => 'Full diff',
