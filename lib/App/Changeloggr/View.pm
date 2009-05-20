@@ -179,6 +179,7 @@ template '/change/external_source' => sub {
     my $url = get('url');
 
     iframe {
+        class is 'external_source';
         src is $url;
     };
 };

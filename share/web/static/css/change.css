@@ -58,3 +58,6 @@ ul.change_metadata {
   color: #999;
 }
 
+iframe.external_source {
+    width: 100%;
+}
