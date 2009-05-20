@@ -128,23 +128,36 @@ sub show_change {
         );
 
         if (my $url = $change->external_source) {
-            hyperlink(
-                label => 'Full diff',
-                class => 'external_source',
-                onclick => [{
-                    region       => Jifty->web->qualified_region("change_${id}_source"),
-                    replace_with => '/change/external_source',
-                    toggle       => 1,
-                    effect       => 'slideDown',
-                    arguments    => {
-                        url => $url,
+            if (Jifty->web->current_user->user_object->show_diff) {
+                div {
+                    render_region(
+                        name => "change_${id}_source",
+                        path => "/change/external_source",
+                        arguments => {
+                            url => $url,
+                        },
+                    );
+                };
+            }
+            else {
+                hyperlink(
+                    label => 'Full diff',
+                    class => 'external_source',
+                    onclick => [{
+                        region       => Jifty->web->qualified_region("change_${id}_source"),
+                        replace_with => '/change/external_source',
+                        toggle       => 1,
+                        effect       => 'slideDown',
+                        arguments    => {
+                            url => $url,
+                        },
                     },
-                },
-                "this.innerHTML = this.innerHTML == 'Full diff' ? 'Hide diff' : 'Full diff';",
-            ]);
-            div {
-                render_region("change_${id}_source");
-            };
+                    "this.innerHTML = this.innerHTML == 'Full diff' ? 'Hide diff' : 'Full diff';",
+                ]);
+                div {
+                    render_region("change_${id}_source");
+                };
+            }
         }
 
         if ($args{voting_form}) {
