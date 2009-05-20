@@ -27,6 +27,15 @@ use App::Changeloggr::Record schema {
         default is 0,
         label is 'Always show full diff',
         since '0.0.10';
+
+    column access_level =>
+        is mandatory,
+        default is 'guest',
+        since '0.0.12',
+        label is 'Access level',
+        valid_values are qw(user staff),
+        is protected;
+
 };
 
 # has to go below schema
@@ -44,7 +53,7 @@ sub current_user_can {
     return 1 if $session_id eq (Jifty->web->session->id||'');
 
     # users are private except name
-    return 1 if $right eq 'read' && $args{column} ne 'name';
+    return 1 if $right eq 'read' and ( $args{column} eq 'name' or $args{column} eq 'access_level' );
 
     # anyone can create accounts
     return 1 if $right eq 'create';
