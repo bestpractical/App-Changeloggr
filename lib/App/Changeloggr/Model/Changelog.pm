@@ -69,6 +69,8 @@ sub current_user_can {
     return 1 if $right eq 'create'
              || ($right eq 'read' && ($args{column}||'') ne 'admin_token');
 
+    return 1 if $right eq 'read' && ($args{column}||'') eq 'admin_token' && $self->current_user_is_admin;
+
     # but not delete or update. those must happen as root
     return $self->SUPER::current_user_can($right, %args);
 }
