@@ -88,7 +88,17 @@ sub show_change {
 
         p {
             { class is "identifier" };
-            $change->identifier;
+            if (my $url = $change->external_source) {
+                hyperlink(
+                    label  => $change->identifier,
+                    url    => $url,
+                    target => "diff",
+                    class  => "external_source",
+                );
+            }
+            else {
+                outs $change->identifier;
+            }
         };
 
         p {
