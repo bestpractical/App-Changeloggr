@@ -102,7 +102,7 @@ sub add_export_format_nav {
 
     for my $format_name (@output_formats) {
         $parent->child(
-            "Export as $format_name" =>
+            "Download in $format_name format" =>
             url => "/changelog/$name/$format_name/Changes",
         );
     }
