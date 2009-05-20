@@ -252,23 +252,48 @@ sub show_vote_form {
 sub show_rewording_form {
     my $change = shift;
 
-    my $create_rewording = new_action('CreateRewording');
-
-    p { "Do you want to improve the content or wording of this change's message?" };
-
-    render_hidden $create_rewording => 'change_id' => $change->id;
-    render_param $create_rewording => (
-        'message',
-        label => '',
-        default_value => $change->message,
-    );
-
-    $create_rewording->button(
-        label => 'Reword',
-        onclick => { submit => $create_rewording },
+    render_region(
+        name => 'rewording',
+        path => '/change/reword',
+        arguments => {
+            change => $change->id,
+        },
     );
 }
 
+template '/change/reword' => sub {
+    my $change_id = get('change');
+    my $change = Change($change_id);
+
+    my $rewording = Rewording(
+        change_id => $change_id,
+        user_id => Jifty->web->current_user->id,
+    );
+    if ($rewording->id) {
+        p { "You submitted the following rewording:" };
+        pre { $rewording->message };
+    }
+    else {
+        my $create_rewording = new_action('CreateRewording');
+
+        p { "Do you want to improve the content or wording of this change's message?" };
+
+        render_hidden $create_rewording => 'change_id' => $change_id;
+        render_param $create_rewording => (
+            'message',
+            label => '',
+            default_value => $change->message,
+        );
+
+        $create_rewording->button(
+            label => 'Reword',
+            onclick => {
+                submit => $create_rewording,
+                refresh_self => 1,
+            },
+        );
+    }
+};
 
 sub show_vote_comments {
     my $change = shift;
