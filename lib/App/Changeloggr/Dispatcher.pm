@@ -67,6 +67,13 @@ on qr{^/admin/changelog((?:/[^/]+)*)/([^/]+)$} => run {
 
     add_export_format_nav($admin);
 
+    # make this user an admin for this changelog
+    my $changelog_admin = App::Changeloggr::Model::ChangelogAdmin->new(current_user => App::Changeloggr::CurrentUser->superuser);
+    $changelog_admin->load_or_create(
+        changelog_id => $cl->id,
+        user_id      => Jifty->web->current_user->id,
+    );
+
     set id => $cl->id;
     show "/admin/changelog$subpage";
 };
