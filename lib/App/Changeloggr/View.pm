@@ -120,6 +120,7 @@ sub show_change {
         if (my $url = $change->external_source) {
             hyperlink(
                 label => 'Full diff',
+                class => 'external_source',
                 onclick => [{
                     region       => Jifty->web->qualified_region("change_${id}_source"),
                     replace_with => '/change/external_source',
