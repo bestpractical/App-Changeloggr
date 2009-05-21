@@ -50,4 +50,4 @@ framework:
     TemplateRoot: share/web/templates
 application:
   BackgroundImport: 1
-
+  Production: 0
