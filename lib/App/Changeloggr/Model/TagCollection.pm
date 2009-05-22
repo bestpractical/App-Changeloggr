@@ -16,8 +16,10 @@ sub limit_to_visible {
     }
     elsif ($self->_handle->isa('Jifty::DBI::Handle::Pg')) {
         $self->limit(
-            column => 'text',
-            # ...
+            column      => 'text',
+            operator    => 'NOT LIKE',
+            value       => q{E'\\\\_%'},
+            quote_value => 0,
         );
     }
     else {
