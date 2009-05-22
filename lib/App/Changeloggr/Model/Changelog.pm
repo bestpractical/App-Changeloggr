@@ -100,6 +100,19 @@ sub tags {
     return M('TagCollection', changelog_id => $self);
 }
 
+sub visible_tags {
+    my $self = shift;
+    my $tags = $self->tags(@_);
+
+    $tags->limit(
+        column   => 'text',
+        operator => 'NOT LIKE',
+        value    => '_%',
+    );
+
+    return $tags;
+}
+
 sub has_tag {
     my $self = shift;
     my $tag  = shift;

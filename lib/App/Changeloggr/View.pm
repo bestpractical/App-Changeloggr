@@ -215,7 +215,7 @@ sub show_vote_form {
     my $change = shift;
 
     my $changelog = $change->changelog;
-    my $valid_tags = $changelog->tags;
+    my $valid_tags = $changelog->visible_tags;
 
     form {
         h4 { 'Vote!' };
