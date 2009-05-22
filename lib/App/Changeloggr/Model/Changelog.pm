@@ -103,13 +103,7 @@ sub tags {
 sub visible_tags {
     my $self = shift;
     my $tags = $self->tags(@_);
-
-    $tags->limit(
-        column   => 'text',
-        operator => 'NOT LIKE',
-        value    => '_%',
-    );
-
+    $tags->limit_to_visible;
     return $tags;
 }
 
