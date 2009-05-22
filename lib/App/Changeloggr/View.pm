@@ -238,11 +238,11 @@ sub show_vote_form {
         if ($valid_tags->count) {
             while (my $valid_tag = $valid_tags->next) {
                 $vote->button(
-                    class => "vote",
-                    label => $valid_tag->text,
+                    class       => "vote",
+                    label       => $valid_tag->text,
                     key_binding => $valid_tag->hotkey,
-                    onclick => { submit => $vote, refresh_self => 1 },
-                    arguments => { tag => $valid_tag->text },
+                    onclick     => { submit => $vote, refresh_self => 1 },
+                    arguments   => { tag => $valid_tag->text },
                 );
             }
         }
