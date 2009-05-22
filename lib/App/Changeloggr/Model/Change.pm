@@ -147,7 +147,7 @@ sub prioritized_tags {
         column => 'text',
     );
     $tags->order_by(
-        function => 'count(main.text)',
+        function => "count($votes.tag)",
         order    => 'DESC',
     );
 
