@@ -113,7 +113,6 @@ sub numeric_importance {
         my $importance = $importance_vote->importance;
         my $count = $importance_vote->id;
 
-        next if $importance eq 'normal';
         $numeric_importance += $count if $importance eq 'major';
         $numeric_importance -= $count if $importance eq 'minor';
     }
