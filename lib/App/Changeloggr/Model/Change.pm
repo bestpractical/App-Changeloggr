@@ -120,5 +120,10 @@ sub numeric_importance {
     return $numeric_importance;
 }
 
+sub prioritized_tags {
+    my $self = shift;
+    return $self->changelog->visible_tags;
+}
+
 1;
 
