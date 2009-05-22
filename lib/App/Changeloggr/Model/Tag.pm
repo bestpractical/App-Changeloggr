@@ -26,6 +26,14 @@ use App::Changeloggr::Record schema {
         ajax canonicalizes;
 };
 
+sub validate_text {
+    my $self = shift;
+    my $text = shift;
+
+    return (0, "A tag's text cannot start with an underscore") if $text =~ /^_/;
+    return 1;
+}
+
 sub validate_hotkey {
     my $self = shift;
     my $key = shift;
