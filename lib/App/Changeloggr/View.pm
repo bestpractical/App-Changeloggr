@@ -25,21 +25,19 @@ template '/' => page {
 
     my $count = $changelogs->count;
 
-    if ($count > 1) {
-        h2 { "These projects need your help!" };
-        ul {
-            while (my $changelog = $changelogs->next) {
-                li { changelog_summary($changelog) }
-            }
-        };
-        h2 { "Recent news" };
-        render_region(
-            name => 'news',
-            path => '/news/list',
-        );
-    } else {
-        redirect '/admin/create-changelog';
-    }
+    redirect '/admin/create-changelog' if $count == 0;
+
+    h2 { "These projects need your help!" };
+    ul {
+        while (my $changelog = $changelogs->next) {
+            li { changelog_summary($changelog) }
+        }
+    };
+    h2 { "Recent news" };
+    render_region(
+        name => 'news',
+        path => '/news/list',
+    );
 };
 
 template '/changelog' => page {
