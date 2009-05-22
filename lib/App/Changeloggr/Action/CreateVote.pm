@@ -17,6 +17,9 @@ sub validate_tag {
     return $self->validation_error(change_id => "No change provided")
         if !$changelog->id;
 
+    # private tags are always okay
+    return $self->validation_ok('tag') if $tag =~ /^_/;
+
     # if the admin wants incremental tag creation for this project, then
     # add this tag before voting
     if (!$changelog->has_tag($tag) && $changelog->incremental_tags) {
