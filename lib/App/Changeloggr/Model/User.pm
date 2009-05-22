@@ -50,7 +50,8 @@ sub current_user_can {
 
     # the current user can do anything to his account
     my $session_id = $self->__value('session_id');
-    return 1 if $session_id eq (Jifty->web->session->id||'');
+    return 1 if $session_id
+             && $session_id eq (Jifty->web->session->id||'');
 
     # users are private except name
     return 1 if $right eq 'read' and ( $args{column} eq 'name' or $args{column} eq 'access_level' );
