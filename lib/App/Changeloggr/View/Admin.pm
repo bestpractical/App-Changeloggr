@@ -171,7 +171,7 @@ sub edit_links {
 
 sub edit_tags {
     my $changelog = shift;
-    my $tags = $changelog->tags;
+    my $tags = $changelog->visible_tags;
 
     form {
         if ($tags->count) {
