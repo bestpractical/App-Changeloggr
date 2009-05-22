@@ -23,7 +23,7 @@ sub limit_to_visible {
         );
     }
     else {
-        Carp::confess "You must use SQLite or Postgres, or fix Tags->limit_to_visible for your RDBMS. Sorry. :(";
+        Carp::confess "You must use SQLite or Postgres, or fix TagCollection->limit_to_visible for your RDBMS. Sorry. :(";
     }
 
     return $self;
