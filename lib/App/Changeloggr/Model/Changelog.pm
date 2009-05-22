@@ -188,7 +188,7 @@ sub current_user_is_admin {
     my $self = shift;
 
     return 1 if Jifty->config->framework('DevelMode');
-    return 1 if Jifty->web->current_user->id == $self->owner->id;
+    return 1 if Jifty->web->current_user->id == $self->owner_id;
     return 1 if Jifty->web->current_user->is_staff;
 
     my $changelog_admin = App::Changeloggr::Model::ChangelogAdmin->new(
