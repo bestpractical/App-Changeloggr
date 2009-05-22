@@ -37,8 +37,6 @@ template '/' => page {
             name => 'news',
             path => '/news/list',
         );
-    } elsif ( $count == 1) {
-        redirect '/changelog/' . $changelogs->first->name;
     } else {
         redirect '/admin/create-changelog';
     }
