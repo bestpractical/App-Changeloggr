@@ -246,6 +246,13 @@ sub show_vote_form {
                 );
             }
         }
+        hr {};
+        $vote->button(
+            class       => "vote",
+            label       => 'Skip this change',
+            onclick     => { submit => $vote, refresh_self => 1 },
+            arguments   => { tag => '_skip' },
+        );
     }
 }
 
