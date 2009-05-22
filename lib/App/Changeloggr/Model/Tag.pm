@@ -68,29 +68,5 @@ sub current_user_can {
     return $self->SUPER::current_user_can($right, @_);
 }
 
-sub limit_to_visible {
-    my $self = shift;
-
-    if ($self->_handle->isa('Jifty::DBI::Handle::SQLite')) {
-        $self->limit(
-            column   => 'text',
-            escape   => '\\',
-            operator => 'NOT LIKE',
-            value    => '\_%',
-        );
-    }
-    elsif ($self->_handle->isa('Jifty::DBI::Handle::Pg')) {
-        $self->limit(
-            column => 'text',
-            # ...
-        );
-    }
-    else {
-        Carp::confess "You must use SQLite or Postgres, or fix Tags->limit_to_visible for your RDBMS. Sorry. :(";
-    }
-
-    return $self;
-}
-
 1;
 
