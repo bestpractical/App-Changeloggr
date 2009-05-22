@@ -7,6 +7,7 @@ before '*' => run {
       $top->child(Home => url => '/');
       $top->child(New => url => '/admin/create-changelog', label => 'New Changelog');
       $top->child(Account => url => '/account');
+      $top->child(News => url => '/news');
 
       Jifty->web->session->expires( '+1y' );
 
