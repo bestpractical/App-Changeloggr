@@ -61,12 +61,15 @@ sub votes {
 sub grouped_votes {
     my $self = shift;
     my $votes = $self->votes;
+
+    $votes->limit_to_visible('tag');
     $votes->column(
         column => 'tag',
     );
     $votes->group_by(
         column => 'tag',
     );
+
     $votes->order_by(
         function => 'count(*)',
         order => 'desc',
