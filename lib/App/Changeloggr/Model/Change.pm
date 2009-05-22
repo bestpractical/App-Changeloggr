@@ -120,9 +120,38 @@ sub numeric_importance {
     return $numeric_importance;
 }
 
+# This will order the tags for this change by the frequency that people have
+# voted on this change with each tag. If ten people vote a tag "documentation"
+# then that will show up before a tag "performance" that one joker voted.
 sub prioritized_tags {
     my $self = shift;
-    return $self->changelog->visible_tags;
+    my $tags = $self->changelog->visible_tags;
+
+    my $votes = $tags->join(
+        type        => 'left',
+        column1     => 'text',
+        table2      => 'votes',
+        column2     => 'tag',
+        is_distinct => 1,
+    );
+    $tags->limit(
+        leftjoin => $votes,
+        column   => 'change_id',
+        value    => $self->id,
+    );
+
+    $tags->column(
+        column => 'text',
+    );
+    $tags->group_by(
+        column => 'text',
+    );
+    $tags->order_by(
+        function => 'count(main.text)',
+        order    => 'DESC',
+    );
+
+    return $tags;
 }
 
 1;
