@@ -31,7 +31,12 @@ template '/' => page {
             while (my $changelog = $changelogs->next) {
                 li { changelog_summary($changelog) }
             }
-        }
+        };
+        h2 { "Recent news" };
+        render_region(
+            name => 'news',
+            path => '/news/list',
+        );
     } elsif ( $count == 1) {
         redirect '/changelog/' . $changelogs->first->name;
     } else {
