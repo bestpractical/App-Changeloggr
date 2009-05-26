@@ -144,6 +144,21 @@ sub edit_links {
     my $changelog = shift;
     my $links = $changelog->commit_links;
 
+    p {
+        outs_raw <<'EOT';
+
+<em>Links</em> allow you to hyperlink changelog bodies to arbitrary
+locations.  <b>Find</b> should be an arbitrary regular expression to
+search for in the changelog body -- note that this expression is
+applied after HTML entity escaping has occurred.  The <b>Link to</b>
+field is the URL that matching portions of the body will be inked to.
+If the <b>Find</b> expression had capture groups (created by parens),
+these will be available in the <b>Link to</b> field as $1, $2, and so
+forth.
+
+EOT
+    };
+
     form {
         if ($links->count) {
             ul {
@@ -172,6 +187,16 @@ sub edit_links {
 sub edit_tags {
     my $changelog = shift;
     my $tags = $changelog->visible_tags;
+
+    p {
+        outs_raw <<'EOT';
+
+<em>Tags</em> are the primary way in which changelogs are categorized.
+Each user votes for up to one tag per change; these votes are tallied
+and used to assign changes to tags when the changelog is downloaded.
+
+EOT
+    };
 
     form {
         if ($tags->count) {
