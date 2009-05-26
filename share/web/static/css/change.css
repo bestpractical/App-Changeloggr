@@ -64,6 +64,7 @@ iframe.external_source {
 }
 
 .change .identifier {
+  margin-top: -.2em;
   font-size: .6em;
   float: right;
   color: #777;
