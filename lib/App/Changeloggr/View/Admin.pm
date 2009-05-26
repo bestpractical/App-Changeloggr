@@ -145,6 +145,7 @@ sub edit_links {
     my $links = $changelog->commit_links;
 
     p {
+        { class is "admin docs" };
         outs_raw <<'EOT';
 
 <em>Links</em> allow you to hyperlink changelog bodies to arbitrary
@@ -189,6 +190,7 @@ sub edit_tags {
     my $tags = $changelog->visible_tags;
 
     p {
+        { class is "admin docs" };
         outs_raw <<'EOT';
 
 <em>Tags</em> are the primary way in which changelogs are categorized.

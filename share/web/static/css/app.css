@@ -70,6 +70,6 @@ hr {
   float: none;
 }
 
-p {
+p.admin.docs {
   width: 40em;
 }
