@@ -2,14 +2,10 @@
   padding-top: 1em;
   background-color: #000;
   border-bottom: 1px solid #445;
-  padding-right: 10em;
 }
 
 #navigation ul.menu {
   margin: 0;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 800px;
   text-align: left;
   list-style-type: none;
   padding: 3px 10px 3px 10px;
@@ -17,6 +13,7 @@
 
 #navigation ul.menu li {
   display: inline;
+  white-space: nowrap;
 }
 
 #navigation ul.menu li.active .title {
