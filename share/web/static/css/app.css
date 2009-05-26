@@ -58,18 +58,6 @@ hr {
    border-bottom: 1px dashed #333;
 }
 
-.change .identifier {
-  font-size: .6em;
-  float: right;
-  color: #777;
-}
-
-.identifier a.external_source {
-  color: #777;
-  text-decoration: none;
-  float: none;
-}
-
 p.admin.docs {
   width: 40em;
 }
