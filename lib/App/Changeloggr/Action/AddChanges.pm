@@ -11,6 +11,7 @@ use Jifty::Action schema {
     param changes =>
         type is 'text',
         render as 'upload',
+        label is 'Select change file',
         is mandatory;
 };
 
