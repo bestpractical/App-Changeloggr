@@ -141,6 +141,10 @@ sub prioritized_tags {
     );
 
     $tags->column(
+        column   => 'id',
+        function => "count($votes.tag) + 1",
+    );
+    $tags->column(
         column => 'text',
     );
     $tags->group_by(
