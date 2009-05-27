@@ -38,7 +38,7 @@ sub next_match {
     $fields{identifier} = $2;
     $fields{author} = $3;
     $fields{date} = DATE_PARSER->parse_datetime($4);
-    $fields{message} = $5;
+    $fields{message} = $self->strip_detritus($5);
 
     return \%fields;
 }

@@ -26,7 +26,7 @@ sub next_match {
                 identifier => $_->{revision},
                 author     => $_->{author},
                 date       => DATE_PARSER->parse_datetime( $_->{date} ),
-                message    => $_->{msg},
+                message    => $self->strip_detritus($_->{msg}),
                 raw        => XMLout($_, NoAttr => 1), # Rather a hack
             };
         } @{ $data->{logentry} }];
