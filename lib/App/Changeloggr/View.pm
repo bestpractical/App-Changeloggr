@@ -241,11 +241,13 @@ sub show_vote_form {
             my $voted_cusp = 0;
             while (my $valid_tag = $valid_tags->next) {
                 my $label;
+                my $count = $change->count_of_tag($valid_tag);
+
                 # This is actually checking count+1, not id. It's count+1
                 # because id 0 (aka count 0) records are not loaded. :/
                 ++$tag_number;
-                if ($valid_tag->id - 1 > 0) {
-                    $label = _('%1 (%2)', $valid_tag->text, $valid_tag->id - 1);
+                if ($count > 0) {
+                    $label = _('%1 (%2)', $valid_tag->text, $count);
                 }
                 else {
                     $label = $valid_tag->text;

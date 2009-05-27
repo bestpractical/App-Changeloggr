@@ -141,10 +141,6 @@ sub prioritized_tags {
     );
 
     $tags->column(
-        column   => 'id',
-        function => "count($votes.tag) + 1",
-    );
-    $tags->column(
         column => 'text',
     );
     $tags->group_by(
@@ -156,6 +152,30 @@ sub prioritized_tags {
     );
 
     return $tags;
+}
+
+sub count_of_tag {
+    my $self = shift;
+    my $tag  = shift;
+
+    my $text = ref($tag) ? $tag->text : $tag;
+
+    my $tags = $self->changelog->tags;
+    $tags->limit(
+        column   => 'text',
+        operator => '=',
+        value    => $text,
+    );
+    $tags->column(
+        column   => 'id',
+        function => 'count(main.text)',
+    );
+    $tags->order_by({});
+    $tags->group_by(
+        column => 'text',
+    );
+
+    return $tags->first->id;
 }
 
 1;
