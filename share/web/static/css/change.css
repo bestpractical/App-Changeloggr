@@ -8,10 +8,18 @@ input.button.vote {
 }
 
 div#keybindings {
-    position: absolute;
-    top: 100px;
-    right: 9em;
-    max-width: 9em;
+  background: #224;
+  border: 1px solid #445;
+  border-left: none;
+  color: #ddd;
+  padding-bottom: 1em;
+  padding-top: 1em;
+  padding-left: 0.5em;
+  position: absolute;
+  right: 1em;
+  width: 11.5em;
+  -moz-border-radius-topright: 10px;
+  -moz-border-radius-bottomright: 10px;
 }
 
 dl.keybindings {
