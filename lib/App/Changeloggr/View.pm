@@ -46,6 +46,11 @@ template '/changelog' => page {
     title is $changelog->name;
 
     render_region(
+        name => 'score',
+        path => '/score',
+    );
+
+    render_region(
         name => 'vote-on-change',
         path => '/vote-on-change',
         defaults => {
@@ -72,6 +77,22 @@ template '/vote-on-change' => sub {
         h2 { "No changes " . ($has_changes ? "left " : "") . " in this log" };
         p { "Thank you for all your votes!" } if $has_changes;
     }
+};
+
+template '/score' => sub {
+    div {
+        {id is "score"};
+        my $votes = Jifty->web->current_user->user_object->votes->count;
+        my $place = Jifty->handle->simple_query(<<"EOSQL")->fetch->[0];
+select count(*)
+  from (select user_id
+          from votes
+         group by votes.user_id
+        having count(*) >= $votes);
+EOSQL
+        $place++ unless $votes;
+        outs _("You have %quant(%1,vote), and are currently ranked #%2!", $votes, $place);
+    };
 };
 
 sub changelog_summary {
@@ -264,7 +285,10 @@ sub show_vote_form {
                     class       => "vote",
                     label       => $label,
                     key_binding => $valid_tag->hotkey,
-                    onclick     => { submit => $vote, refresh_self => 1 },
+                    onclick     => [
+                        { submit => $vote, refresh_self => 1 },
+                        { refresh => 'score' },
+                    ],
                     arguments   => { tag => $valid_tag->text },
                 );
             }

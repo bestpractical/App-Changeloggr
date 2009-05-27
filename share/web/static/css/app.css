@@ -61,3 +61,17 @@ hr {
 p.admin.docs {
   width: 40em;
 }
+
+h1.title {
+  border: none;
+}
+
+#score {
+  position: absolute;
+  right: 18em;
+  top: 4em;
+  width: 15em;
+  background-color: #223;
+  border: 1px solid #445;
+  padding: 0.5em;
+}
