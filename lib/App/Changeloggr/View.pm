@@ -238,9 +238,19 @@ sub show_vote_form {
 
         if ($valid_tags->count) {
             while (my $valid_tag = $valid_tags->next) {
+                my $label;
+                # This is actually checking count+1, not id. It's count+1
+                # because id 0 (aka count 0) records are not loaded. :/
+                if ($valid_tag->id - 1 > 0) {
+                    $label = _('%1 (%2)', $valid_tag->text, $valid_tag->id - 1);
+                }
+                else {
+                    $label = $valid_tag->text;
+                }
+
                 $vote->button(
                     class       => "vote",
-                    label       => $valid_tag->text,
+                    label       => $label,
                     key_binding => $valid_tag->hotkey,
                     onclick     => { submit => $vote, refresh_self => 1 },
                     arguments   => { tag => $valid_tag->text },
