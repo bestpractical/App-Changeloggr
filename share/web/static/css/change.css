@@ -29,12 +29,21 @@ dl.keybindings {
 dl.keybindings dt {
   clear: left;
   float: left;
-  display: block;
+  text-align: right;
+  font-family: monospace;
+  font-size: 125%;
+}
+
+dl.keybindings dt:after {
+  content: "";
+}
+
+dl.keybindings dd:before {
+  content: " - ";
 }
 
 dl.keybindings dd {
   float: left;
-  display: block;
 }
 
 .change_message {
