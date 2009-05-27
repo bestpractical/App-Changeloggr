@@ -66,7 +66,11 @@ sub next_match {
         $fields{diffstat} =~ s/\s+\z//;
     }
 
+    # git-svn detritus
     $fields{message} =~ s/^git-svn-id: .*$//m;
+
+    # svn/svk header
+    $fields{message} =~ s/^\s*r\d+\@\S+:\s*\S+\s*\|\s*.*\n//;
 
     # Remove extra newlines at the end of the message
     $fields{message} =~ s/\s+\z//;
