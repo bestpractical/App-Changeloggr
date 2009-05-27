@@ -74,7 +74,7 @@ on qr{^/admin/changelog((?:/[^/]+)*)/([^/]+)$} => run {
         Votes => url => "/admin/changelog/votes/$uuid",
     );
 
-    add_export_format_nav($admin);
+    add_export_format_nav($admin, $cl->name);
 
     # make this user an admin for this changelog
     my $changelog_admin = App::Changeloggr::Model::ChangelogAdmin->new(current_user => App::Changeloggr::CurrentUser->superuser);
@@ -96,6 +96,7 @@ before '/account' => sub {
 
 sub add_export_format_nav {
     my $parent = shift;
+    my $name   = shift;
 
     my @output_formats = map { s/.*:://; $_ } App::Changeloggr->output_formats;
 
