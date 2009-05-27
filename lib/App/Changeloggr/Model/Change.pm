@@ -171,9 +171,6 @@ sub count_of_tag {
         function => 'count(main.text)',
     );
     $tags->order_by({});
-    $tags->group_by(
-        column => 'text',
-    );
 
     return $tags->first->id;
 }
