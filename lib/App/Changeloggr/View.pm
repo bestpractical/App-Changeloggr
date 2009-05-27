@@ -82,15 +82,8 @@ template '/vote-on-change' => sub {
 template '/score' => sub {
     div {
         {id is "score"};
-        my $votes = Jifty->web->current_user->user_object->votes->count;
-        my $place = Jifty->handle->simple_query(<<"EOSQL")->fetch->[0];
-select count(*)
-  from (select user_id
-          from votes
-         group by votes.user_id
-        having count(*) >= $votes);
-EOSQL
-        $place++ unless $votes;
+        my $user = Jifty->web->current_user->user_object;
+        my($votes, $place) = $user->vote_placement;
         outs _("You have %quant(%1,vote), and are currently ranked #%2!", $votes, $place);
     };
 };

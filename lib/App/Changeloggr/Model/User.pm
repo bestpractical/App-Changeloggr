@@ -69,5 +69,19 @@ sub votes {
     return M('VoteCollection', user_id => $self->id);
 }
 
+sub vote_placement {
+    my $self = shift;
+    my $votes = $self->votes->count;
+    my $place = Jifty->handle->simple_query(<<"EOSQL")->fetch->[0];
+select count(*)
+  from (select user_id
+          from votes
+         group by votes.user_id
+        having count(*) >= $votes);
+EOSQL
+    $place++ unless $votes;
+    return ($votes, $place);
+}
+
 1;
 
