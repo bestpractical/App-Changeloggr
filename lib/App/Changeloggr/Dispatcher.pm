@@ -30,7 +30,7 @@ before '/changelog/*' => run {
     my $cl = Changelog( name => $1 );
     return unless $cl->id and $cl->current_user_is_admin;
     Jifty->web->navigation->child(
-        "Administrate" => url => "/admin/changelog/" . $cl->admin_token,
+        "Manage" => url => "/admin/changelog/" . $cl->admin_token,
     );
 };
 

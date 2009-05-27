@@ -87,7 +87,7 @@ sub changelog_summary {
         my $admin_token = $changelog->as_superuser->admin_token;
         hyperlink(
             url => "/admin/changelog/$admin_token",
-            label => "[administrate]",
+            label => "[manage]",
         );
     }
 }
