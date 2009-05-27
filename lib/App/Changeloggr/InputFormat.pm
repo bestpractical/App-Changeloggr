@@ -58,6 +58,27 @@ sub strip_detritus {
     # Remove extra newlines at the end of the message
     $msg =~ s/\s+\z//;
 
+    $msg = $self->strip_leading_whitespace($msg);
+
+    return $msg;
+}
+
+sub strip_leading_whitespace {
+    my $self = shift;
+    my $msg  = shift;
+
+    # Find the minimum amount of whitespace on a non-empty line
+    my $minimum;
+    for my $line (grep { /\S/ } split /\n/, $msg) {
+        my ($space) = $line =~ /^( *)/;
+        $minimum = length($space)
+            if !defined($minimum)
+            || $minimum > length($space);
+    }
+
+    # Remove that minimum from each line
+    $msg =~ s/^( {$minimum})//mg;
+
     return $msg;
 }
 
