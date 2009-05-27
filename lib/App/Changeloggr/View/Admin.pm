@@ -26,7 +26,10 @@ template '/changelog' => page {
     form {
         render_action($delete);
         form_next_page(url => '/');
-        form_submit(label => 'Delete');
+        form_submit(
+            label   => 'Delete',
+            onclick => q{return confirm('Really delete this changelog?');},
+        );
     };
 };
 
