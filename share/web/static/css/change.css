@@ -7,7 +7,7 @@ input.button.vote {
   margin: 0.3em;
 }
 
-div#keybindings {
+#region-vote-on-change div#keybindings {
   background: #224;
   border: 1px solid #445;
   border-left: none;
