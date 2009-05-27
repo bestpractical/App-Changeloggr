@@ -41,4 +41,24 @@ sub take_offline {
     return length($self->{text}) > 4 * 1024; # 4k of text or more
 }
 
+sub strip_detritus {
+    my $self = shift;
+    my $msg  = shift;
+
+    # git-svn metadata
+    $msg =~ s/^git-svn-id: .*$//m;
+
+    # strip potentially-nested svk headers
+    # this intentionally does not match any line in the message, since
+    # that could lose merge information
+    while ($msg =~ s/^\s*r\d+\@\S+:\s*\S+\s*\|\s*.*\n//) {
+        $msg =~ s/^ //g;
+    }
+
+    # Remove extra newlines at the end of the message
+    $msg =~ s/\s+\z//;
+
+    return $msg;
+}
+
 1;
