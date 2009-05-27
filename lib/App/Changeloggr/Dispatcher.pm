@@ -1,4 +1,6 @@
 package App::Changeloggr::Dispatcher;
+use strict;
+use warnings;
 use Jifty::Dispatcher -base;
 use JiftyX::ModelHelpers;
 
