@@ -77,7 +77,7 @@ select count(*)
   from (select user_id
           from votes
          group by votes.user_id
-        having count(*) >= $votes);
+        having count(*) >= $votes) as v;
 EOSQL
     $place++ unless $votes;
     return ($votes, $place);
