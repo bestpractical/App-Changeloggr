@@ -160,19 +160,20 @@ sub count_of_tag {
 
     my $text = ref($tag) ? $tag->text : $tag;
 
-    my $tags = $self->changelog->tags;
-    $tags->limit(
-        column   => 'text',
+    my $votes = $self->votes;
+    $votes->limit(
+        column   => 'tag',
         operator => '=',
         value    => $text,
     );
-    $tags->column(
-        column   => 'id',
-        function => 'count(main.text)',
-    );
-    $tags->order_by({});
 
-    return $tags->first->id;
+    $votes->column(
+        column   => 'id',
+        function => 'count(main.tag)',
+    );
+    $votes->order_by({});
+
+    return $votes->first->id;
 }
 
 1;
