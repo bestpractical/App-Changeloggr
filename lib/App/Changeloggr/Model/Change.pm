@@ -171,6 +171,7 @@ sub count_of_tag {
         column   => 'id',
         function => 'count(main.tag)',
     );
+    $votes->order_by({});
 
     return $votes->first->id;
 }
