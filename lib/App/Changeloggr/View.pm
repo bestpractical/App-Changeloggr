@@ -246,7 +246,10 @@ sub show_vote_form {
             my $label = $changelog->incremental_tags ? 'Vote and add tag' : 'Vote';
             form_submit(
                 label   => $label,
-                onclick => { submit => $vote, refresh_self => 1 }
+                onclick     => [
+                    { submit => $vote, refresh_self => 1 },
+                    { refresh => 'score' },
+                ],
             );
         }
 
@@ -290,7 +293,10 @@ sub show_vote_form {
         $vote->button(
             class       => "vote",
             label       => 'Skip this change',
-            onclick     => { submit => $vote, refresh_self => 1 },
+            onclick     => [
+                { submit => $vote, refresh_self => 1 },
+                { refresh => 'score' },
+            ],
             arguments   => { tag => '_skip' },
         );
 
@@ -300,7 +306,10 @@ sub show_vote_form {
             $undo->button(
                 class   => "vote",
                 label   => "Undo previous vote",
-                onclick => { submit => $undo, refresh_self => 1 },
+                onclick     => [
+                    { submit => $undo, refresh_self => 1 },
+                    { refresh => 'score' },
+                ],
             );
         }
     }
