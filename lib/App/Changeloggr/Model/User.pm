@@ -83,5 +83,26 @@ EOSQL
     return ($votes, $place);
 }
 
+sub undo_vote {
+    my $self = shift;
+    my $votes = $self->votes;
+    $votes->order_by(
+        column => 'id',
+        order  => 'DESC',
+    );
+    $votes->set_page_info(
+        current_page => 1,
+        per_page     => 1,
+    );
+
+    my $vote = $votes->first;
+
+    if (!$vote) {
+        return (0, "No vote to delete");
+    }
+
+    return $vote->delete;
+}
+
 1;
 
