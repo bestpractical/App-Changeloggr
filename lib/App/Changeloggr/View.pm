@@ -293,6 +293,16 @@ sub show_vote_form {
             onclick     => { submit => $vote, refresh_self => 1 },
             arguments   => { tag => '_skip' },
         );
+
+        my $user = Jifty->web->current_user->user_object;
+        if ($user->votes->count) {
+            my $undo = new_action('UndoVote');
+            $undo->button(
+                class   => "vote",
+                label   => "Undo previous vote",
+                onclick => { submit => $undo, refresh_self => 1 },
+            );
+        }
     }
 }
 
