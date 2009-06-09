@@ -48,6 +48,10 @@ sub current_user_can {
     # anyone can vote
     return 1 if $right eq 'create';
 
+    # a voter can delete own votes
+    return 1 if $right eq 'delete'
+             && $self->__value('user_id') == $self->current_user->id;
+
     # but votes are immutable
     return $self->SUPER::current_user_can($right, %args);
 }
