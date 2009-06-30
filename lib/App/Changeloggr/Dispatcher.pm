@@ -50,6 +50,12 @@ on '/changelog/*/*/Changes' => run {
     show '/changelog/download';
 };
 
+on '/changelog/*/*' => run {
+    set changelog => $1;
+    show "/changelog/$2";
+};
+
+
 # match /admin/changelog/SUBTAB/UUID
 # or    /admin/changelog/UUID
 on qr{^/admin/changelog((?:/[^/]+)*)/([^/]+)$} => run {
