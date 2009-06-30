@@ -312,6 +312,14 @@ sub show_vote_form {
                     arguments   => { tag => $valid_tag->text },
                 );
             }
+
+            p {
+                attr { class => 'tags_link' };
+                hyperlink(
+                    label => _('Tag descriptions'),
+                    url   => '/changelog/' . $changelog->name . '/tags',
+                );
+            }
         }
         hr {};
         $vote->button(
