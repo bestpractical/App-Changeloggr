@@ -24,6 +24,16 @@ use App::Changeloggr::Record schema {
         is case_sensitive,
         ajax validates,
         ajax canonicalizes;
+
+    column tooltip =>
+        type is 'text',
+        label is 'Tooltip',
+        since '0.0.15';
+
+    column description =>
+        type is 'textarea',
+        label is 'Description',
+        since '0.0.15';
 };
 
 sub validate_text {
