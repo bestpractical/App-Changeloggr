@@ -31,7 +31,8 @@ use App::Changeloggr::Record schema {
         since '0.0.15';
 
     column description =>
-        type is 'textarea',
+        type is 'text',
+        render as 'textarea',
         label is 'Description',
         since '0.0.15';
 };
