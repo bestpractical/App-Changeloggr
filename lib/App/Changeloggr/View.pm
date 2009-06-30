@@ -61,6 +61,20 @@ template '/changelog' => page {
     show '/feedback/request_feedback';
 };
 
+template '/changelog/tags' => page {
+    my $changelog = Changelog(name => get('changelog'));
+
+    title is $changelog->name;
+
+    my $tags = $changelog->tags;
+    dl {
+        while (my $tag = $tags->next) {
+            dt { $tag->text }
+            dd { $tag->description || $tag->tooltip || '' }
+        }
+    }
+};
+
 template '/changelog/download' => sub {
     my $changelog = Changelog( name => get('name') );
     Jifty->handler->apache->header_out( 'Content-Type' => 'text/plain' );
