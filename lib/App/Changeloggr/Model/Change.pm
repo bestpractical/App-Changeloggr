@@ -140,13 +140,6 @@ sub prioritized_tags {
         value    => $self->id,
     );
 
-    $tags->column(
-        column => 'text',
-    );
-    $tags->column(
-        column => 'hotkey',
-    );
-
     # In order to pull out the hotkey, we need to group by it in Postgres
     $tags->group_by(
         function => 'main.text,main.hotkey',
