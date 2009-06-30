@@ -281,6 +281,7 @@ sub show_vote_form {
                     class       => "vote",
                     label       => $label,
                     key_binding => $valid_tag->hotkey,
+                    tooltip     => $valid_tag->tooltip,
                     onclick     => [
                         { submit => $vote, refresh_self => 1 },
                         { refresh => 'score' },
