@@ -64,7 +64,7 @@ template '/changelog' => page {
 template '/changelog/tags' => page {
     my $changelog = Changelog(name => get('changelog'));
 
-    title is $changelog->name;
+    title is _('Tags for %1', $changelog->name);
 
     my $tags = $changelog->tags;
     dl {
@@ -72,6 +72,15 @@ template '/changelog/tags' => page {
             dt { $tag->text }
             dd { $tag->description || $tag->tooltip || '' }
         }
+    }
+
+    hr {};
+
+    p {
+        hyperlink(
+            label => _("Take me back to the voting booth."),
+            url   => '/changelog/' . get('changelog'),
+        );
     }
 };
 
