@@ -219,6 +219,22 @@ EOT
                             }
                         }
                         $delete_tag->button(label => "Delete", class => "inline delete");
+
+                        my $tooltip = $tag->tooltip;
+                        my $description = $tag->description;
+
+                        if ($tooltip || $description) {
+                            dl {
+                                if ($tooltip) {
+                                    dt { "Tooltip" }
+                                    dd { $tooltip  }
+                                }
+                                if ($description) {
+                                    dt { "Description" }
+                                    dd { $description  }
+                                }
+                            }
+                        }
                     }
                 }
             }
