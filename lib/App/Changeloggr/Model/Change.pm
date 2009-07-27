@@ -140,9 +140,9 @@ sub prioritized_tags {
         value    => $self->id,
     );
 
-    # In order to pull out the hotkey, we need to group by it in Postgres
+    # In order to pull out these columns, we need to group by it in Postgres
     $tags->group_by(
-        function => 'main.text,main.hotkey',
+        function => 'main.id,main.changelog_id,main.text,main.hotkey,main.tooltip,main.description',
     );
     $tags->order_by(
         function => "count($votes.tag)",
