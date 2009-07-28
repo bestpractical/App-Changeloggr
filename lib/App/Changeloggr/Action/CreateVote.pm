@@ -43,7 +43,13 @@ sub validate_tag {
     return $self->validation_ok('tag');
 }
 
-sub report_success { shift->result->message(_("Thanks for voting!")) }
+sub report_success {
+    my $self = shift;
+
+    # Don't thank the user for skipping the change
+    $self->result->message(_("Thanks for voting!"))
+        unless $self->argument_value('tag') =~ /^_/;
+}
 
 1;
 
