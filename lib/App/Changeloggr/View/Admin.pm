@@ -208,33 +208,7 @@ EOT
             ul {
                 while (my $tag = $tags->next) {
                     li {
-                        my $delete_tag = $tag->as_delete_action;
-                        render_action $delete_tag;
-                        outs $tag->text;
-                        if ($tag->hotkey) {
-                            outs " ";
-                            span {
-                                { class is "hotkey" };
-                                "(hotkey: ".$tag->hotkey.")"
-                            }
-                        }
-                        $delete_tag->button(label => "Delete", class => "inline delete");
-
-                        my $tooltip = $tag->tooltip;
-                        my $description = $tag->description;
-
-                        if ($tooltip || $description) {
-                            dl {
-                                if ($tooltip) {
-                                    dt { "Tooltip" }
-                                    dd { $tooltip  }
-                                }
-                                if ($description) {
-                                    dt { "Description" }
-                                    dd { $description  }
-                                }
-                            }
-                        }
+                        edit_tag($tag);
                     }
                 }
             }
@@ -246,6 +220,38 @@ EOT
         );
         render_action $add_tag;
         form_submit(label => 'Add Tag', submit => [$add_tag]);
+    }
+}
+
+sub edit_tag {
+    my $tag = shift;
+
+    my $delete_tag = $tag->as_delete_action;
+    render_action $delete_tag;
+    outs $tag->text;
+    if ($tag->hotkey) {
+        outs " ";
+        span {
+            { class is "hotkey" };
+            "(hotkey: ".$tag->hotkey.")"
+        }
+    }
+    $delete_tag->button(label => "Delete", class => "inline delete");
+
+    my $tooltip = $tag->tooltip;
+    my $description = $tag->description;
+
+    if ($tooltip || $description) {
+        dl {
+            if ($tooltip) {
+                dt { "Tooltip" }
+                dd { $tooltip  }
+            }
+            if ($description) {
+                dt { "Description" }
+                dd { $description  }
+            }
+        }
     }
 }
 
