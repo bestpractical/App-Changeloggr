@@ -84,15 +84,30 @@ sub change_sections {
 
     my $votes = $change->votes;
     $votes->limit_to_commented;
-
-    if ($votes->count) {
-        push @sections, [Comments => sub {
-            ul {
-                while (my $vote = <$votes>) {
-                    li { $vote->comment }
-                }
+    if ( $votes->count ) {
+        push @sections, [
+            Comments => sub {
+                ul {
+                    while ( my $vote = <$votes> ) {
+                        li { $vote->comment };
+                    }
+                };
             }
-        }];
+        ];
+    }
+
+    $votes = $change->grouped_votes;
+    if ( $votes->count ) {
+        push @sections, [
+            Votes => sub {
+                dl {
+                    while ( my $vote = <$votes> ) {
+                        dt { $vote->tag };
+                        dd { $vote->id };
+                    }
+                };
+            }
+        ];
     }
 
     return @sections;
