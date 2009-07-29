@@ -156,6 +156,21 @@ sub unvoted_changes {
         operator => 'IS',
         value => 'NULL',
     );
+
+    my $start = $self->current_user->position_for($self);
+    if ($start) {
+        $changes->limit(
+            column   => 'id',
+            operator => '>=',
+            value    => $start,
+        );
+    }
+
+    if ($changes->count == 0 && $start > 0) {
+        $self->current_user->set_position_for($self, 0);
+        return $self->unvoted_changes(@_);
+    }
+
     return $changes;
 }
 
