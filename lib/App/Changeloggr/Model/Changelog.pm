@@ -136,7 +136,7 @@ sub commit_links {
 
 sub unvoted_changes {
     my $self = shift;
-    my $changes = M('ChangeCollection', changelog_id => $self);
+    my $changes = $self->changes;
     my $votes = $changes->join(
         type => 'left',
         column1 => 'id',
@@ -177,7 +177,7 @@ sub unvoted_changes {
 sub get_starting_position {
     my $self = shift;
 
-    my $changes = M('ChangeCollection', changelog_id => $self);
+    my $changes = $self->changes;
     $changes->order_by({
         function => 'random()',
     });
