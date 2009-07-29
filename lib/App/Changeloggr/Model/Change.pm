@@ -66,6 +66,10 @@ sub grouped_votes {
     $votes->column(
         column => 'tag',
     );
+    $votes->column(
+        column => 'id',
+        function => 'count(*)',
+    );
     $votes->group_by(
         column => 'tag',
     );
