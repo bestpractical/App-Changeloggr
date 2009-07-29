@@ -66,8 +66,8 @@ template '/changelog/votes' => page {
                     dl {
                         for (@sections) {
                             my ($name, $code) = @$_;
-                            dt { $name }
-                            dd { $code->() }
+                            dt { {class is lc $name }; $name }
+                            dd { {class is lc $name }; $code->() }
                         }
                     }
                 }
