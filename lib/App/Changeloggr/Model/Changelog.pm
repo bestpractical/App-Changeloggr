@@ -159,6 +159,17 @@ sub unvoted_changes {
     return $changes;
 }
 
+sub get_starting_position {
+    my $self = shift;
+
+    my $changes = M('ChangeCollection', changelog_id => $self);
+    $changes->order_by({
+        function => 'random()',
+    });
+
+    return $changes->first->id;
+}
+
 sub choose_change {
     my $self = shift;
 
