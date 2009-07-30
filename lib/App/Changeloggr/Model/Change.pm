@@ -31,6 +31,12 @@ use App::Changeloggr::Record schema {
         filters are qw( Jifty::Filter::DateTime Jifty::DBI::Filter::DateTime),
         label is 'Date';
 
+    column commit_date =>
+        type is 'timestamp',
+        filters are qw( Jifty::Filter::DateTime Jifty::DBI::Filter::DateTime),
+        label is 'Commit Date',
+        since is '0.0.16';
+
     column message =>
         type is 'text',
         label is 'Body',
