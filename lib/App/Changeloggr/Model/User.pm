@@ -71,11 +71,12 @@ sub votes {
 
 sub vote_placement {
     my $self = shift;
-    my $votes = $self->votes->count;
+    my $votes = $self->votes->limit_to_visible('tag')->count;
     my $place = Jifty->handle->simple_query(<<"EOSQL")->fetch->[0];
 select count(*)
   from (select user_id
           from votes
+         where votes.tag not like E'\\\\_%'
          group by votes.user_id
         having count(*) >= $votes) as v;
 EOSQL
