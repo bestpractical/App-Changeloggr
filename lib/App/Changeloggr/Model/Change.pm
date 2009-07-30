@@ -64,6 +64,13 @@ sub votes {
     return $votes;
 }
 
+sub rewordings {
+    my $self = shift;
+    my $rewordings = App::Changeloggr::Model::RewordingCollection->new;
+    $rewordings->limit( column => 'change_id', value => $self->id );
+    return $rewordings;
+}
+
 sub grouped_votes {
     my $self = shift;
     my $votes = $self->votes;
