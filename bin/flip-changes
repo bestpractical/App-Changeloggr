@@ -12,6 +12,11 @@ $changelogs->unlimit;
 
 while (my $changelog = <$changelogs>) {
     my $changes = $changelog->changes;
+    $changes->order_by(
+        column => 'id',
+        order => 'desc',
+    );
+
     while (my $change = <$changes>) {
         my %values = $change->as_hash;
         delete $values{id};
