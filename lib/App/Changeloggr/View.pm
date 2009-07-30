@@ -41,7 +41,7 @@ template '/' => page {
         outs "Fork us on ";
         hyperlink(
             label => "github",
-            path  => "http://github.com/bestpractical/App-Changeloggr/tree/master",
+            url   => "http://github.com/bestpractical/App-Changeloggr/tree/master",
         );
         outs "!";
     };
