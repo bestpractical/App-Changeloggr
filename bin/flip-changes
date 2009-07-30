@@ -22,12 +22,13 @@ while (my $changelog = <$changelogs>) {
         my ($ok, $msg) = $new_change->create(%values);
         print "created $ok - $msg\n";
 
-        my $votes = $change->votes;
-        while (my $vote = <$votes>) {
-            $vote->__set(
-                column => 'change_id',
-                value  => $new_change->id,
-            );
+        for my $collection ($change->votes, $change->rewordings, $change->importances) {
+            while (my $record = <$collection>) {
+                $record->__set(
+                    column => 'change_id',
+                    value  => $new_change->id,
+                );
+            }
         }
 
         ($ok, $msg) = $change->delete;
