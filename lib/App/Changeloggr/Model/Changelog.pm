@@ -157,20 +157,6 @@ sub unvoted_changes {
         value => 'NULL',
     );
 
-    my $start = $self->current_user->position_for($self);
-    if ($start) {
-        $changes->limit(
-            column   => 'id',
-            operator => '>=',
-            value    => $start,
-        );
-    }
-
-    if ($changes->count == 0 && $start > 0) {
-        $self->current_user->set_position_for($self, 0);
-        return $self->unvoted_changes(@_);
-    }
-
     return $changes;
 }
 
@@ -192,6 +178,21 @@ sub choose_change {
     # the current user has not voted on yet, ordered by the confidence of the
     # top tag. But for now.. an arbitrary change belonging to this changelog.
     my $changes = $self->unvoted_changes;
+
+    my $start = $self->current_user->position_for($self);
+    if ($start) {
+        $changes->limit(
+            column   => 'id',
+            operator => '>=',
+            value    => $start,
+        );
+    }
+
+    if ($changes->count == 0 && $start > 0) {
+        $self->current_user->set_position_for($self, 0);
+        return $self->choose_change(@_);
+    }
+
     $changes->rows_per_page(1);
     $changes->order_by( column => 'date', order => 'asc' );
     return $changes->first;
