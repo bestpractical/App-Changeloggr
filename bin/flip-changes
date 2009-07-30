@@ -5,6 +5,8 @@ use warnings;
 use Jifty;
 BEGIN { Jifty->new }
 
+$| = 1;
+
 my $changelogs = App::Changeloggr::Model::ChangelogCollection->new(
     current_user => App::Changeloggr::CurrentUser->superuser,
 );
@@ -25,8 +27,8 @@ while (my $changelog = <$changelogs>) {
             current_user => App::Changeloggr::CurrentUser->superuser,
         );
         my ($ok, $msg) = $new_change->create(%values);
-        $msg ||= 'ok';
-        print "created $ok - $msg\n";
+        if ($ok) { print '.' }
+        else { print "\nUnable to create change: $msg" }
 
         for my $collection ($change->votes, $change->rewordings, $change->importances) {
             while (my $record = <$collection>) {
@@ -38,8 +40,8 @@ while (my $changelog = <$changelogs>) {
         }
 
         ($ok, $msg) = $change->delete;
-        $msg ||= 'ok';
-        print "deleted $ok - $msg\n";
+        if ($ok) { print '.' }
+        else { print "\nUnable to delete change: $msg" }
     }
 }
 
