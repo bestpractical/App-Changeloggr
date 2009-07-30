@@ -160,6 +160,34 @@ sub unvoted_changes {
     return $changes;
 }
 
+sub votes {
+    my $self = shift;
+    my $votes = M('VoteCollection');
+
+    my $changes = $votes->join(
+        type        => 'left',
+        column1     => 'change_id',
+        table2      => 'changes',
+        column2     => 'id',
+        is_distinct => 1,
+    );
+
+    $votes->limit(
+        leftjoin => $changes,
+        column   => 'changelog_id',
+        value    => $self->id,
+    );
+
+    $votes->limit(
+        column   => 'id',
+        alias    => $changes,
+        operator => 'IS NOT',
+        value    => 'NULL',
+    );
+
+    return $votes;
+}
+
 sub get_starting_position {
     my $self = shift;
 
