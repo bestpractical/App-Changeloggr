@@ -18,29 +18,39 @@ sub matches {
 sub next_match {
     my $self = shift;
 
-    $self->{text} =~ s{
-        \A
-        (
-            ^ -{72} \r? \n
-            (r.*?) \s+ \|
-            \s+ (.*?) \s+ \|
-            \s+ (\d{4}-\d{2}-\d{2} \s+ \d{2}:\d{2}:\d{2}\s+\S+) \s+ \(.*?\) \s+ \|
-            \s+ \d+ \s+ lines? \r? \n \r? \n
-            ( .*? )
-        )
-        (?=
-            ^ -{72} \r? \n
-        )
-    }{}xms or return;
+    unless ($self->{log_entries}) {
+        while (1) {
+            $self->{text} =~ s{
+                \A
+                (
+                    ^ -{72} \r? \n
+                    (r.*?) \s+ \|
+                    \s+ (.*?) \s+ \|
+                    \s+ (\d{4}-\d{2}-\d{2} \s+ \d{2}:\d{2}:\d{2}\s+\S+) \s+ \(.*?\) \s+ \|
+                    \s+ \d+ \s+ lines? \r? \n \r? \n
+                    ( .*? )
+                )
+                (?=
+                    ^ -{72} \r? \n
+                )
+            }{}xms or last;
 
-    my %fields;
-    $fields{raw} = $1;
-    $fields{identifier} = $2;
-    $fields{author} = $3;
-    $fields{date} = $fields{commit_date} = DATE_PARSER->parse_datetime($4);
-    $fields{message} = $self->strip_detritus($5);
+            my $date = DATE_PARSER->parse_datetime($4);
 
-    return \%fields;
+            push @{ $self->{log_entries} }, {
+                raw         => $1,
+                identifier  => $2,
+                author      => $3,
+                date        => $date,
+                commit_date => $date,
+                message     => $self->strip_detritus($5),
+            };
+        }
+
+        @{ $self->{log_entries} } = reverse @{ $self->{log_entries} };
+    }
+
+    return shift @{ $self->{log_entries} };
 }
 
 =begin svn-sample
