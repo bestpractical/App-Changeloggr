@@ -194,7 +194,7 @@ sub choose_change {
     }
 
     $changes->rows_per_page(1);
-    $changes->order_by( column => 'date', order => 'asc' );
+    $changes->order_by(column => 'id', order => 'asc');
     return $changes->first;
 }
 
