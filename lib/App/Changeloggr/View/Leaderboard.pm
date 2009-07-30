@@ -20,7 +20,9 @@ template '/changelog' => page {
 sub show_leaderboard {
     my $votes = shift;
 
+    $votes->limit_to_visible('tag');
     $votes->group_by_voter;
+
     ol {
         for (0 .. 25) {
             my $vote = $votes->next
