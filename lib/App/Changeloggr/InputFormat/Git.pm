@@ -51,9 +51,9 @@ sub next_match {
 #    if ($entry =~ /^Commit:\s*(.*)$/im) {
 #        $fields{commit} = $1;
 #    }
-#    if ($entry =~ /^CommitDate:\s*(.*)$/im) {
-#        $fields{commit_date} = $1;
-#    }
+    if ($entry =~ /^CommitDate:\s*(.*)$/im) {
+        $fields{commit_date} = $1;
+    }
 
     if ($entry =~ /.*?^\n(\s{4}.*?)(^\s{1,2}\S+\s+\|\s+\d+|\z)/ims) {
         $fields{message} = $1;
