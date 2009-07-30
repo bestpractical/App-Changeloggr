@@ -21,7 +21,7 @@ sub next_match {
 
     unless ( $self->{log_entries} ) {
         my $data = XMLin( $self->{text}, ForceArray => ["logentry"] );
-        $self->{log_entries} = [map {
+        $self->{log_entries} = [reverse map {
             my $date = DATE_PARSER->parse_datetime( $_->{date} );
             {
                 identifier  => $_->{revision},
