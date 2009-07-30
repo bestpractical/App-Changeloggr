@@ -4,7 +4,7 @@ use JiftyX::ModelHelpers;
 use strict;
 use warnings;
 
-template '/' => page {
+template '/global' => page {
     my $votes = M('VoteCollection');
     $votes->unlimit;
     show_leaderboard($votes);
