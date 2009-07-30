@@ -15,7 +15,6 @@ use App::Changeloggr::Record schema {
         type is 'text',
         label is 'Tag',
         is mandatory,
-        is immutable,
         ajax canonicalizes;
 
     column hotkey =>
