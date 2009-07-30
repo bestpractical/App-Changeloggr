@@ -20,6 +20,7 @@ while (my $changelog = <$changelogs>) {
             current_user => App::Changeloggr::CurrentUser->superuser,
         );
         my ($ok, $msg) = $new_change->create(%values);
+        $msg ||= 'ok';
         print "created $ok - $msg\n";
 
         for my $collection ($change->votes, $change->rewordings, $change->importances) {
@@ -32,6 +33,7 @@ while (my $changelog = <$changelogs>) {
         }
 
         ($ok, $msg) = $change->delete;
+        $msg ||= 'ok';
         print "deleted $ok - $msg\n";
     }
 }
