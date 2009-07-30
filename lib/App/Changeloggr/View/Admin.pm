@@ -151,7 +151,7 @@ sub add_changes_to {
     p {
         outs 'We accept the following log formats.';
         ul {
-            li { tt { 'git log --pretty=fuller --stat' }};
+            li { tt { 'git log --pretty=fuller --stat --reverse' }};
             li { tt { 'svn log' }};
             li { tt { 'svn log --xml' }};
         }
