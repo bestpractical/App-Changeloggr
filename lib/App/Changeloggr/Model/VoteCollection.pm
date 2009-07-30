@@ -15,5 +15,22 @@ sub limit_to_commented {
     return $self;
 }
 
+sub group_by_voter {
+    my $self = shift;
+
+    $self->columns('user_id');
+
+    $self->group_by(
+        column => 'user_id',
+    );
+
+    $self->order_by(
+        function => 'COUNT(*)',
+        order    => 'DESC',
+    );
+
+    return $self;
+}
+
 1;
 
