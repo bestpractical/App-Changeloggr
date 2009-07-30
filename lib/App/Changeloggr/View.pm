@@ -335,7 +335,7 @@ sub show_vote_form {
             p {
                 attr { class => 'tags_link' };
                 hyperlink(
-                    label => _('Tag descriptions'),
+                    label => _('Legend'),
                     url   => '/changelog/' . $changelog->name . '/tags',
                 );
             }
