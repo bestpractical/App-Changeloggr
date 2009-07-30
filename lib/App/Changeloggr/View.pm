@@ -109,8 +109,14 @@ template '/score' => sub {
     div {
         {id is "score"};
         my $user = Jifty->web->current_user->user_object;
-        my($votes, $place) = $user->vote_placement;
-        outs _("You have %quant(%1,vote), and are currently ranked #%2!", $votes, $place);
+        my ($votes, $place) = $user->vote_placement;
+
+        outs _("You have %quant(%1,vote), and are ", $votes);
+        hyperlink(
+            label => _("currently ranked"),
+            url   => '/leaderboard/global',
+        );
+        outs _(" #%1!", $place);
     };
 };
 
