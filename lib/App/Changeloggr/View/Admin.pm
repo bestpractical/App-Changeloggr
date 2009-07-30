@@ -223,7 +223,7 @@ EOT
             ul {
                 while (my $tag = $tags->next) {
                     li {
-                        edit_tag($tag);
+                        display_tag($tag);
                     }
                 }
             }
@@ -238,8 +238,25 @@ EOT
     }
 }
 
-sub edit_tag {
+sub display_tag {
     my $tag = shift;
+    my $changelog = $tag->changelog;
+
+    render_region(
+        path => '/admin/changelog/tag/display/' . $changelog->admin_token,
+        name => 'tag_' . $tag->id,
+        arguments => {
+            tag => $tag->id,
+        },
+    );
+
+}
+
+template '/changelog/tag/display' => sub {
+    my $tag_id = get('tag');
+    my $tag = Tag($tag_id);
+
+    my $changelog = $tag->changelog;
 
     my $delete_tag = $tag->as_delete_action;
     render_action $delete_tag;
@@ -251,6 +268,15 @@ sub edit_tag {
             "(hotkey: ".$tag->hotkey.")"
         }
     }
+
+    hyperlink(
+        label => _('Edit'),
+        as_button => 1,
+        onclick => {
+            replace_with => '/admin/changelog/tag/edit/' . $changelog->admin_token,
+        },
+    );
+
     $delete_tag->button(label => "Delete", class => "inline delete");
 
     my $tooltip = $tag->tooltip;
@@ -268,7 +294,34 @@ sub edit_tag {
             }
         }
     }
-}
+};
+
+template '/changelog/tag/edit' => sub {
+    my $tag_id = get('tag');
+    my $tag = Tag($tag_id);
+    my $changelog = $tag->changelog;
+
+    my $update_tag = $tag->as_update_action;
+    render_action $update_tag;
+
+    $update_tag->button(
+        label => "Save",
+        class => "inline update",
+        onclick => {
+            submit       => $update_tag,
+            replace_with => '/admin/changelog/tag/display/' . $changelog->admin_token,
+        },
+    );
+
+    hyperlink(
+        label => "Cancel",
+        class => "inline cancel",
+        as_button => 1,
+        onclick => {
+            replace_with => '/admin/changelog/tag/display/' . $changelog->admin_token,
+        },
+    );
+};
 
 1;
 
