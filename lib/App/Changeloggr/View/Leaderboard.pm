@@ -7,11 +7,13 @@ use warnings;
 template '/global' => page {
     my $votes = M('VoteCollection');
     $votes->unlimit;
+    title is 'Leaderboard';
     show_leaderboard($votes);
 };
 
 template '/changelog' => page {
     my $changelog = Changelog(name => get('changelog'));
+    title is _('Leaderboard for %1', $changelog->name);
     show_leaderboard($changelog->votes);
 };
 
