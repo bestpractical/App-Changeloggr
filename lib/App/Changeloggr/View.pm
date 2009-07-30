@@ -36,6 +36,16 @@ template '/' => page {
             li { changelog_summary($changelog) }
         }
     };
+
+    p {
+        outs "Fork us on ";
+        hyperlink(
+            label => "github",
+            path  => "http://github.com/bestpractical/App-Changeloggr/tree/master",
+        );
+        outs "!";
+    };
+
     h2 { "Recent news" };
     render_region(
         name => 'news',
