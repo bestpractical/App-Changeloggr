@@ -23,7 +23,10 @@ sub show_leaderboard {
         for (0 .. 25) {
             my $vote = $votes->next
                 or last;
-            li { $vote->user->name || 'anonymous' }
+            li {
+                my $name = $vote->user->name || 'anonymous';
+                outs _("%1 - %2", $name, $vote->id);
+            }
         }
     }
 }

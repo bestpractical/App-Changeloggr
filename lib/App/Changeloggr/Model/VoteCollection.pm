@@ -19,6 +19,10 @@ sub group_by_voter {
     my $self = shift;
 
     $self->columns('user_id');
+    $self->column(
+        column   => 'id',
+        function => 'COUNT(*)',
+    );
 
     $self->group_by(
         column => 'user_id',
