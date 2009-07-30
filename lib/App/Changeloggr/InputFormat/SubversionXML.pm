@@ -22,12 +22,14 @@ sub next_match {
     unless ( $self->{log_entries} ) {
         my $data = XMLin( $self->{text}, ForceArray => ["logentry"] );
         $self->{log_entries} = [map {
+            my $date = DATE_PARSER->parse_datetime( $_->{date} );
             {
-                identifier => $_->{revision},
-                author     => $_->{author},
-                date       => DATE_PARSER->parse_datetime( $_->{date} ),
-                message    => $self->strip_detritus($_->{msg}),
-                raw        => XMLout($_, NoAttr => 1), # Rather a hack
+                identifier  => $_->{revision},
+                author      => $_->{author},
+                date        => $date,
+                commit_date => $date,
+                message     => $self->strip_detritus($_->{msg}),
+                raw         => XMLout($_, NoAttr => 1), # Rather a hack
             };
         } @{ $data->{logentry} }];
     }

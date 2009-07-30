@@ -37,7 +37,7 @@ sub next_match {
     $fields{raw} = $1;
     $fields{identifier} = $2;
     $fields{author} = $3;
-    $fields{date} = DATE_PARSER->parse_datetime($4);
+    $fields{date} = $fields{commit_date} = DATE_PARSER->parse_datetime($4);
     $fields{message} = $self->strip_detritus($5);
 
     return \%fields;
