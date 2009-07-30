@@ -16,7 +16,7 @@ while (my $changelog = <$changelogs>) {
     my $changes = $changelog->changes;
     $changes->order_by(
         column => 'id',
-        order => 'desc',
+        order  => 'desc',
     );
 
     while (my $change = <$changes>) {
@@ -28,7 +28,7 @@ while (my $changelog = <$changelogs>) {
         );
         my ($ok, $msg) = $new_change->create(%values);
         if ($ok) { print '.' }
-        else { print "\nUnable to create change: $msg" }
+        else { print "\nUnable to create change: $msg. BAILING!\n"; exit }
 
         for my $collection ($change->votes, $change->rewordings, $change->importances) {
             while (my $record = <$collection>) {
@@ -41,7 +41,7 @@ while (my $changelog = <$changelogs>) {
 
         ($ok, $msg) = $change->delete;
         if ($ok) { print '.' }
-        else { print "\nUnable to delete change: $msg" }
+        else { print "\nUnable to delete change " . $change->id . ": $msg\n" }
     }
 }
 
