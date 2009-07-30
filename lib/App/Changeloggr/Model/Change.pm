@@ -71,6 +71,13 @@ sub rewordings {
     return $rewordings;
 }
 
+sub importances {
+    my $self = shift;
+    my $importances = App::Changeloggr::Model::ImportanceCollection->new;
+    $importances->limit( column => 'change_id', value => $self->id );
+    return $importances;
+}
+
 sub grouped_votes {
     my $self = shift;
     my $votes = $self->votes;
