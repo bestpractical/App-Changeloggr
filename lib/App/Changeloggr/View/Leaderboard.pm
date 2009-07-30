@@ -25,9 +25,16 @@ sub show_leaderboard {
         for (0 .. 25) {
             my $vote = $votes->next
                 or last;
+            my $is_current = $vote->user->id == Jifty->web->current_user->id;
             li {
                 my $name = $vote->user->name || 'anonymous';
-                outs _("%1 - %2", $name, $vote->id);
+                outs_raw '<b>' if $is_current;
+                outs _("%1: %2", $name, $vote->id);
+
+                if ($is_current) {
+                    outs_raw '</b>';
+                    outs " -- That's you!";
+                }
             }
         }
     }
