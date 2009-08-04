@@ -23,7 +23,8 @@ sub position_for {
     my $position = $session->get($key);
     if (!defined($position)) {
         $position = $changelog->get_starting_position;
-        $self->set_position_for($changelog, $position);
+        # Don't set if we have no changes
+        $self->set_position_for($changelog, $position) if defined $position;
     }
 
     return $position;

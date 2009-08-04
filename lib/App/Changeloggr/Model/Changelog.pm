@@ -196,7 +196,8 @@ sub get_starting_position {
         function => 'random()',
     });
 
-    return $changes->first->id;
+    # No valid changes
+    return $changes->first ? $changes->first->id : undef;
 }
 
 sub choose_change {
@@ -208,6 +209,7 @@ sub choose_change {
     my $changes = $self->unvoted_changes;
 
     my $start = $self->current_user->position_for($self);
+    return undef unless defined $start; # No valid changes, bail
     if ($start) {
         $changes->limit(
             column   => 'id',
