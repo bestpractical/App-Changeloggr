@@ -26,9 +26,12 @@ on '/admin/created-changelog' => run {
     redirect "/admin/changelog/changes/$admin_token";
 };
 
+on '/changelog' => redirect '/';
+
 before '/changelog/*' => run {
     my $cl = Changelog( name => $1 );
-    return unless $cl->id and $cl->current_user_is_admin;
+    redirect '/' unless defined $cl and $cl->id;
+    return unless $cl->current_user_is_admin;
     Jifty->web->navigation->child(
         "Manage" => url => "/admin/changelog/" . $cl->admin_token,
     );
