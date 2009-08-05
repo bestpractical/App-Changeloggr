@@ -27,7 +27,7 @@ my $changes = $changelog->changes;
 while (my $change = $changes->next) {
     next if $change->message =~ /\d+ files? changed, \d+ insertions?\(\+\), \d+ deletions?\(-\)/;
     my $id = $change->identifier;
-    my $stat = `git log --format=oneline --stat $id~1..$id`;
+    my $stat = `git log --pretty=oneline --stat $id~1..$id`;
     $stat =~ s/^.*\n//;
 
     $change->set_diffstat($stat);
