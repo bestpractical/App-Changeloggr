@@ -7,7 +7,7 @@ input.button.vote {
   margin: 0.3em;
 }
 
-#region-vote-on-change div#keybindings {
+#region-vote-on-change div#vote_buttons {
   background: #224;
   border: 1px solid #445;
   border-left: none;
@@ -20,30 +20,6 @@ input.button.vote {
   width: 11.5em;
   -moz-border-radius-topright: 10px;
   -moz-border-radius-bottomright: 10px;
-}
-
-dl.keybindings {
-  margin-top: 0;
-}
-
-dl.keybindings dt {
-  clear: left;
-  float: left;
-  text-align: right;
-  font-family: monospace;
-  font-size: 125%;
-}
-
-dl.keybindings dt:after {
-  content: "";
-}
-
-dl.keybindings dd:before {
-  content: " - ";
-}
-
-dl.keybindings dd {
-  float: left;
 }
 
 .change_message {
