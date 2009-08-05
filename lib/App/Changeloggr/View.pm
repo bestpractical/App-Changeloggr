@@ -324,6 +324,13 @@ sub show_vote_form {
                         }
 
                         li {
+                            if ($valid_tag->hotkey) {
+                                span {
+                                    class is 'hotkey';
+                                    $valid_tag->hotkey
+                                };
+                            }
+
                             $vote->button(
                                 class       => "vote",
                                 label       => $label,

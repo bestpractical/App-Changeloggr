@@ -28,6 +28,10 @@ div#vote_buttons ul {
     padding: 0;
 }
 
+div#vote_buttons .hotkey {
+    font-size: 1.2em;
+}
+
 .change_message {
   font-family: monospace;
 }
