@@ -152,7 +152,15 @@ sub show_change {
     my $change = shift;
     my %args = @_;
 
-    div { id is 'keybindings' };
+    my $id = $change->id;
+
+    render_region(
+        name      => "vote_$id",
+        path      => '/change/vote',
+        arguments => {
+            change => $id,
+        },
+    );
 
     div {
         { class is "change" };
@@ -190,7 +198,6 @@ sub show_change {
             li { "Date: " . $change->date };
         };
 
-        my $id = $change->id;
         render_region(
             name      => "change_$id",
             path      => '/change/more',
@@ -234,8 +241,6 @@ sub show_change {
 
         if ($args{voting_form}) {
             hr {};
-            show_vote_form($change);
-            hr {};
             show_rewording_form($change);
         }
     };
@@ -268,103 +273,109 @@ template '/change/more' => sub {
     };
 };
 
-sub show_vote_form {
-    my $change = shift;
-
+template '/change/vote' => sub {
+    my $change = M('Change', id => get('change'));
     my $changelog = $change->changelog;
     my $valid_tags = $change->prioritized_tags;
 
-    form {
+    div {
+        id is 'vote_buttons';
         h4 { 'Vote!' };
-        my $vote = new_action(
-            class     => "CreateVote",
-            arguments => { change_id => $change->id }
-        );
 
-        render_param($vote, 'change_id');
-        if ($valid_tags->count == 0 || $changelog->incremental_tags) {
-            render_param($vote, 'tag');
+        form {
+            ul {
+                my $vote = new_action(
+                    class     => "CreateVote",
+                    arguments => { change_id => $change->id }
+                );
 
-            my $label = $changelog->incremental_tags ? 'Vote and add tag' : 'Vote';
-            form_submit(
-                label   => $label,
-                onclick     => [
-                    { submit => $vote, refresh_self => 1 },
-                    { refresh => 'score' },
-                ],
-            );
-        }
+                render_param($vote, 'change_id');
+                if ($valid_tags->count == 0 || $changelog->incremental_tags) {
+                    render_param($vote, 'tag');
 
-        if ($valid_tags->count) {
-            my $tag_number = 0;
-            my $voted_cusp = 0;
-            while (my $valid_tag = $valid_tags->next) {
-                my $label;
-                my $count = $change->count_of_tag($valid_tag);
-
-                # This is actually checking count+1, not id. It's count+1
-                # because id 0 (aka count 0) records are not loaded. :/
-                ++$tag_number;
-                if ($count > 0) {
-                    $label = _('%1 (%2)', $valid_tag->text, $count);
-                }
-                else {
-                    $label = $valid_tag->text;
-
-                    # Add a newline between tags that have been selected for
-                    # this change and tags that haven't
-                    if (!$voted_cusp) {
-                        $voted_cusp = 1;
-                        br {} unless $tag_number == 1;
+                    my $label = $changelog->incremental_tags ? 'Vote and add tag' : 'Vote';
+                    li {
+                        form_submit(
+                            label   => $label,
+                            onclick     => [
+                                { submit => $vote, refresh_self => 1 },
+                                { refresh => 'score' },
+                            ],
+                        );
                     }
                 }
 
-                $vote->button(
-                    class       => "vote",
-                    label       => $label,
-                    key_binding => $valid_tag->hotkey,
-                    tooltip     => $valid_tag->tooltip,
-                    onclick     => [
-                        { submit => $vote, refresh_self => 1 },
-                        { refresh => 'score' },
-                    ],
-                    arguments   => { tag => $valid_tag->text },
-                );
-            }
+                if ($valid_tags->count) {
+                    my $tag_number = 0;
+                    my $voted_cusp = 0;
+                    while (my $valid_tag = $valid_tags->next) {
+                        my $label;
+                        my $count = $change->count_of_tag($valid_tag);
 
-            p {
-                attr { class => 'tags_link' };
-                hyperlink(
-                    label => _('Legend'),
-                    url   => '/changelog/' . $changelog->name . '/tags',
-                );
+                        # This is actually checking count+1, not id. It's count+1
+                        # because id 0 (aka count 0) records are not loaded. :/
+                        ++$tag_number;
+                        if ($count > 0) {
+                            $label = _('%1 (%2)', $valid_tag->text, $count);
+                        }
+                        else {
+                            $label = $valid_tag->text;
+                        }
+
+                        li {
+                            $vote->button(
+                                class       => "vote",
+                                label       => $label,
+                                key_binding => $valid_tag->hotkey,
+                                tooltip     => $valid_tag->tooltip,
+                                onclick     => [
+                                    { submit => $vote, refresh_self => 1 },
+                                    { refresh => 'score' },
+                                ],
+                                arguments   => { tag => $valid_tag->text },
+                            );
+                        };
+                    }
+
+                    p {
+                        attr { class => 'tags_link' };
+                        hyperlink(
+                            label => _('Legend'),
+                            url   => '/changelog/' . $changelog->name . '/tags',
+                        );
+                    }
+                }
+                hr {};
+                li {
+                    $vote->button(
+                        class       => "vote",
+                        label       => 'Skip this change',
+                        onclick     => [
+                            { submit => $vote, refresh_self => 1 },
+                            { refresh => 'score' },
+                        ],
+                        arguments   => { tag => '_skip' },
+                    );
+                };
+
+                my $user = Jifty->web->current_user->user_object;
+                if ($user->votes->count) {
+                    my $undo = new_action('UndoVote');
+                    li {
+                        $undo->button(
+                            class   => "vote",
+                            label   => "Undo previous vote",
+                            onclick     => [
+                                { submit => $undo, refresh_self => 1 },
+                                { refresh => 'score' },
+                            ],
+                        );
+                    };
+                }
             }
         }
-        hr {};
-        $vote->button(
-            class       => "vote",
-            label       => 'Skip this change',
-            onclick     => [
-                { submit => $vote, refresh_self => 1 },
-                { refresh => 'score' },
-            ],
-            arguments   => { tag => '_skip' },
-        );
-
-        my $user = Jifty->web->current_user->user_object;
-        if ($user->votes->count) {
-            my $undo = new_action('UndoVote');
-            $undo->button(
-                class   => "vote",
-                label   => "Undo previous vote",
-                onclick     => [
-                    { submit => $undo, refresh_self => 1 },
-                    { refresh => 'score' },
-                ],
-            );
-        }
-    }
-}
+    };
+};
 
 sub show_rewording_form {
     my $change = shift;
