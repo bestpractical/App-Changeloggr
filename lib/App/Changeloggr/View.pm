@@ -82,7 +82,10 @@ template '/changelog/tags' => page {
     my $tags = $changelog->tags;
     dl {
         while (my $tag = $tags->next) {
-            dt { $tag->text }
+            dt {
+                outs $tag->text;
+                outs _(" (hotkey: %1)", $tag->hotkey) if $tag->hotkey;
+            }
             dd { $tag->description || $tag->tooltip || '' }
         }
     }
