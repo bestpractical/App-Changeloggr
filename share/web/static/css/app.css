@@ -20,7 +20,7 @@ body {
   right: 1em;
   height: 50px;
   width: 180px;
-  background: #112 url(/static/images/bplogo.png) no-repeat left top;
+/*  background: #112 url(/static/images/bplogo.png) no-repeat right top;*/
 }
 
 a, a:link, a:visited {
