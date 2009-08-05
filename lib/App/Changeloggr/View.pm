@@ -110,7 +110,7 @@ template '/vote-on-change' => sub {
     my $changelog = M('Changelog', id => get('changelog'));
     my $change = $changelog->choose_change;
     if ($change) {
-        show_change($change, voting_form => 1);
+        show_change($change);
     } else {
         my $has_changes = $changelog->changes->count;
         h2 { "No changes " . ($has_changes ? "left " : "") . " in this log" };
@@ -153,7 +153,6 @@ sub changelog_summary {
 
 sub show_change {
     my $change = shift;
-    my %args = @_;
 
     my $id = $change->id;
 
@@ -236,10 +235,8 @@ sub show_change {
             }
         }
 
-        if ($args{voting_form}) {
-            hr {};
-            show_rewording_form($change);
-        }
+        hr {};
+        show_rewording_form($change);
     };
 }
 
