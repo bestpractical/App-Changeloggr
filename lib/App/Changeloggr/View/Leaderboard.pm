@@ -24,7 +24,7 @@ sub show_leaderboard {
     $votes->group_by_voter;
 
     ol {
-        for (0 .. 25) {
+        for (1 .. 25) {
             my $vote = $votes->next
                 or last;
             my $is_current = $vote->user->id == Jifty->web->current_user->id;
