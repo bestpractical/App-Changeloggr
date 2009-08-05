@@ -21,6 +21,8 @@ my $changelog = App::Changeloggr::Model::Changelog->new(
 my ($ok, $msg) = $changelog->load_by_cols(name => $changelog_name);
 die "Unable to load changelog '$changelog_name': $msg" if !$ok;
 
+chdir $path;
+
 my $changes = $changelog->changes;
 while (my $change = $changes->next) {
     next if $change->message =~ /\d+ files? changed, \d+ insertions?\(\+\), \d+ deletions?\(-\)/;
