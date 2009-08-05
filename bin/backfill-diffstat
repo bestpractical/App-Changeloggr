@@ -1,0 +1,34 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use Jifty;
+BEGIN { Jifty->new }
+
+$| = 1;
+
+die "usage: $0 'changelog name' 'path to git repository'"
+    if @ARGV != 2;
+
+my ($changelog_name, $path) = @ARGV;
+
+-d $path or die "git repository does not exist or is not a directory";
+-d "$path/.git" or die "directory does not include a .git directory";
+
+my $changelog = App::Changeloggr::Model::Changelog->new(
+    current_user => App::Changeloggr::CurrentUser->superuser,
+);
+my ($ok, $msg) = $changelog->load_by_cols(name => $changelog_name);
+die "Unable to load changelog '$changelog_name': $msg" if !$ok;
+
+my $changes = $changelog->changes;
+while (my $change = $changes->next) {
+    next if $change->message =~ /\d+ files? changed, \d+ insertions?\(\+\), \d+ deletions?\(-\)/;
+    my $id = $change->identifier;
+    my $stat = `git log --format=oneline --stat $id~1..$id`;
+    $stat =~ s/^.*\n//;
+
+    $change->set_diffstat($stat);
+    print ".";
+}
+
