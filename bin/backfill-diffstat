@@ -30,7 +30,12 @@ while (my $change = $changes->next) {
     my $stat = `git log --pretty=oneline --stat $id~1..$id`;
     $stat =~ s/^.*\n//;
 
-    $change->set_diffstat($stat);
-    print ".";
+    if ($stat =~ /\S/) {
+        print ".";
+        $change->set_diffstat($stat);
+    }
+    else {
+        print "\nNo diffstat for $id\n";
+    }
 }
 
