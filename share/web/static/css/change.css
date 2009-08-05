@@ -22,6 +22,12 @@ input.button.vote {
   -moz-border-radius-bottomright: 10px;
 }
 
+div#vote_buttons ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
 .change_message {
   font-family: monospace;
 }
