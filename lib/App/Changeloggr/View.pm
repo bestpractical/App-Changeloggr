@@ -246,6 +246,9 @@ sub show_change {
 template '/change/external_source' => sub {
     my $url = get('url');
 
+    $url =~ s/#.*//
+        if Jifty->web->current_user->user_object->strip_diff_anchor;
+
     iframe {
         class is 'external_source';
         src is $url;
