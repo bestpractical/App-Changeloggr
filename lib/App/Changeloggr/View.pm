@@ -259,9 +259,13 @@ template '/change/more' => sub {
         for (['+', 'diffadd'], ['-', 'diffsub']) {
             my ($char, $class) = @$_;
 
+            my $quoted_char = quotemeta $char;
+
             # this regex avoids coloring the symbols in filenames
-            $diffstat =~ s{(\|\s+\d+ |</span>)(\Q$char\E+)}
+            $diffstat =~ s{(\|\s+\d+ |</span>)($quoted_char+)}
                           {$1<span class="$class">$2</span>}g;
+            $diffstat =~ s{((?:insertion|deletion)s?(?:&#40;|\())($quoted_char)(&#41;|\))}
+                          {$1<span class="$class">$2</span>$3}g;
         }
 
         outs_raw $diffstat;
