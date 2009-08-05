@@ -234,9 +234,6 @@ sub show_change {
                 };
             }
         }
-
-        hr {};
-        show_rewording_form($change);
     };
 }
 
