@@ -34,6 +34,10 @@ div#vote_buttons .hotkey {
     text-transform: uppercase;
 }
 
+#keybindings {
+    display: none;
+}
+
 .change_message {
   font-family: monospace;
 }
