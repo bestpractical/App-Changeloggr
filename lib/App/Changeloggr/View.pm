@@ -157,13 +157,7 @@ sub show_change {
 
     my $id = $change->id;
 
-    render_region(
-        name      => "vote_$id",
-        path      => '/change/vote',
-        arguments => {
-            change => $id,
-        },
-    );
+    show_vote_form($change);
 
     div {
         { class is "change" };
@@ -280,8 +274,8 @@ template '/change/more' => sub {
     };
 };
 
-template '/change/vote' => sub {
-    my $change = M('Change', id => get('change'));
+sub show_vote_form {
+    my $change = shift;
     my $changelog = $change->changelog;
     my $valid_tags = $change->prioritized_tags;
 
