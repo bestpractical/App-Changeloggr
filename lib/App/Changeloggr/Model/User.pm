@@ -28,6 +28,12 @@ use App::Changeloggr::Record schema {
         label is 'Always show full diff',
         since '0.0.10';
 
+    column strip_diff_anchor =>
+        is boolean,
+        default is 0,
+        label is 'Strip full diff anchor',
+        since '0.0.17';
+
     column access_level =>
         is mandatory,
         default is 'guest',
