@@ -164,6 +164,8 @@ sub show_change {
         p {
             { class is "identifier" };
             if (my $url = $change->external_source) {
+                # the anchor is more for the iframe
+                $url =~ s/#.*//;
                 hyperlink(
                     label  => $change->identifier,
                     url    => $url,
