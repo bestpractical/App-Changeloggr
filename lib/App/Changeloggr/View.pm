@@ -448,7 +448,7 @@ template '/change/reword' => sub {
             label => 'Reword',
             onclick => {
                 submit => $create_rewording,
-                refresh_self => 1,
+                replace_with => '/change/message',
             },
         );
     }
