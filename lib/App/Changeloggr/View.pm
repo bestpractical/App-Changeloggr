@@ -239,13 +239,30 @@ sub show_change {
 template '/change/message' => sub {
     my $change = M('Change', id => get('change'));
     p {
-        { class is "change_message" };
+        attr { class is "change_message" };
         my $message = Jifty->web->escape($change->message);
         $message =~ s{\n}{<br />}g;
         my $links = $change->changelog->commit_links;
         $message = $_->linkify($message) while $_ = $links->next;
         outs_raw( $message );
     };
+
+    my $rewording = Rewording(
+        change_id => $change->id,
+        user_id => Jifty->web->current_user->id,
+    );
+    if ($rewording->id) {
+        p { "You submitted the following rewording:" };
+        pre { $rewording->message };
+    }
+    else {
+        hyperlink(
+            label   => _("Reword this message?"),
+            onclick => {
+                replace_with => '/change/reword',
+            },
+        );
+    }
 };
 
 template '/change/external_source' => sub {
