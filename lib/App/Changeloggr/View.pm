@@ -179,14 +179,13 @@ sub show_change {
             }
         };
 
-        p {
-            { class is "change_message" };
-            my $message = Jifty->web->escape($change->message);
-            $message =~ s{\n}{<br />}g;
-            my $links = $change->changelog->commit_links;
-            $message = $_->linkify($message) while $_ = $links->next;
-            outs_raw( $message );
-        };
+        render_region(
+            name => "change_message",
+            path => "/change/message",
+            arguments => {
+                change => $change->id,
+            },
+        );
 
         ul {
             { class is "change_metadata" };
@@ -236,6 +235,18 @@ sub show_change {
         }
     };
 }
+
+template '/change/message' => sub {
+    my $change = M('Change', id => get('change'));
+    p {
+        { class is "change_message" };
+        my $message = Jifty->web->escape($change->message);
+        $message =~ s{\n}{<br />}g;
+        my $links = $change->changelog->commit_links;
+        $message = $_->linkify($message) while $_ = $links->next;
+        outs_raw( $message );
+    };
+};
 
 template '/change/external_source' => sub {
     my $url = get('url');
