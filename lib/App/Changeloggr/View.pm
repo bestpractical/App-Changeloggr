@@ -442,6 +442,7 @@ template '/change/reword' => sub {
             'message',
             label => '',
             default_value => $change->message,
+            cols => 80,
         );
 
         $create_rewording->button(
