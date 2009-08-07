@@ -44,6 +44,12 @@ use App::Changeloggr::Record schema {
 
 };
 
+use Jifty::Plugin::User::Mixin::Model::User;
+use Jifty::Plugin::Authentication::Password::Mixin::Model::User;
+
+# XXX TODO, merging params should 'just work' but does not
+__PACKAGE__->column('email')->writable(1);
+
 # has to go below schema
 use JiftyX::ModelHelpers;
 
