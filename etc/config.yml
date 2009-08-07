@@ -34,6 +34,9 @@ framework:
         to:   changelogger@my.hiveminder.com
         from: changelogger-user@bestpractical.com
     - SiteNews: {}
+    - User: {}
+    - Authentication::Password:
+        login_by: username
   SkipAccessControl: 0
   TemplateClass: App::Changeloggr::View
   View: 
