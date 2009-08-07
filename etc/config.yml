@@ -37,6 +37,7 @@ framework:
     - User: {}
     - Authentication::Password:
         login_by: username
+        nav_menu: 0
   SkipAccessControl: 0
   TemplateClass: App::Changeloggr::View
   View: 
