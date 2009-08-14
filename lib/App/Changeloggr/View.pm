@@ -315,6 +315,7 @@ sub show_vote_form {
     my $change = shift;
     my $changelog = $change->changelog;
     my $valid_tags = $change->prioritized_tags;
+    my $next_change = $changelog->choose_next_change;
 
     div {
         id is 'vote_buttons';
@@ -336,7 +337,18 @@ sub show_vote_form {
                         form_submit(
                             label   => $label,
                             onclick     => [
-                                { submit => $vote, refresh_self => 1 },
+                                {
+                                    submit       => $vote,
+                                    refresh_self => 1,
+
+                                    # only preload if we have a next change
+                                    ($next_change && $next_change->id) ? (
+                                        preload      => 'forward',
+                                        arguments    => {
+                                            change => $next_change->id,
+                                        },
+                                    ) : (),
+                                },
                                 { refresh => 'score' },
                             ],
                         );
@@ -374,7 +386,18 @@ sub show_vote_form {
                                 key_binding => $valid_tag->hotkey,
                                 tooltip     => $valid_tag->tooltip,
                                 onclick     => [
-                                    { submit => $vote, refresh_self => 1 },
+                                    {
+                                        submit => $vote,
+                                        refresh_self => 1,
+
+                                        # only preload if we have a next change
+                                        ($next_change && $next_change->id) ? (
+                                            preload      => 'forward',
+                                            arguments    => {
+                                                change => $next_change->id,
+                                            },
+                                        ) : (),
+                                    },
                                     { refresh => 'score' },
                                 ],
                                 arguments   => { tag => $valid_tag->text },
@@ -396,7 +419,18 @@ sub show_vote_form {
                         class       => "vote",
                         label       => 'Skip this change',
                         onclick     => [
-                            { submit => $vote, refresh_self => 1 },
+                            {
+                                submit => $vote,
+                                refresh_self => 1,
+
+                                # only preload if we have a next change
+                                ($next_change && $next_change->id) ? (
+                                    preload      => 'forward',
+                                    arguments    => {
+                                        change => $next_change->id,
+                                    },
+                                ) : (),
+                            },
                             { refresh => 'score' },
                         ],
                         arguments   => { tag => '_skip' },
