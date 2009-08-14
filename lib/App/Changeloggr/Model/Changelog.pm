@@ -245,7 +245,7 @@ sub choose_next_change {
 
     my $next_change = $self->choose_change(1);
 
-    Jifty->handle->rollback_transaction;
+    Jifty->handle->force_rollback;
 
     return $next_change;
 }
