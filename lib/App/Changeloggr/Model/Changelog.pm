@@ -238,7 +238,10 @@ sub choose_next_change {
     my $change = $self->choose_change(1)
         or return;
 
-    $change->vote($self->tags->first->text);
+    my $tag = $self->tags->first
+        or return;
+
+    $change->vote($tag->text);
 
     my $next_change = $self->choose_change(1);
 
