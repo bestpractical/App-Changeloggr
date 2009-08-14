@@ -198,5 +198,21 @@ sub count_of_tag {
     return $votes->first->id;
 }
 
+sub vote {
+    my $self = shift;
+    my $text = shift;
+
+    my $vote = Jifty->web->new_action(
+        class     => 'CreateVote',
+        change_id => $self->id,
+        tag       => $text,
+    );
+
+    $vote->validate or return;
+    $vote->run;
+    return $vote->result;
+
+}
+
 1;
 
