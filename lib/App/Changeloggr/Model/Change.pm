@@ -204,14 +204,15 @@ sub vote {
 
     my $vote = Jifty->web->new_action(
         class     => 'CreateVote',
-        change_id => $self->id,
-        tag       => $text,
+        arguments => {
+            change_id => $self->id,
+            tag       => $text,
+        },
     );
 
-    $vote->validate or return;
+    $vote->validate;
     $vote->run;
     return $vote->result;
-
 }
 
 1;
