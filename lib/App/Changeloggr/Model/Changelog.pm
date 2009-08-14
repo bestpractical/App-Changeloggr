@@ -201,7 +201,8 @@ sub get_starting_position {
 }
 
 sub choose_change {
-    my $self = shift;
+    my $self     = shift;
+    my $readonly = shift;
 
     # This will become more advanced in the future, picking a change that
     # the current user has not voted on yet, ordered by the confidence of the
@@ -219,6 +220,7 @@ sub choose_change {
     }
 
     if ($changes->count == 0 && $start > 0) {
+        return if $readonly;
         $self->current_user->set_position_for($self, 0);
         return $self->choose_change(@_);
     }
@@ -226,6 +228,23 @@ sub choose_change {
     $changes->rows_per_page(1);
     $changes->order_by(column => 'id', order => 'asc');
     return $changes->first;
+}
+
+sub choose_next_change {
+    my $self = shift;
+
+    Jifty->handle->begin_transaction;
+
+    my $change = $self->choose_change(1)
+        or return;
+
+    $change->vote($self->tags->first->text);
+
+    my $next_change = $self->choose_change(1);
+
+    Jifty->handle->rollback_transaction;
+
+    return $next_change;
 }
 
 sub generate {
