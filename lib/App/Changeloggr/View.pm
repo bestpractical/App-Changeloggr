@@ -107,8 +107,18 @@ template '/changelog/download' => sub {
 };
 
 template '/vote-on-change' => sub {
-    my $changelog = M('Changelog', id => get('changelog'));
-    my $change = $changelog->choose_change;
+    my $change;
+    my $changelog;
+
+    if (get('change')) {
+        $change = M('Change', id => get('change'));
+        $changelog = $change->changelog;
+    }
+    else {
+        $changelog = M('Changelog', id => get('changelog'));
+        $change = $changelog->choose_change;
+    }
+
     if ($change) {
         show_change($change);
     } else {
