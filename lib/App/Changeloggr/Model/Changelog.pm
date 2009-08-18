@@ -231,19 +231,23 @@ sub choose_change {
 }
 
 sub choose_next_change {
-    my $self = shift;
+    my $self  = shift;
+    my $count = shift || 1;
 
     Jifty->handle->begin_transaction;
 
-    my $change = $self->choose_change(1)
+    for (0 .. $count) {
+        my $change = $self->choose_change(1)
+            or return;
+
+        my $tag = $self->tags->first
+            or return;
+
+        $change->vote($tag->text);
+    }
+
+    my $next_change = $self->choose_change(1)
         or return;
-
-    my $tag = $self->tags->first
-        or return;
-
-    $change->vote($tag->text);
-
-    my $next_change = $self->choose_change(1);
 
     Jifty->handle->force_rollback;
 
