@@ -113,10 +113,12 @@ template '/vote-on-change' => sub {
     if (get('change')) {
         $change = M('Change', id => get('change'));
         $changelog = $change->changelog;
+        set(skipped_change => 1);
     }
     else {
         $changelog = M('Changelog', id => get('changelog'));
         $change = $changelog->choose_change;
+        set(skipped_change => 0);
     }
 
     if ($change) {
@@ -315,7 +317,14 @@ sub show_vote_form {
     my $change = shift;
     my $changelog = $change->changelog;
     my $valid_tags = $change->prioritized_tags;
-    my $next_change = $changelog->choose_next_change;
+    my $next_change;
+
+    if (get('skipped_change')) {
+        $next_change = $changelog->choose_next_change(2);
+    }
+    else {
+        $next_change = $changelog->choose_next_change;
+    }
 
     div {
         id is 'vote_buttons';
