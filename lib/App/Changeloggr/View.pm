@@ -64,7 +64,7 @@ template '/changelog' => page {
     );
 
     render_region(
-        name => 'vote-on-change',
+        name => 'vote_on_change',
         path => '/vote-on-change',
         defaults => {
             changelog => $changelog->id,
