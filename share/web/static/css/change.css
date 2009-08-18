@@ -7,7 +7,7 @@ input.button.vote {
   margin: 0.3em;
 }
 
-#region-vote-on-change div#vote_buttons {
+#region-vote_on_change div#vote_buttons {
   background: #224;
   border: 5px solid #000;
   border-left: 1px;
