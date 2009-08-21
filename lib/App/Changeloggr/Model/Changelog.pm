@@ -236,7 +236,7 @@ sub choose_next_change {
 
     Jifty->handle->begin_transaction;
 
-    for (0 .. $count) {
+    for (1 .. $count) {
         my $change = $self->choose_change(1)
             or return;
 
