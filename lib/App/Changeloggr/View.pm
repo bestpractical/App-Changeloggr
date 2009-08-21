@@ -356,7 +356,11 @@ sub show_vote_form {
                                         arguments    => {
                                             change => $next_change->id,
                                         },
-                                    ) : (),
+                                    ) : (
+                                        arguments => {
+                                            change => 0,
+                                        },
+                                    ),
                                 },
                                 { refresh => 'score' },
                             ],
@@ -405,7 +409,11 @@ sub show_vote_form {
                                             arguments    => {
                                                 change => $next_change->id,
                                             },
-                                        ) : (),
+                                        ) : (
+                                            arguments => {
+                                                change => 0,
+                                            },
+                                        ),
                                     },
                                     { refresh => 'score' },
                                 ],
@@ -438,7 +446,11 @@ sub show_vote_form {
                                     arguments    => {
                                         change => $next_change->id,
                                     },
-                                ) : (),
+                                ) : (
+                                    arguments => {
+                                        change => 0,
+                                    },
+                                ),
                             },
                             { refresh => 'score' },
                         ],
