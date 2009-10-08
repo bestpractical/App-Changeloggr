@@ -40,6 +40,7 @@ use App::Changeloggr::Record schema {
         is boolean,
         default is 0,
         label is 'Incremental tags?',
+        hints are 'Add tags while working through a changelog',
         since '0.0.6';
 };
 
