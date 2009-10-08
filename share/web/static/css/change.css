@@ -82,3 +82,7 @@ iframe.external_source {
   color: #777;
   float: none;
 }
+
+.diffstat {
+  font-size: .8em;
+}

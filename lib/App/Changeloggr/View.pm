@@ -295,6 +295,8 @@ template '/change/more' => sub {
     my $change = M('Change', id => get('change'));
 
     pre {
+        class is 'diffstat';
+
         my $diffstat = Jifty->web->escape($change->diffstat);
 
         for (['+', 'diffadd'], ['-', 'diffsub']) {
