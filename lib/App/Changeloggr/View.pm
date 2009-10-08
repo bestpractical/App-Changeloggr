@@ -272,6 +272,7 @@ template '/change/message' => sub {
     else {
         hyperlink(
             label   => _("Reword this message?"),
+            class   => 'reword_link',
             onclick => {
                 replace_with => '/change/reword',
             },
