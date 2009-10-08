@@ -193,6 +193,12 @@ sub show_change {
             }
         };
 
+        ul {
+            { class is "change_metadata" };
+            li { "Author: " . $change->author };
+            li { "Date: " . $change->date };
+        };
+
         render_region(
             name => "change_message",
             path => "/change/message",
@@ -200,12 +206,6 @@ sub show_change {
                 change => $change->id,
             },
         );
-
-        ul {
-            { class is "change_metadata" };
-            li { "Author: " . $change->author };
-            li { "Date: " . $change->date };
-        };
 
         render_region(
             name      => "change_$id",
