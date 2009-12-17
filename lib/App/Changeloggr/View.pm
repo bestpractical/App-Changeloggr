@@ -71,7 +71,13 @@ template '/changelog' => page {
         },
     );
 
-    show '/feedback/request_feedback';
+    # This is a lazy region so that we require javascript. This will hopefully
+    # help our spam problem, since spammers tend not to have javascript.
+    render_region(
+        name => 'feedback',
+        path => '/feedback/request_feedback',
+        lazy => 1,
+    );
 };
 
 template '/changelog/tags' => page {
